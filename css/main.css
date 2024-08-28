@@ -1169,7 +1169,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #fb47be;
+  background: #0f7ee8;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2593,4 +2593,18 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: 50% 50%;
+}
+/*鼠标样式*/
+* {
+  cursor: url("/images/normal.cur"), auto;
+}
+:link {
+  cursor: url("/images/txt.cur"), auto;
+}
+a,
+span.exturl {
+  cursor: url("/images/normal.cur"), auto;
+}
+.posts-expand .post-meta time {
+  cursor: url("/images/normal.cur"), auto;
 }
