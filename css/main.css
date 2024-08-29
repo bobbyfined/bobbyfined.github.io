@@ -1169,7 +1169,7 @@ pre .javascript .function {
 }
 .links-of-author a::before,
 .links-of-author span.exturl::before {
-  background: #9cd41f;
+  background: #dbfff9;
   border-radius: 50%;
   content: ' ';
   display: inline-block;
@@ -2594,17 +2594,32 @@ body {
   background-attachment: fixed;
   background-position: 50% 50%;
 }
+.back-to-top {
+  width: 70px;
+  height: 900px;
+  top: -900px;
+  bottom: unset;
+  transition: all 0.5s ease-in-out;
+  background: url("/images/scroll.jpg");
+}
+.back-to-top > i {
+  display: none;
+}
+.back-to-top.back-to-top-on {
+  bottom: unset;
+  top: calc(100vh - 900px - 200px);
+}
 /*鼠标样式*/
 * {
-  cursor: url("/images/normal.cur"), auto;
+  cursor: url("/images/default.cur"), auto;
 }
 :link {
-  cursor: url("/images/txt.cur"), auto;
+  cursor: url("/images/pointer.cur"), auto;
 }
 a,
 span.exturl {
-  cursor: url("/images/normal.cur"), auto;
+  cursor: url("/images/default.cur"), auto;
 }
 .posts-expand .post-meta time {
-  cursor: url("/images/normal.cur"), auto;
+  cursor: url("/images/default.cur"), auto;
 }
