@@ -280,19 +280,19 @@
           
       <div class="tabs tabs-comment">
         <ul class="nav-tabs">
-            <li class="tab"><a href="#comment-gitalk">gitalk</a></li>
             <li class="tab"><a href="#comment-livere">livere</a></li>
+            <li class="tab"><a href="#comment-utterances">utterances</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane gitalk" id="comment-gitalk">
-              <div class="comments" id="gitalk-container"></div>
-            </div>
             <div class="tab-pane livere" id="comment-livere">
               
   <div class="comments">
     <div id="lv-container" data-id="city" data-uid="MTAyMC82MDA4Ni8zNjU1Mg=="></div>
   </div>
   
+            </div>
+            <div class="tab-pane utterances" id="comment-utterances">
+              <div class="comments" id="utterances-container"></div>
             </div>
         </div>
       </div>
@@ -523,26 +523,6 @@ $(document).ready(function() {
 
   
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
-
-<script>
-NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID    : 'Ov23ct2vz0d4GgoviQT8',
-      clientSecret: 'b7da4adbb6b09c0acc3f0a2979bd5d31571fc66a',
-      repo        : 'bobbyfined.github.io',
-      owner       : 'bobbyfined',
-      admin       : [''],
-      id          : '7712462805dcb54308cf814c4a5059b2',
-        language: 'zh-CN',
-      distractionFreeMode: true
-    });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
-});
-</script>
-
 <script>
 NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
   window.livereOptions = {
@@ -559,6 +539,20 @@ NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
 });
 </script>
 
+<script>
+NexT.utils.loadComments(document.querySelector('#utterances-container'), () => {
+    // if (typeof parcelRequire === 'function') { return; }
+    var js = document.createElement('script');
+    js.type = 'text/javascript';
+    js.src = 'https://utteranc.es/client.js';
+    js.async = true;
+    js.crossorigin = 'anonymous';
+    js.setAttribute('repo', 'bobbyfined/boke-comments');
+    js.setAttribute('issue-term', 'pathname');
+    js.setAttribute('theme', 'github-light');
+    document.getElementById('utterances-container').appendChild(js);
+});
+</script>
   
   
     <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
