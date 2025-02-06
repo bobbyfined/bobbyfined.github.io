@@ -92,13 +92,6 @@
 
   
   <url>
-    <loc>http://1008610.xyz/tags/Linux/</loc>
-    <lastmod>2025-02-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://1008610.xyz/tags/%E6%A1%86%E6%9E%B6/</loc>
     <lastmod>2025-02-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -107,6 +100,13 @@
   
   <url>
     <loc>http://1008610.xyz/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
+    <lastmod>2025-02-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://1008610.xyz/tags/Linux/</loc>
     <lastmod>2025-02-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -122,13 +122,6 @@
 
   
   <url>
-    <loc>http://1008610.xyz/categories/Linux/</loc>
-    <lastmod>2025-02-06</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
     <loc>http://1008610.xyz/categories/java/</loc>
     <lastmod>2025-02-06</lastmod>
     <changefreq>weekly</changefreq>
@@ -137,6 +130,13 @@
   
   <url>
     <loc>http://1008610.xyz/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
+    <lastmod>2025-02-06</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://1008610.xyz/categories/Linux/</loc>
     <lastmod>2025-02-06</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
