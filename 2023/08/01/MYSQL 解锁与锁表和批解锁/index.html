@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/title-boke.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/title-boke.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"1008610.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="MYSQL 解锁与锁表和批解锁">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MYSQL 解锁与锁表和批解锁">
+<meta property="og:url" content="http://1008610.xyz/2023/08/01/MYSQL%20%E8%A7%A3%E9%94%81%E4%B8%8E%E9%94%81%E8%A1%A8%E5%92%8C%E6%89%B9%E8%A7%A3%E9%94%81/index.html">
+<meta property="og:site_name" content="活页本">
+<meta property="og:description" content="MYSQL 解锁与锁表和批解锁">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-01T06:14:36.000Z">
+<meta property="article:modified_time" content="2025-02-06T07:55:26.270Z">
+<meta property="article:author" content="当">
+<meta property="article:tag" content="mysql">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://1008610.xyz/2023/08/01/MYSQL%20%E8%A7%A3%E9%94%81%E4%B8%8E%E9%94%81%E8%A1%A8%E5%92%8C%E6%89%B9%E8%A7%A3%E9%94%81/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>MYSQL 解锁与锁表和批解锁 | 活页本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">活页本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://1008610.xyz/2023/08/01/MYSQL%20%E8%A7%A3%E9%94%81%E4%B8%8E%E9%94%81%E8%A1%A8%E5%92%8C%E6%89%B9%E8%A7%A3%E9%94%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="当">
+      <meta itemprop="description" content="live my life">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="活页本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          MYSQL 解锁与锁表和批解锁
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-01 14:14:36" itemprop="dateCreated datePublished" datetime="2023-08-01T14:14:36+08:00">2023-08-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-02-06 15:55:26" itemprop="dateModified" datetime="2025-02-06T15:55:26+08:00">2025-02-06</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/" itemprop="url" rel="index"><span itemprop="name">数据库</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.9k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="MYSQL-解锁与锁表和批解锁"><a href="#MYSQL-解锁与锁表和批解锁" class="headerlink" title="MYSQL 解锁与锁表和批解锁"></a>MYSQL 解锁与锁表和批解锁</h1> <span id="more"></span>
+
+<p>重启是可以解决表被锁的问题的，但针对线上业务很显然不太具有可行性。</p>
+<p>下面来看看不用跑路的解决方案：</p>
+<h2 id="第一步：查看表使用"><a href="#第一步：查看表使用" class="headerlink" title="第一步：查看表使用"></a>第一步：查看表使用</h2><p>遇到数据库阻塞问题，首先要查询一下表是否在使用。</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show open tables where in_use &gt; 0 ;1.</span><br></pre></td></tr></table></figure>
+
+<p>如果查询结果为空，那么说明表没在使用，说明不是锁表的问题。</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ysql&gt;  show open tables where in_use &gt; 0 ;</span><br><span class="line"></span><br><span class="line">Empty set (0.00 sec)1.2.</span><br></pre></td></tr></table></figure>
+
+<p>如果查询结果不为空，比如出现如下结果：</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt;  show open tables where in_use &gt; 0 ;</span><br><span class="line"></span><br><span class="line">+----------+-------+--------+-------------+</span><br><span class="line"></span><br><span class="line">| Database | Table | In_use | Name_locked |</span><br><span class="line"></span><br><span class="line">+----------+-------+--------+-------------+</span><br><span class="line"></span><br><span class="line">| test     | t     |      1 |           0 |</span><br><span class="line"></span><br><span class="line">+----------+-------+--------+-------------+</span><br><span class="line"></span><br><span class="line">1 row in set (0.00 sec)1.2.3.4.5.6.7.</span><br></pre></td></tr></table></figure>
+
+<p>则说明表(test)正在被使用，此时需要进一步排查。</p>
+<h2 id="第二步：查看进程"><a href="#第二步：查看进程" class="headerlink" title="第二步：查看进程"></a>第二步：查看进程</h2><p>查看数据库当前的进程，看看是否有慢SQL或被阻塞的线程。</p>
+<p>执行命令：</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show processlist;1.</span><br></pre></td></tr></table></figure>
+
+<p>该命令只显示当前用户正在运行的线程，当然，如果是root用户是能看到所有的。</p>
+<p>在上述实践中，阿里云控制台之所以能够查看到所有的线程，猜测应该使用的就是root用户，而笔者去kill的时候，无法kill掉，是因为登录的用户非root的数据库账号，无法操作另外一个用户的线程。</p>
+<h2 id="第三步：查看当前运行的所有事务"><a href="#第三步：查看当前运行的所有事务" class="headerlink" title="第三步：查看当前运行的所有事务"></a>第三步：查看当前运行的所有事务</h2><p>如果情况紧急，此步骤可以跳过，主要用来查看核对：</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM information_schema.INNODB_TRX;1.</span><br></pre></td></tr></table></figure>
+
+<h2 id="第四步：查看当前出现的锁"><a href="#第四步：查看当前出现的锁" class="headerlink" title="第四步：查看当前出现的锁"></a>第四步：查看当前出现的锁</h2><p>如果情况紧急，此步骤可以跳过，主要用来查看核对：</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM information_schema.INNODB_LOCKs;1.</span><br></pre></td></tr></table></figure>
+
+<h2 id="第五步：查询锁等待的对应关系"><a href="#第五步：查询锁等待的对应关系" class="headerlink" title="第五步：查询锁等待的对应关系"></a>第五步：查询锁等待的对应关系</h2><p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">SELECT * FROM information_schema.INNODB_LOCK_waits;1.</span><br></pre></td></tr></table></figure>
+
+<p>看事务表INNODB_TRX中是否有正在锁定的事务线程，看看ID是否在show processlist的sleep线程中。如果在，说明这个sleep的线程事务一直没有commit或者rollback，而是卡住了，需要手动kill掉。</p>
+<p>搜索的结果中，如果在事务表发现了很多任务，最好都kill掉。</p>
+<h2 id="第六步：kill掉事务"><a href="#第六步：kill掉事务" class="headerlink" title="第六步：kill掉事务"></a>第六步：kill掉事务</h2><p>执行kill命令：</p>
+<p>复制</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kill 1011;1.</span><br></pre></td></tr></table></figure>
+
+<p>对应的线程都执行完kill命令之后，后续事务便可正常处理。</p>
+<p>针对紧急情况，通常也会直接操作第一、第二、第六步。</p>
+<h2 id="MySQL的锁"><a href="#MySQL的锁" class="headerlink" title="MySQL的锁"></a>MySQL的锁</h2><p>这里再补充一些MySQL锁相关的知识点：数据库锁设计的初衷是处理并发问题，作为多用户共享的资源，当出现并发访问的时候，数据库需要合理地控制资源的访问规则，而锁就是用来实现这些访问规则的重要数据结构。</p>
+<p>根据加锁的范围，MySQL里面的锁大致可以分成全局锁、表级锁和行锁三类。MySQL中表级别的锁有两种：一种是表锁，一种是元数据锁(metadata lock，MDL)。</p>
+<p>表锁是在Server层实现的，ALTER TABLE之类的语句会使用表锁，忽略存储引擎的锁机制。表锁通过lock tables… read&#x2F;write来实现，而对于InnoDB来说，一般会采用行级锁。毕竟锁住整张表影响范围太大了。</p>
+<p>另外一个表级锁是MDL(metadata lock)，用于并发情况下维护数据的一致性，保证读写的正确性，不需要显式的使用，在访问一张表时会被自动加上。</p>
+<h2 id="MySQL锁表场景"><a href="#MySQL锁表场景" class="headerlink" title="MySQL锁表场景"></a>MySQL锁表场景</h2><p>常见的一种锁表场景就是有事务操作处于：Waiting for table metadata lock状态。</p>
+<p>Waiting for table metadata lock</p>
+<p>MySQL在进行alter table等DDL操作时，有时会出现Waiting for table metadata lock的等待场景。</p>
+<p>一旦alter table TableA的操作停滞在Waiting for table metadata lock状态，后续对该表的任何操作(包括读)都无法进行，因为它们也会在Opening tables的阶段进入到Waiting for table metadata lock的锁等待队列。如果核心表出现了锁等待队列，就会造成灾难性的后果。</p>
+<h3 id="场景一：长事务运行，阻塞DDL，继而阻塞所有同表的后续操作。"><a href="#场景一：长事务运行，阻塞DDL，继而阻塞所有同表的后续操作。" class="headerlink" title="场景一：长事务运行，阻塞DDL，继而阻塞所有同表的后续操作。"></a>场景一：长事务运行，阻塞DDL，继而阻塞所有同表的后续操作。</h3><p>通过show processlist可以看到表上有正在进行的操作(包括读)，此时alter table语句无法获取到metadata 独占锁，会进行等待。</p>
+<h3 id="场景二：为提交事务，阻塞DDL，继而阻塞所有同表的后续操作。"><a href="#场景二：为提交事务，阻塞DDL，继而阻塞所有同表的后续操作。" class="headerlink" title="场景二：为提交事务，阻塞DDL，继而阻塞所有同表的后续操作。"></a>场景二：为提交事务，阻塞DDL，继而阻塞所有同表的后续操作。</h3><p>通过show processlist看不到表上有任何操作，但实际上存在有未提交的事务，可以在</p>
+<p>information_schema.innodb_trx中查看到。在事务没有完成之前，表上的锁不会释放，alter table同样获取不到metadata的独占锁。</p>
+<p>处理方法：通过 select * frominformation_schema.innodb_trx\G, 找到未提交事物的sid，然后kill掉，让其回滚。</p>
+<h3 id="场景三：显式事务失败操作获得锁，未释放"><a href="#场景三：显式事务失败操作获得锁，未释放" class="headerlink" title="场景三：显式事务失败操作获得锁，未释放"></a>场景三：显式事务失败操作获得锁，未释放</h3><p>通过show processlist看不到表上有任何操作，在</p>
+<p>information_schema.innodb_trx中也没有任何进行中的事务。很可能是因为在一个显式的事务中，对表进行了一个失败的操作(比如查询了一个不存在的字段)，这时事务没有开始，但是失败语句获取到的锁依然有效，没有释放。从performance_schema.events_statements_current表中可以查到失败的语句。</p>
+<p>处理方法：通过performance_schema.events_statements_current找到其sid，kill 掉该session，也可以kill掉DDL所在的session。</p>
+<p>总之，alter table的语句是很危险的(核心是未提交事务或者长事务导致的)，在操作之前要确认对要操作的表没有任何进行中的操作、没有未提交事务、也没有显式事务中的报错语句。</p>
+<p>如果有alter table的维护任务，在无人监管的时候运行，最好通过lock_wait_timeout设置好超时时间，避免长时间的metedata锁等待。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><p>关于MySQL的锁表其实还有很多其他场景，我们在实践的过程中尽量避免锁表情况的发生，当然这需要一定经验的支撑。但更重要的是，如果发现锁表我们要能够快速的响应，快速的解决问题，避免影响正常业务，避免情况进一步恶化。所以，本文中的解决思路大家一定要收藏或记忆一下，做到有备无患，避免突然状况下抓瞎。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>当
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://1008610.xyz/2023/08/01/MYSQL%20%E8%A7%A3%E9%94%81%E4%B8%8E%E9%94%81%E8%A1%A8%E5%92%8C%E6%89%B9%E8%A7%A3%E9%94%81/" title="MYSQL 解锁与锁表和批解锁">http://1008610.xyz/2023/08/01/MYSQL 解锁与锁表和批解锁/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/mysql/" rel="tag"># mysql</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/08/01/%E4%BD%BF%E7%94%A8%E9%9D%99%E6%80%81%E5%86%85%E9%83%A8%E7%B1%BB%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F%E5%88%9B%E5%BB%BA%E7%BA%BF%E7%A8%8B%E6%B1%A0/" rel="prev" title="使用静态内部类单例模式创建线程池">
+      <i class="fa fa-chevron-left"></i> 使用静态内部类单例模式创建线程池
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/08/01/Git%20Commit%E8%A7%84%E8%8C%83/" rel="next" title="Git Commit规范">
+      Git Commit规范 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-livere">livere</a></li>
+            <li class="tab"><a href="#comment-utterances">utterances</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane livere" id="comment-livere">
+              
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC82MDA4Ni8zNjU1Mg=="></div>
+  </div>
+  
+            </div>
+            <div class="tab-pane utterances" id="comment-utterances">
+              <div class="comments" id="utterances-container"></div>
+            </div>
+        </div>
+      </div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#MYSQL-%E8%A7%A3%E9%94%81%E4%B8%8E%E9%94%81%E8%A1%A8%E5%92%8C%E6%89%B9%E8%A7%A3%E9%94%81"><span class="nav-number">1.</span> <span class="nav-text">MYSQL 解锁与锁表和批解锁</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E6%AD%A5%EF%BC%9A%E6%9F%A5%E7%9C%8B%E8%A1%A8%E4%BD%BF%E7%94%A8"><span class="nav-number">1.1.</span> <span class="nav-text">第一步：查看表使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E6%AD%A5%EF%BC%9A%E6%9F%A5%E7%9C%8B%E8%BF%9B%E7%A8%8B"><span class="nav-number">1.2.</span> <span class="nav-text">第二步：查看进程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%89%E6%AD%A5%EF%BC%9A%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E8%BF%90%E8%A1%8C%E7%9A%84%E6%89%80%E6%9C%89%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.3.</span> <span class="nav-text">第三步：查看当前运行的所有事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%9B%9B%E6%AD%A5%EF%BC%9A%E6%9F%A5%E7%9C%8B%E5%BD%93%E5%89%8D%E5%87%BA%E7%8E%B0%E7%9A%84%E9%94%81"><span class="nav-number">1.4.</span> <span class="nav-text">第四步：查看当前出现的锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%94%E6%AD%A5%EF%BC%9A%E6%9F%A5%E8%AF%A2%E9%94%81%E7%AD%89%E5%BE%85%E7%9A%84%E5%AF%B9%E5%BA%94%E5%85%B3%E7%B3%BB"><span class="nav-number">1.5.</span> <span class="nav-text">第五步：查询锁等待的对应关系</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E5%85%AD%E6%AD%A5%EF%BC%9Akill%E6%8E%89%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.6.</span> <span class="nav-text">第六步：kill掉事务</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E7%9A%84%E9%94%81"><span class="nav-number">1.7.</span> <span class="nav-text">MySQL的锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL%E9%94%81%E8%A1%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.8.</span> <span class="nav-text">MySQL锁表场景</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E4%B8%80%EF%BC%9A%E9%95%BF%E4%BA%8B%E5%8A%A1%E8%BF%90%E8%A1%8C%EF%BC%8C%E9%98%BB%E5%A1%9EDDL%EF%BC%8C%E7%BB%A7%E8%80%8C%E9%98%BB%E5%A1%9E%E6%89%80%E6%9C%89%E5%90%8C%E8%A1%A8%E7%9A%84%E5%90%8E%E7%BB%AD%E6%93%8D%E4%BD%9C%E3%80%82"><span class="nav-number">1.8.1.</span> <span class="nav-text">场景一：长事务运行，阻塞DDL，继而阻塞所有同表的后续操作。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E4%BA%8C%EF%BC%9A%E4%B8%BA%E6%8F%90%E4%BA%A4%E4%BA%8B%E5%8A%A1%EF%BC%8C%E9%98%BB%E5%A1%9EDDL%EF%BC%8C%E7%BB%A7%E8%80%8C%E9%98%BB%E5%A1%9E%E6%89%80%E6%9C%89%E5%90%8C%E8%A1%A8%E7%9A%84%E5%90%8E%E7%BB%AD%E6%93%8D%E4%BD%9C%E3%80%82"><span class="nav-number">1.8.2.</span> <span class="nav-text">场景二：为提交事务，阻塞DDL，继而阻塞所有同表的后续操作。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%BA%E6%99%AF%E4%B8%89%EF%BC%9A%E6%98%BE%E5%BC%8F%E4%BA%8B%E5%8A%A1%E5%A4%B1%E8%B4%A5%E6%93%8D%E4%BD%9C%E8%8E%B7%E5%BE%97%E9%94%81%EF%BC%8C%E6%9C%AA%E9%87%8A%E6%94%BE"><span class="nav-number">1.8.3.</span> <span class="nav-text">场景三：显式事务失败操作获得锁，未释放</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">1.9.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="当"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">当</p>
+  <div class="site-description" itemprop="description">live my life</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">12</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/bobbyfined" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bobbyfined" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://baidu.com/" title="https:&#x2F;&#x2F;baidu.com" rel="noopener" target="_blank">百度</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+      <!--网易云插件-->
+      <!--
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 
+        src="//music.163.com/outchain/player?type=2&id=2135473788&auto=1&height=66">
+      </iframe>
+      -->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-08 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">当</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">22k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">20 分钟</span>
+</div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+<script>
+NexT.utils.loadComments(document.querySelector('#utterances-container'), () => {
+    // if (typeof parcelRequire === 'function') { return; }
+    var js = document.createElement('script');
+    js.type = 'text/javascript';
+    js.src = 'https://utteranc.es/client.js';
+    js.async = true;
+    js.crossorigin = 'anonymous';
+    js.setAttribute('repo', 'bobbyfined/boke-comments');
+    js.setAttribute('issue-term', 'pathname');
+    js.setAttribute('theme', 'github-light');
+    document.getElementById('utterances-container').appendChild(js);
+});
+</script>
+  
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+</body>
+</html>
