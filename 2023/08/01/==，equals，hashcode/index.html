@@ -302,8 +302,8 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/08/01/Git%20Commit%E8%A7%84%E8%8C%83/" rel="prev" title="Git Commit规范">
-      <i class="fa fa-chevron-left"></i> Git Commit规范
+    <a href="/2023/08/01/MYSQL%20%E8%A7%A3%E9%94%81%E4%B8%8E%E9%94%81%E8%A1%A8%E5%92%8C%E6%89%B9%E8%A7%A3%E9%94%81/" rel="prev" title="MYSQL 解锁与锁表和批解锁">
+      <i class="fa fa-chevron-left"></i> MYSQL 解锁与锁表和批解锁
     </a></div>
       <div class="post-nav-item">
     <a href="/2023/08/09/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%88%E6%8C%81%E7%BB%AD%E6%9B%B4%E6%96%B0%EF%BC%89/" rel="next" title="linux常用命令（持续更新）">
@@ -323,19 +323,19 @@
           
       <div class="tabs tabs-comment">
         <ul class="nav-tabs">
-            <li class="tab"><a href="#comment-utterances">utterances</a></li>
             <li class="tab"><a href="#comment-livere">livere</a></li>
+            <li class="tab"><a href="#comment-utterances">utterances</a></li>
         </ul>
         <div class="tab-content">
-            <div class="tab-pane utterances" id="comment-utterances">
-              <div class="comments" id="utterances-container"></div>
-            </div>
             <div class="tab-pane livere" id="comment-livere">
               
   <div class="comments">
     <div id="lv-container" data-id="city" data-uid="MTAyMC82MDA4Ni8zNjU1Mg=="></div>
   </div>
   
+            </div>
+            <div class="tab-pane utterances" id="comment-utterances">
+              <div class="comments" id="utterances-container"></div>
             </div>
         </div>
       </div>
@@ -580,20 +580,6 @@ $(document).ready(function() {
   
 
 <script>
-NexT.utils.loadComments(document.querySelector('#utterances-container'), () => {
-    // if (typeof parcelRequire === 'function') { return; }
-    var js = document.createElement('script');
-    js.type = 'text/javascript';
-    js.src = 'https://utteranc.es/client.js';
-    js.async = true;
-    js.crossorigin = 'anonymous';
-    js.setAttribute('repo', 'bobbyfined/boke-comments');
-    js.setAttribute('issue-term', 'pathname');
-    js.setAttribute('theme', 'github-light');
-    document.getElementById('utterances-container').appendChild(js);
-});
-</script>
-<script>
 NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
   window.livereOptions = {
     refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
@@ -609,6 +595,20 @@ NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
 });
 </script>
 
+<script>
+NexT.utils.loadComments(document.querySelector('#utterances-container'), () => {
+    // if (typeof parcelRequire === 'function') { return; }
+    var js = document.createElement('script');
+    js.type = 'text/javascript';
+    js.src = 'https://utteranc.es/client.js';
+    js.async = true;
+    js.crossorigin = 'anonymous';
+    js.setAttribute('repo', 'bobbyfined/boke-comments');
+    js.setAttribute('issue-term', 'pathname');
+    js.setAttribute('theme', 'github-light');
+    document.getElementById('utterances-container').appendChild(js);
+});
+</script>
   
   
     <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
