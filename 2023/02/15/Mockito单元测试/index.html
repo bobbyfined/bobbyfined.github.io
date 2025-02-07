@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/title-boke.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/title-boke.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"1008610.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Mockito单元测试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Mockito单元测试">
+<meta property="og:url" content="http://1008610.xyz/2023/02/15/Mockito%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/index.html">
+<meta property="og:site_name" content="活页本">
+<meta property="og:description" content="Mockito单元测试">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-15T13:32:36.000Z">
+<meta property="article:modified_time" content="2025-02-07T15:05:03.228Z">
+<meta property="article:author" content="当">
+<meta property="article:tag" content="java">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://1008610.xyz/2023/02/15/Mockito%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Mockito单元测试 | 活页本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">活页本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://1008610.xyz/2023/02/15/Mockito%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="当">
+      <meta itemprop="description" content="live my life">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="活页本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Mockito单元测试
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-02-15 21:32:36" itemprop="dateCreated datePublished" datetime="2023-02-15T21:32:36+08:00">2023-02-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-02-07 23:05:03" itemprop="dateModified" datetime="2025-02-07T23:05:03+08:00">2025-02-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="Mockito单元测试"><a href="#Mockito单元测试" class="headerlink" title="Mockito单元测试"></a>Mockito单元测试</h1><span id="more"></span>
+
+<p>使用Mockito可以mock对象，定义对象中代码逻辑的执行结果，mock对象对逻辑执行也只是做记录而不会真正执行，使用spy创建spy对象的话则会执行真实的代码逻辑，如果打桩就会返回定义的结果，不打桩就返回真实执行的返回结果。</p>
+<h2 id="一、api"><a href="#一、api" class="headerlink" title="一、api"></a>一、api</h2><p>org.mockito.Mockito是mockito提供的核心api，提供了大量的静态方法，用于帮助我们来mock对象，验证行为等等，然后需要注意的是，很多方法都被封装在了MockitoCore类里面</p>
+<ul>
+<li><p>mock：构建一个我们需要的对象；可以mock具体的对象，也可以mock接口。</p>
+</li>
+<li><p>spy：构建监控对象</p>
+</li>
+<li><p>verify：验证某种行为</p>
+</li>
+<li><p>when：当执行什么操作的时候，一般配合thenXXX 一起使用。表示执行了一个操作之后产生什么效果。</p>
+</li>
+<li><p>doReturn：返回什么结果</p>
+</li>
+<li><p>doThrow：抛出一个指定异常</p>
+</li>
+<li><p>doAnswer：做一个什么相应，需要我们自定义Answer；</p>
+</li>
+<li><p>times：某个操作执行了多少次</p>
+</li>
+<li><p>atLeastOnce：某个操作至少执行一次</p>
+</li>
+<li><p>atLeast：某个操作至少执行指定次数</p>
+</li>
+<li><p>atMost：某个操作至多执行指定次数</p>
+</li>
+<li><p>atMostOnce：某个操作至多执行一次</p>
+</li>
+<li><p>doNothing：不做任何处理</p>
+</li>
+<li><p>doReturn：返回一个结果</p>
+</li>
+<li><p>doThrow：抛出一个指定异常</p>
+</li>
+<li><p>doAnswer：指定一个操作，传入Answer</p>
+</li>
+<li><p>doCallRealMethod：返回真实业务执行的结果，只能用于监控对象</p>
+</li>
+</ul>
+<h2 id="二、ArgumentMatchers"><a href="#二、ArgumentMatchers" class="headerlink" title="二、ArgumentMatchers"></a>二、ArgumentMatchers</h2><p>用于进行参数匹配，减少很多不必要的代码</p>
+<p>-<br>  anyInt：任何int类型的参数，类似的还有anyLong&#x2F;anyByte等等。</p>
+<p>-<br>  eq：等于某个值的时候，如果是对象类型的，则看toString方法</p>
+<p>-<br>  isA：匹配某种类型</p>
+<p>-<br>  matches：使用正则表达式进行匹配</p>
+<h2 id="三、OngoingStubbing"><a href="#三、OngoingStubbing" class="headerlink" title="三、OngoingStubbing"></a>三、OngoingStubbing</h2><ul>
+<li><p>OngoingStubbing用于返回操作的结果。</p>
+</li>
+<li><p>thenReturn：指定一个返回的值</p>
+</li>
+<li><p>thenThrow：抛出一个指定异常</p>
+</li>
+<li><p>then：指定一个操作，需要传入自定义Answer；</p>
+</li>
+<li><p>thenCallRealMethod：返回真实业务执行的结果，只能用于监控对象。</p>
+</li>
+</ul>
+<h2 id="mock对象"><a href="#mock对象" class="headerlink" title="mock对象"></a><strong>mock对象</strong></h2><p>顾名思义，就是模仿一个对象，对象的交互都会被模仿，因此可以根据自己的需求选择相应交互去验证或设置返回自己想要的结果，但是对于对象的行为只会被记录，不会实现</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">void testBehavior() &#123;</span><br><span class="line"> </span><br><span class="line">    //构建moock数据</span><br><span class="line">    List&lt;String&gt; list = mock(List.class);</span><br><span class="line">    list.add(&quot;1&quot;);</span><br><span class="line">    list.add(&quot;2&quot;);</span><br><span class="line"> </span><br><span class="line">    System.out.println(list.get(0)); // 会得到null ，前面只是在记录行为而已，没有往list中添加数据</span><br><span class="line"> </span><br><span class="line">    verify(list).add(&quot;1&quot;); // 正确，因为该行为被记住了</span><br><span class="line">    verify(list).add(&quot;3&quot;);//报错，因为前面没有记录这个行为</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="stub-打桩"><a href="#stub-打桩" class="headerlink" title="stub 打桩"></a><strong>stub 打桩</strong></h2><p>用于预先说明当执行了什么操作的时候，产生一个什么响应，一旦测试桩函数被调用，该函数将会一致返回固定的值</p>
+<p>常用打桩函数：when 、thenReturn、then、thenThrow、thenAnswer这几个函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">void testStub() &#123;</span><br><span class="line">    List&lt;Integer&gt; l = mock(ArrayList.class);</span><br><span class="line"> </span><br><span class="line">    when(l.get(0)).thenReturn(10);</span><br><span class="line">    when(l.get(1)).thenReturn(20);</span><br><span class="line">    when(l.get(2)).thenThrow(new RuntimeException(&quot;no such element&quot;));</span><br><span class="line"> </span><br><span class="line">    assertEquals(l.get(0), 10);</span><br><span class="line">    assertEquals(l.get(1), 20);</span><br><span class="line">    assertNull(l.get(4));</span><br><span class="line">    assertThrows(RuntimeException.class, () -&gt; &#123;</span><br><span class="line">        int x = l.get(2);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>void函数存根</p>
+<p>主要用到doThrow(), doAnswer(), doNothing(), doReturn() and doCallRealMethod()等函数，当然，这些函数也可以用于有返回值的函数的存根；需要注意的是，doCallRealMethod不能用于Mock对象，只能用于监察对象。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">void testVoidStub()&#123;</span><br><span class="line">    List&lt;Integer&gt; l = mock(ArrayList.class);</span><br><span class="line">    doReturn(10).when(l).get(1);</span><br><span class="line">    doThrow(new RuntimeException(&quot;you cant clear this List&quot;)).when(l).clear();</span><br><span class="line"> </span><br><span class="line">    assertEquals(l.get(1),10);</span><br><span class="line">    assertThrows(RuntimeException.class,()-&gt;l.clear());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="spy"><a href="#spy" class="headerlink" title="spy"></a><strong>spy</strong></h2><p>spy类的原理是，如果不打桩默认都会执行真实的方法，如果打桩则返回桩实现。</p>
+<p>对 spy 变量打桩时，如果使用 when 去设置模拟值时，他里面的代码逻辑依然会被执行，只是mock了返回结果；</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">@Test</span><br><span class="line">void testBehavior() &#123;</span><br><span class="line"> </span><br><span class="line">    //构建moock数据</span><br><span class="line">    List&lt;String&gt; list = mock(List.class);</span><br><span class="line">    list.add(&quot;1&quot;);</span><br><span class="line">    list.add(&quot;2&quot;);</span><br><span class="line">    List&lt;String&gt; list2 = spy(List.class);</span><br><span class="line">    list2.add(&quot;1&quot;);</span><br><span class="line">    list2.add(&quot;2&quot;);</span><br><span class="line"> </span><br><span class="line">    System.out.println(list.get(0)); // 会得到null ，前面只是在记录行为而已，没有往list中添加数据</span><br><span class="line">    System.out.println(list2.get(0)); // 会得到1，执行了真实的代码逻辑</span><br><span class="line"> </span><br><span class="line">    verify(list).add(&quot;1&quot;); // 正确，因为该行为被记住了</span><br><span class="line">    verify(list).add(&quot;3&quot;);//报错，因为前面没有记录这个行为</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>当
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://1008610.xyz/2023/02/15/Mockito%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95/" title="Mockito单元测试">http://1008610.xyz/2023/02/15/Mockito单元测试/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/java/" rel="tag"># java</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/02/01/java%20spi/" rel="prev" title="java spi">
+      <i class="fa fa-chevron-left"></i> java spi
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/04/01/Git%20Commit%E8%A7%84%E8%8C%83/" rel="next" title="Git Commit规范">
+      Git Commit规范 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-livere">livere</a></li>
+            <li class="tab"><a href="#comment-utterances">utterances</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane livere" id="comment-livere">
+              
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC82MDA4Ni8zNjU1Mg=="></div>
+  </div>
+  
+            </div>
+            <div class="tab-pane utterances" id="comment-utterances">
+              <div class="comments" id="utterances-container"></div>
+            </div>
+        </div>
+      </div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Mockito%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">Mockito单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81api"><span class="nav-number">1.1.</span> <span class="nav-text">一、api</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81ArgumentMatchers"><span class="nav-number">1.2.</span> <span class="nav-text">二、ArgumentMatchers</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81OngoingStubbing"><span class="nav-number">1.3.</span> <span class="nav-text">三、OngoingStubbing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#mock%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.4.</span> <span class="nav-text">mock对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#stub-%E6%89%93%E6%A1%A9"><span class="nav-number">1.5.</span> <span class="nav-text">stub 打桩</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#spy"><span class="nav-number">1.6.</span> <span class="nav-text">spy</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="当"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">当</p>
+  <div class="site-description" itemprop="description">live my life</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/bobbyfined" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bobbyfined" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://baidu.com/" title="https:&#x2F;&#x2F;baidu.com" rel="noopener" target="_blank">百度</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+      <!--网易云插件-->
+      <!--
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 
+        src="//music.163.com/outchain/player?type=2&id=2135473788&auto=1&height=66">
+      </iframe>
+      -->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-08 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">当</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">119k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:48</span>
+</div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+<script>
+NexT.utils.loadComments(document.querySelector('#utterances-container'), () => {
+    // if (typeof parcelRequire === 'function') { return; }
+    var js = document.createElement('script');
+    js.type = 'text/javascript';
+    js.src = 'https://utteranc.es/client.js';
+    js.async = true;
+    js.crossorigin = 'anonymous';
+    js.setAttribute('repo', 'bobbyfined/boke-comments');
+    js.setAttribute('issue-term', 'pathname');
+    js.setAttribute('theme', 'github-light');
+    document.getElementById('utterances-container').appendChild(js);
+});
+</script>
+  
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+</body>
+</html>

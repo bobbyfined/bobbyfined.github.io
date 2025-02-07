@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/title-boke.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/title-boke.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"1008610.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="JVM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JVM基础">
+<meta property="og:url" content="http://1008610.xyz/2022/08/01/JVM/index.html">
+<meta property="og:site_name" content="活页本">
+<meta property="og:description" content="JVM">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20240522225142429.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20240604095515037.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20240527220420678.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20240527223443271.png">
+<meta property="article:published_time" content="2022-08-01T06:14:36.000Z">
+<meta property="article:modified_time" content="2025-02-07T15:00:31.699Z">
+<meta property="article:author" content="当">
+<meta property="article:tag" content="jvm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20240522225142429.png">
+
+<link rel="canonical" href="http://1008610.xyz/2022/08/01/JVM/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>JVM基础 | 活页本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">活页本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://1008610.xyz/2022/08/01/JVM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="当">
+      <meta itemprop="description" content="live my life">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="活页本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JVM基础
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2022-08-01 14:14:36" itemprop="dateCreated datePublished" datetime="2022-08-01T14:14:36+08:00">2022-08-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-02-07 23:00:31" itemprop="dateModified" datetime="2025-02-07T23:00:31+08:00">2025-02-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="JVM"><a href="#JVM" class="headerlink" title="JVM"></a>JVM</h1><span id="more"></span>
+
+<h1 id="JVM（执行字节码，转为机器码）"><a href="#JVM（执行字节码，转为机器码）" class="headerlink" title="JVM（执行字节码，转为机器码）"></a>JVM（执行字节码，转为机器码）</h1><h2 id="Java虚拟机"><a href="#Java虚拟机" class="headerlink" title="Java虚拟机"></a>Java虚拟机</h2><h3 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h3><ol>
+<li>Java虚拟机是一台执行<code>Java字节码</code>的虚拟计算机，它拥有独立的运行机制，其运行的Java字节码也未必由Java语言编译而成。</li>
+<li>JVM平台的各种语言可以共享Java虚拟机带来的跨平台性、优秀的垃圾回收器，以及可靠的即时编译器。</li>
+<li><strong>Java技术的核心就是Java虚拟机</strong>（JVM，Java Virtual Machine），因为所有的Java程序都运行在Java虚拟机内部。</li>
+</ol>
+<h3 id="作用"><a href="#作用" class="headerlink" title="作用"></a>作用</h3><p>​	<strong>Java虚拟机就是二进制字节码的运行环境</strong>，负责装载字节码到其内部，解释&#x2F;编译为对应平台上的机器指令执行。每一条Java指令，Java虚拟机规范中都有详细定义，如怎么取操作数，怎么处理操作数，处理结果放在哪里。</p>
+<h3 id="特点"><a href="#特点" class="headerlink" title="特点"></a>特点</h3><ol>
+<li>一次编译，到处运行</li>
+<li>自动内存管理</li>
+<li>自动垃圾回收功能</li>
+</ol>
+<h2 id="JVM的整体结构"><a href="#JVM的整体结构" class="headerlink" title="JVM的整体结构"></a>JVM的整体结构</h2><ol>
+<li>类加载器</li>
+<li>运行时数据区<ol>
+<li>JVM 定义的Java 程序运行期间需要使用到的内存区域，简单来说，这块内存区域存放了字节码信息以及程序执行过程的数据。</li>
+</ol>
+</li>
+<li>执行引擎</li>
+</ol>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20240522225142429.png" alt="image-20240522225142429"></p>
+<p>使用基于<strong>栈</strong>的指令集架构</p>
+<h3 id="基于栈的指令集架构（了解）"><a href="#基于栈的指令集架构（了解）" class="headerlink" title="基于栈的指令集架构（了解）"></a>基于栈的指令集架构（了解）</h3><p>基于栈式架构的特点：</p>
+<ol>
+<li>设计和实现更简单，适用于资源受限的系统；</li>
+<li>避开了寄存器的分配难题：使用<code>零地址</code>指令方式分配</li>
+<li>指令流中的指令大部分是零地址指令，其执行过程依赖于操作栈。<strong>指令集更小</strong>，编译器容易实现</li>
+<li><strong>不需要硬件支持，可移植性更好，更好实现跨平台</strong></li>
+</ol>
+<h3 id="基于寄存器的指令级架构（了解）"><a href="#基于寄存器的指令级架构（了解）" class="headerlink" title="基于寄存器的指令级架构（了解）"></a>基于寄存器的指令级架构（了解）</h3><p>基于寄存器架构的特点：</p>
+<ol>
+<li>典型的应用是x86的二进制指令集：比如传统的PC以及Android的Davlik虚拟机。</li>
+<li>指令集架构则完全依赖硬件，与硬件的耦合度高，<strong>可移植性差</strong></li>
+<li><strong>性能优秀和执行更高效</strong></li>
+<li>花费更少的指令去完成一项操作</li>
+<li>在大部分情况下，基于寄存器架构的指令集往往都以<code>一地址指令、二地址指令和三地址指令</code>为主，而基于栈式架构的指令集却是以零地址指令为主</li>
+</ol>
+<h2 id="JVM的生命周期"><a href="#JVM的生命周期" class="headerlink" title="JVM的生命周期"></a>JVM的生命周期</h2><h3 id="虚拟机的启动"><a href="#虚拟机的启动" class="headerlink" title="虚拟机的启动"></a>虚拟机的启动</h3><p>Java虚拟机的启动是通过<code>引导类加载器</code>（bootstrap class loader）创建一个<code>初始类</code>（initial class）来完成的，这个类是由虚拟机的具体实现指定的</p>
+<h3 id="虚拟机的执行"><a href="#虚拟机的执行" class="headerlink" title="虚拟机的执行"></a>虚拟机的执行</h3><ol>
+<li>一个运行中的Java虚拟机有着一个清晰的任务：执行Java程序</li>
+<li>程序开始执行时他才运行，程序结束时他就停止</li>
+<li><strong>执行一个所谓的Java程序的时候，真真正正在执行的是一个叫做Java虚拟机的进程</strong></li>
+</ol>
+<h3 id="虚拟机的退出"><a href="#虚拟机的退出" class="headerlink" title="虚拟机的退出"></a>虚拟机的退出</h3><p><strong>有如下的几种情况：</strong></p>
+<ol>
+<li>程序正常执行结束</li>
+<li>程序在执行过程中遇到了异常或错误而异常终止</li>
+<li>由于操作系统用现错误而导致Java虚拟机进程终止</li>
+<li>某线程调用Runtime类或System类的<code>exit()</code>方法，或Runtime类的<code>halt()</code>方法，并且Java安全管理器也允许这次exit()或halt()操作。</li>
+<li>除此之外，JNI（Java Native Interface）规范描述了用JNI Invocation API来加载或卸载 Java虚拟机时，Java虚拟机的退出情况。</li>
+</ol>
+<h2 id="类加载过程"><a href="#类加载过程" class="headerlink" title="类加载过程"></a>类加载过程</h2><ol>
+<li><h3 id="加载"><a href="#加载" class="headerlink" title="加载"></a>加载</h3><ul>
+<li>通过一个类的全限定名获取定义此类的二进制字节流。</li>
+<li>将这个字节流所代表的静态存储结构转化为方法区的运行时数据结构。</li>
+<li>在内存中生成一个代表这个类的 java.lang.Class 对象，作为方法区这个类的各种数据的访问入口。</li>
+</ul>
+</li>
+<li><h3 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h3><ol>
+<li><h4 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h4><ul>
+<li>目的在于确保 Class 文件的字节流中包含信息符合当前虚拟机要求，保证被加载类的正确性，不会危害虚拟机自身安全。</li>
+<li>主要包括四种验证，文件格式验证，元数据验证，字节码验证，符号引用验证。</li>
+</ul>
+</li>
+<li><h4 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h4><ul>
+<li>为类变量分配内存并且设置该类变量的默认初始值，即零值。</li>
+<li>这里不包括用 final 修饰的 static，因为 final 在编译的时候就会分配了，准备阶段会显示初始化。</li>
+<li>这里不会为实例变量分配初始值，类变量会分配在方法区中，而实例变量是会随着对象一起分配到 Java 堆中。</li>
+</ul>
+</li>
+<li><h4 id="解析"><a href="#解析" class="headerlink" title="解析"></a>解析</h4><ul>
+<li>将常量池内的符号引用转换为直接引用的过程。</li>
+<li>事实上，解析操作往往会伴随着 JVM 在执行完初始化之后再执行。</li>
+<li>符号引用就是一组符号来描述所引用的目标，符号引用的字面量形式明确定义在《Java 虚拟机规范》的 Class 文件格式中。直接引用就是直接指向目标的指针，相对偏移量或一个间接定位到目标的句柄。</li>
+<li>解析动作主要针对类或接口、字段、类方法、接口方法、方法类型等。对应常量池中的 CONSTANT_Class_info、CONSTANT_Filedref_info、CONSTANT_Methodref_ref 等。</li>
+</ul>
+</li>
+</ol>
+</li>
+<li><h3 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h3><ul>
+<li>初始化阶段就是执行构造方法 clinit() 的过程。clinit() 不同于类的构造器。（关联：类的构造器是虚拟机视角下的 init()）</li>
+<li>此方法不需定义，是 javac 编译器自动收集类中的所有类变量的赋值动作和静态代码块中的语句合并而来。</li>
+<li>构造器方法中指令按语句在源文件中出现的顺序执行。</li>
+<li>若该类具有父类，JVM 会保证子类的 clinit() 执行前，父类的 clinit() 已经执行完毕。</li>
+<li>虚拟机必须保证一个类的 clinit() 方法在多线程下被同步加锁。</li>
+</ul>
+</li>
+</ol>
+<p>Java类的加载过程是动态的，它不会一次性把程序所有的类全部加载后再运行，而是先保障程序运行的基础类加载到JVM虚拟机当中，其他的类，一般是再需要的时候才会去加载，这样的运行机制也达到了节约内存的目的。</p>
+<p>当JVM虚拟机加载某个class文件的时候，采用的是双亲委派模式（任务委派模式），就是将请求交给父类去处理。</p>
+<h2 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a><strong>双亲委派机制</strong></h2><h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>​	双亲委派机制是指当一个类加载器收到某个类加载请求时，该类加载器首先会把请求委派给父类加载器。每个类加载器都是如此，它会先委托父类加载器在自己的搜索范围内找不到对应的类时，该类加载器才会尝试自己去加载。</p>
+<h3 id="工作流程"><a href="#工作流程" class="headerlink" title="工作流程"></a>工作流程</h3><p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20240604095515037.png" alt="image-20240604095515037"></p>
+<ul>
+<li><strong>Application ClassLoader</strong> 收到一个类加载请求时，首先它自己不会先去尝试加载这个类，而是先将这个加载请求委派给父类加载器Extension ClassLoader去加载。 </li>
+<li>如果<strong>Extension ClassLoader</strong>收到一个类加载请求时，先将加载请求委派给父类加载器Bootstrap ClassLoader去完成。 </li>
+<li>如果<strong>Bootstrap ClassLoader</strong>加载失败(在<JAVA_HOME>\lib中未找到所需类)，就会让<strong>Extension ClassLoader</strong>尝试加载；如果加载成功了就不再让<strong>Extension ClassLoader</strong>加载，过程结束。 </li>
+<li>如果Extension ClassLoader也加载失败，就会使用<strong>Application ClassLoader</strong>加载；如果加载成功了就不再让<strong>Application ClassLoader</strong>加载，过程结束。 </li>
+<li>如果<strong>Application ClassLoader</strong>也加载失败，就会使用自定义加载器去尝试加载。 </li>
+<li>如果所有的加载都失败了，就会抛出ClassNotFoundException异常。</li>
+</ul>
+<p>理解：执行的情况都是由Bootstrap ClassLoader先加载，失败了轮到Extension ClassLoader加载，再失败了轮到Application ClassLoader，最后轮到自定义加载器加载。一般情况下大家<strong>写的java程序都是Application ClassLoader进行加载</strong>的。</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><ol>
+<li><strong>安全性高</strong>：<ul>
+<li><strong>防止核心类库被篡改</strong>：通过双亲委派机制，核心类库（如<code>java.lang.*</code>包）由启动类加载器（Bootstrap ClassLoader）加载，避免被自定义类加载器加载和篡改。</li>
+</ul>
+</li>
+<li><strong>类一致性</strong>：<ul>
+<li><strong>防止重复加载</strong>：双亲委派机制确保一个类在整个应用程序中只有一个类加载器加载，避免了类的重复加载问题，从而保证了Java类的类型一致性。</li>
+</ul>
+</li>
+<li><strong>简化类加载逻辑</strong>：<ul>
+<li>通过委派机制，类加载器之间的关系更加清晰明了，减少了类加载器之间的复杂依赖关系，简化了类加载器的实现。</li>
+</ul>
+</li>
+<li><strong>类加载的层次结构</strong>：<ul>
+<li>维护了一个清晰的类加载层次结构，有助于代码的模块化和分层设计。</li>
+</ul>
+</li>
+</ol>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><ol>
+<li><strong>灵活性不足</strong>：<ul>
+<li>对于某些特殊需求，双亲委派机制可能显得不够灵活。比如，在需要重载核心类库时，双亲委派机制会阻碍这种操作，因为它总是优先使用父类加载器加载的类。</li>
+</ul>
+</li>
+<li><strong>调试复杂</strong>：<ul>
+<li>当类加载出现问题（如类冲突或加载失败）时，由于双亲委派机制的层级关系，调试和排查问题可能变得更加复杂。</li>
+</ul>
+</li>
+<li><strong>性能问题</strong>：<ul>
+<li>在某些场景下，频繁的类加载请求可能会产生性能开销，因为每次加载请求都需要经过父类加载器的检查，这可能增加加载时间。</li>
+</ul>
+</li>
+</ol>
+<h3 id="自定义类加载器使用场景"><a href="#自定义类加载器使用场景" class="headerlink" title="自定义类加载器使用场景"></a>自定义类加载器使用场景</h3><ol>
+<li><strong>网络下载类</strong>，某些应用可能需要动态从网络加载类，自定义类加载器可以实现这一功能。</li>
+<li><strong>应用安全性</strong>，自定义类加载器可以实现自定义的类加载策略和安全检查，控制加载哪些类以及如何加载，提升应用的安全性。</li>
+</ol>
+<h3 id="破坏双亲委派机制："><a href="#破坏双亲委派机制：" class="headerlink" title="破坏双亲委派机制："></a><strong>破坏双亲委派机制：</strong></h3><ul>
+<li>可以⾃⼰定义⼀个类加载器，重写loadClass方法；</li>
+<li>Tomcat 可以加载自己目录下的 class 文件，并不会传递给父类的加载器；</li>
+<li>Java 的 SPI，发起者 BootstrapClassLoader 已经是最上层了，它直接获取了 AppClassLoader 进行驱动加载，和双亲委派是相反的。</li>
+</ul>
+<h3 id="tomcat的类加载机制"><a href="#tomcat的类加载机制" class="headerlink" title="tomcat的类加载机制"></a>tomcat的类加载机制</h3><p><strong>步骤：</strong></p>
+<ol>
+<li>先在本地cache查找该类是否已经加载过，看看 Tomcat 有没有加载过这个类。</li>
+<li>如果Tomcat 没有加载过这个类，则从系统类加载器的cache中查找是否加载过。</li>
+<li>如果没有加载过这个类，尝试用ExtClassLoader类加载器类加载，重点来了，这里并没有首先使用 ApplicationClassLoader 来加载类。这个Tomcat 的 WebAPPClassLoader 违背了双亲委派机制，直接使用了 ExtClassLoader来加载类。这里注意 ExtClassLoader 双亲委派依然有效，ExtClassLoader 就会使用 Bootstrap ClassLoader 来对类进行加载，保证了 Jre 里面的核心类不会被重复加载。 比如在 Web 中加载一个 Object 类。<strong>WebAppClassLoader → ExtClassLoader → Bootstrap ClassLoader</strong>，这个加载链，就保证了 Object 不会被重复加载。</li>
+<li>如果 BoostrapClassLoader，没有加载成功，就会调用自己的 findClass 方法由自己来对类进行加载，findClass 加载类的地址是自己本 web 应用下的 class。</li>
+<li>加载依然失败，才使用 AppClassLoader 继续加载。</li>
+<li>都没有加载成功的话，抛出异常。</li>
+</ol>
+<p><strong>总结一下以上步骤，WebAppClassLoader 加载类的时候，故意打破了JVM 双亲委派机制，绕开了 AppClassLoader，直接先使用 ExtClassLoader 来加载类。</strong></p>
+<h2 id="JVM内存划分"><a href="#JVM内存划分" class="headerlink" title="JVM内存划分"></a>JVM内存划分</h2><h4 id="JVM运行时数据区域"><a href="#JVM运行时数据区域" class="headerlink" title="JVM运行时数据区域"></a><strong>JVM运行时数据区域</strong></h4><p>​	运行时数据区： 堆，方法区（元空间），程序计数器，本地方法栈，虚拟机栈</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20240527220420678.png" alt="image-20240527220420678"></p>
+<p><strong>Heap（堆）：</strong></p>
+<p>​	对象实例和数组的内存在堆上进行分配，是一块线程共享区域，用来存放对象实例，也是垃圾回收（GC）的主要区域；开启逃逸分析后，某些未逃逸的对象可以通过标量替换的方式在栈中分配；</p>
+<p>​	堆细分：新生代、老年代，对于新生代又分为：<strong>Eden区</strong>和<strong>Surviver1</strong>和<strong>Surviver2</strong>区；</p>
+<p><strong>方法区（永久区）：</strong></p>
+<p>​	存储<strong>已经</strong>被JVM加载的类信息，常量，静态变量；线程共享；Jdk1.8以后取消了方法区这个概念，称之为元空间（MetaSpace）；</p>
+<p>​	当应用中的 Java 类过多时，比如 <strong>Spring 等一些使用动态代理的框架生成了很多类</strong>，如果占用空间超出了我们的设定值，就会发生<strong>元空间溢出</strong>；</p>
+<p><strong>虚拟机栈：</strong></p>
+<p>​	线程私有；生命周期和线程的生命周期一起。里面存放的是一个个栈帧（单位），每个方法在执行的时候都会创建一个栈帧，用来存放局部变量表，操作数栈，动态链接，返回地址；</p>
+<p>​	在Java虚拟机规范中，对此区域规定了两种异常状况：</p>
+<ol>
+<li>如果线程请求的栈深度大于虚拟机所允许的深度，将会抛出<strong>StackOverflowError</strong>异常（栈溢出）；</li>
+<li>如果虚拟机栈动态扩展时无法申请到足够的内存，就会抛出<strong>OutOfMemoryError</strong>异常（内存溢出OOM）。</li>
+</ol>
+<p><strong>本地方法栈：</strong></p>
+<p>​	线程私有；与虚拟机栈类似，不同的是虚拟机栈服务的是Java方法，而<strong>本地方法栈服务的是Native方法</strong>。在HotSpot虚拟机实现中是把本地方法栈和虚拟机栈合二为一的，同理它也会抛出<strong>StackOverflowError</strong>和<strong>OOM</strong>异常。</p>
+<p><strong>PC程序计数器：</strong></p>
+<p>​	线程私有；PC指的是存放下一条指令的位置的一个指针；它是一块较小的内存空间；由于线程的切换，CPU在执行的过程中，需要记住原线程的下一条指令的位置，所以每一个线程都需要有自己的PC。</p>
+<h4 id="堆内存分配策略"><a href="#堆内存分配策略" class="headerlink" title="堆内存分配策略"></a><strong>堆内存分配策略</strong></h4><p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20240527223443271.png" alt="image-20240527223443271"></p>
+<ul>
+<li><p>对象优先分配在Eden区，如果Eden区没有足够的空间进行分配时，虚拟机执行一次<strong>MinorGC</strong>。而那些无需回收的存活对象，将会进到 Survivor 的 From 区（From 区内存不足时，直接进入 Old 区）。</p>
+</li>
+<li><p>大对象直接进入老年代（需要大量连续内存空间的对象）。这样做的目的是避免在Eden区和两个Survivor区之间发生大量的内存拷贝（新生代采用复制算法收集内存）。</p>
+</li>
+<li><p>长期存活的对象进入老年代。虚拟机为每个对象定义了一个年龄（Age Count）计数器，如果对象经过了1次Minor GC那么对象会进入Survivor区，之后每经过一次Minor GC那么对象的年龄加1，直到达到阀值（默认15次），对象进入老年区。</p>
+<p>（<strong>动态对象年龄判定</strong>：程序从年龄最小的对象开始累加，如果累加的对象大小，大于幸存区的一半，则将当前的对象 age 作为新的阈值，年龄大于此阈值的对象则直接进入老年代）</p>
+</li>
+<li><p>每次进行Minor GC或者大对象直接进入老年区时，JVM会计算所需空间大小如小于老年区的剩余值大小，则进行一次<strong>Full GC</strong>。</p>
+</li>
+</ul>
+<h4 id="创建一个对象的步骤"><a href="#创建一个对象的步骤" class="headerlink" title="创建一个对象的步骤"></a><strong>创建一个对象的步骤</strong></h4><p><strong>步骤：类加载检查、分配内存、初始化零值、设置对象头、执行init方法</strong></p>
+<h2 id="JVM垃圾回收"><a href="#JVM垃圾回收" class="headerlink" title="JVM垃圾回收"></a>JVM垃圾回收</h2><h3 id="1-JVM判断对象是否存活的算法"><a href="#1-JVM判断对象是否存活的算法" class="headerlink" title="1. JVM判断对象是否存活的算法"></a>1. JVM判断对象是否存活的算法</h3><p>​	GC 的存活标准知道哪些区域的内存需要被回收之后，我们自然而然地想到了，如何去判断一个对象需要被回收呢？对于如何判断对象是否可以回收，有两种比较经典的判断策略。</p>
+<ul>
+<li>引用计数算法</li>
+<li>可达性分析算法</li>
+</ul>
+<h4 id="引用计数算法（Reference-Counting-Collector）"><a href="#引用计数算法（Reference-Counting-Collector）" class="headerlink" title="引用计数算法（Reference Counting Collector）"></a>引用计数算法（Reference Counting Collector）</h4><p>​	一个对象被创建之后，系统会给这个对象初始化一个引用计数器，当这个对象被引用了，则计数器 +1，而当该引用失效后，计数器便 -1，直到计数器为 0，意味着该对象不再被使用了，则可以将其进行回收了。</p>
+<p> <strong>优点：</strong>实现简单，判定效率也很高</p>
+<p> <strong>缺点：</strong>他很难解决对象之间相互循环引用的问题，基本上被抛弃</p>
+<h4 id="可达性分析法"><a href="#可达性分析法" class="headerlink" title="可达性分析法"></a>可达性分析法</h4><p>​	根搜索算法的中心思想，就是从某一些指定的根对象（GC Roots）（虚拟机<strong>栈帧引用</strong>，<strong>静态变量引用</strong>，<strong>JNI引用</strong>的对象）出发，一步步遍历找到和这个根对象具有引用关系的对象，然后再从这些对象开始继续寻找，从而形成一个个的引用链（其实就和图论的思想一致），然后不在这些引用链上面的对象便被标识为引用不可达对象，也就是我们说的“垃圾”，这些对象便需要回收掉。这种算法很好地解决了上面 <strong>引用计数算法</strong> 的循环引用的问题了。</p>
+<h4 id="两次标记过程："><a href="#两次标记过程：" class="headerlink" title="两次标记过程："></a><strong>两次标记过程：</strong></h4><p> 对象被回收之前，该对象的finalize()方法会被调用；两次标记，即第一次标记不在“关系网”中的对象。第二次的话就要先判断该对象有没有实现finalize()方法了，如果没有实现就直接判断该对象可回收；如果实现了就会先放在一个队列中，并由虚拟机建立的一个低优先级的线程去执行它，随后就会进行第二次的小规模标记，在这次被标记的对象就会真正的被回收了。</p>
+<h4 id="finalize-的定义和作用"><a href="#finalize-的定义和作用" class="headerlink" title="finalize()的定义和作用"></a>finalize()的定义和作用</h4><p>Java 允许定义这样的方法，它<strong>在对象被垃圾收集器析构(回收)之前调用</strong>，这个方法叫做 <code>finalize( )</code>，它用来清除回收对象。 不建议用<code>finalize()</code>方法完成“非内存资源”的清理工作，但建议用于：<br> ① 清理本地对象(通过JNI创建的对象)；<br> ② 确保某些非内存资源(如Socket、文件等)的释放：在<code>finalize()</code>方法中显式调用其他资源释放方法。</p>
+<h3 id="2-常用的垃圾回收算法"><a href="#2-常用的垃圾回收算法" class="headerlink" title="2. 常用的垃圾回收算法"></a>2. 常用的垃圾回收算法</h3><ol>
+<li><p>标记 - 清除算法（Tracing Collector）</p>
+<p>标记出所有需要回收的对象，在标记完成后统⼀回收所有被标记的对象</p>
+<p>缺点：效率低，标记清除后会产⽣⼤量不连续的碎⽚，需要预留空间给分配阶段的浮动垃圾</p>
+</li>
+<li><p>标记 - 整理算法（Compacting Collector）</p>
+<p>标记过程仍然与“标记-清除”算法⼀样，再让所有存活的对象向⼀端移动，然后直接清理掉端边界以外的内存；</p>
+<p>解决了产生大量不连续碎片问题</p>
+</li>
+<li><p>复制算法（Copying Collector）</p>
+<p>将内存分为⼤⼩相同的两块，每次使⽤其中的⼀块。当这⼀块的内存使⽤完后，就将还存活的对象复制到另⼀块去，然后再把使⽤的空间⼀次清理掉。这样就使每次的内存回收都是对内存区间的⼀半进⾏回收；</p>
+</li>
+<li><p>适应性算法（Adaptive Collector）</p>
+<p>适应性算法 <strong>其实不是一种单独的回收算法</strong>，他只是一种智能选择回收算法的机制，也就是该算法会根据堆内存具体的使用情况而自动选用更适合当前情况的回收算法。</p>
+</li>
+<li><p>分代回收算法</p>
+<p><strong>分代收集算法是目前大部分JVM的垃圾收集器采用的算法。</strong></p>
+</li>
+</ol>
+<h3 id="分代回收算法"><a href="#分代回收算法" class="headerlink" title="分代回收算法"></a>分代回收算法</h3><p>根据各个年代的特点选择合适的垃圾收集算法。</p>
+<ul>
+<li>新生代采用复制算法，新生代每次垃圾回收都要回收大部分对象，存活对象较少，即要复制的操作比较少，一般将新生代划分为一块较大的 Eden 空间和两个较小的 Survivor 空间(From Space, To Space)，每次使用Eden 空间和其中的一块 Survivor 空间，当进行回收时，将该两块空间中还存活的对象复制到另一块 Survivor 空间中。</li>
+<li>老年代的对象存活⼏率是⽐较⾼的，⽽且没有额外的空间对它进⾏分配担保，所以我们必须选择“标记-清除”或“标记-整理”算法进⾏垃圾收集。当老年代内存满时触发<code>Major GC</code>即<code>Full GC</code>，<code>Full GC</code>发生频率比较低，老年代对象存活时间比较长，存活率标记高。</li>
+</ul>
+<p>对象如果选择进入那个代参考堆内存分配策略</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>当
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://1008610.xyz/2022/08/01/JVM/" title="JVM基础">http://1008610.xyz/2022/08/01/JVM/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/jvm/" rel="tag"># jvm</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/07/01/mysql/" rel="prev" title="MySQL基础">
+      <i class="fa fa-chevron-left"></i> MySQL基础
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2022/09/01/redis/" rel="next" title="Redis基础">
+      Redis基础 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-livere">livere</a></li>
+            <li class="tab"><a href="#comment-utterances">utterances</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane livere" id="comment-livere">
+              
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC82MDA4Ni8zNjU1Mg=="></div>
+  </div>
+  
+            </div>
+            <div class="tab-pane utterances" id="comment-utterances">
+              <div class="comments" id="utterances-container"></div>
+            </div>
+        </div>
+      </div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM"><span class="nav-number">1.</span> <span class="nav-text">JVM</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#JVM%EF%BC%88%E6%89%A7%E8%A1%8C%E5%AD%97%E8%8A%82%E7%A0%81%EF%BC%8C%E8%BD%AC%E4%B8%BA%E6%9C%BA%E5%99%A8%E7%A0%81%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">JVM（执行字节码，转为机器码）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="nav-number">2.1.</span> <span class="nav-text">Java虚拟机</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E8%BF%B0"><span class="nav-number">2.1.1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8"><span class="nav-number">2.1.2.</span> <span class="nav-text">作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%89%B9%E7%82%B9"><span class="nav-number">2.1.3.</span> <span class="nav-text">特点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM%E7%9A%84%E6%95%B4%E4%BD%93%E7%BB%93%E6%9E%84"><span class="nav-number">2.2.</span> <span class="nav-text">JVM的整体结构</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E6%A0%88%E7%9A%84%E6%8C%87%E4%BB%A4%E9%9B%86%E6%9E%B6%E6%9E%84%EF%BC%88%E4%BA%86%E8%A7%A3%EF%BC%89"><span class="nav-number">2.2.1.</span> <span class="nav-text">基于栈的指令集架构（了解）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E4%BA%8E%E5%AF%84%E5%AD%98%E5%99%A8%E7%9A%84%E6%8C%87%E4%BB%A4%E7%BA%A7%E6%9E%B6%E6%9E%84%EF%BC%88%E4%BA%86%E8%A7%A3%EF%BC%89"><span class="nav-number">2.2.2.</span> <span class="nav-text">基于寄存器的指令级架构（了解）</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM%E7%9A%84%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F"><span class="nav-number">2.3.</span> <span class="nav-text">JVM的生命周期</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E5%90%AF%E5%8A%A8"><span class="nav-number">2.3.1.</span> <span class="nav-text">虚拟机的启动</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E6%89%A7%E8%A1%8C"><span class="nav-number">2.3.2.</span> <span class="nav-text">虚拟机的执行</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%9A%84%E9%80%80%E5%87%BA"><span class="nav-number">2.3.3.</span> <span class="nav-text">虚拟机的退出</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B1%BB%E5%8A%A0%E8%BD%BD%E8%BF%87%E7%A8%8B"><span class="nav-number">2.4.</span> <span class="nav-text">类加载过程</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A0%E8%BD%BD"><span class="nav-number">2.4.1.</span> <span class="nav-text">加载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">2.4.2.</span> <span class="nav-text">链接</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81"><span class="nav-number">2.4.2.1.</span> <span class="nav-text">验证</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%87%86%E5%A4%87"><span class="nav-number">2.4.2.2.</span> <span class="nav-text">准备</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%A7%A3%E6%9E%90"><span class="nav-number">2.4.2.3.</span> <span class="nav-text">解析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">2.4.3.</span> <span class="nav-text">初始化</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6"><span class="nav-number">2.5.</span> <span class="nav-text">双亲委派机制</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A6%82%E5%BF%B5"><span class="nav-number">2.5.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="nav-number">2.5.2.</span> <span class="nav-text">工作流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">2.5.3.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BC%BA%E7%82%B9"><span class="nav-number">2.5.4.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%B1%BB%E5%8A%A0%E8%BD%BD%E5%99%A8%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">2.5.5.</span> <span class="nav-text">自定义类加载器使用场景</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A0%B4%E5%9D%8F%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%9C%BA%E5%88%B6%EF%BC%9A"><span class="nav-number">2.5.6.</span> <span class="nav-text">破坏双亲委派机制：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tomcat%E7%9A%84%E7%B1%BB%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6"><span class="nav-number">2.5.7.</span> <span class="nav-text">tomcat的类加载机制</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM%E5%86%85%E5%AD%98%E5%88%92%E5%88%86"><span class="nav-number">2.6.</span> <span class="nav-text">JVM内存划分</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#JVM%E8%BF%90%E8%A1%8C%E6%97%B6%E6%95%B0%E6%8D%AE%E5%8C%BA%E5%9F%9F"><span class="nav-number">2.6.0.1.</span> <span class="nav-text">JVM运行时数据区域</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%A0%86%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5"><span class="nav-number">2.6.0.2.</span> <span class="nav-text">堆内存分配策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.6.0.3.</span> <span class="nav-text">创建一个对象的步骤</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JVM%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6"><span class="nav-number">2.7.</span> <span class="nav-text">JVM垃圾回收</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-JVM%E5%88%A4%E6%96%AD%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%AD%98%E6%B4%BB%E7%9A%84%E7%AE%97%E6%B3%95"><span class="nav-number">2.7.1.</span> <span class="nav-text">1. JVM判断对象是否存活的算法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E7%AE%97%E6%B3%95%EF%BC%88Reference-Counting-Collector%EF%BC%89"><span class="nav-number">2.7.1.1.</span> <span class="nav-text">引用计数算法（Reference Counting Collector）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90%E6%B3%95"><span class="nav-number">2.7.1.2.</span> <span class="nav-text">可达性分析法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%B8%A4%E6%AC%A1%E6%A0%87%E8%AE%B0%E8%BF%87%E7%A8%8B%EF%BC%9A"><span class="nav-number">2.7.1.3.</span> <span class="nav-text">两次标记过程：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#finalize-%E7%9A%84%E5%AE%9A%E4%B9%89%E5%92%8C%E4%BD%9C%E7%94%A8"><span class="nav-number">2.7.1.4.</span> <span class="nav-text">finalize()的定义和作用</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%B8%B8%E7%94%A8%E7%9A%84%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="nav-number">2.7.2.</span> <span class="nav-text">2. 常用的垃圾回收算法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E4%BB%A3%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="nav-number">2.7.3.</span> <span class="nav-text">分代回收算法</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="当"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">当</p>
+  <div class="site-description" itemprop="description">live my life</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/bobbyfined" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bobbyfined" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://baidu.com/" title="https:&#x2F;&#x2F;baidu.com" rel="noopener" target="_blank">百度</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+      <!--网易云插件-->
+      <!--
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 
+        src="//music.163.com/outchain/player?type=2&id=2135473788&auto=1&height=66">
+      </iframe>
+      -->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-08 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">当</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">119k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:48</span>
+</div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+<script>
+NexT.utils.loadComments(document.querySelector('#utterances-container'), () => {
+    // if (typeof parcelRequire === 'function') { return; }
+    var js = document.createElement('script');
+    js.type = 'text/javascript';
+    js.src = 'https://utteranc.es/client.js';
+    js.async = true;
+    js.crossorigin = 'anonymous';
+    js.setAttribute('repo', 'bobbyfined/boke-comments');
+    js.setAttribute('issue-term', 'pathname');
+    js.setAttribute('theme', 'github-light');
+    document.getElementById('utterances-container').appendChild(js);
+});
+</script>
+  
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+</body>
+</html>

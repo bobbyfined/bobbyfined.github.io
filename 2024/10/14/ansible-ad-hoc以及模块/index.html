@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/title-boke.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/title-boke.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"1008610.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="ansible-ad-hoc以及模块">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ansible-ad-hoc以及模块">
+<meta property="og:url" content="http://1008610.xyz/2024/10/14/ansible-ad-hoc%E4%BB%A5%E5%8F%8A%E6%A8%A1%E5%9D%97/index.html">
+<meta property="og:site_name" content="活页本">
+<meta property="og:description" content="ansible-ad-hoc以及模块">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-10-14T13:14:36.000Z">
+<meta property="article:modified_time" content="2025-02-07T15:08:05.483Z">
+<meta property="article:author" content="当">
+<meta property="article:tag" content="ansible">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://1008610.xyz/2024/10/14/ansible-ad-hoc%E4%BB%A5%E5%8F%8A%E6%A8%A1%E5%9D%97/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>ansible-ad-hoc以及模块 | 活页本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">活页本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://1008610.xyz/2024/10/14/ansible-ad-hoc%E4%BB%A5%E5%8F%8A%E6%A8%A1%E5%9D%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="当">
+      <meta itemprop="description" content="live my life">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="活页本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          ansible-ad-hoc以及模块
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-10-14 21:14:36" itemprop="dateCreated datePublished" datetime="2024-10-14T21:14:36+08:00">2024-10-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-02-07 23:08:05" itemprop="dateModified" datetime="2025-02-07T23:08:05+08:00">2025-02-07</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/ansible/" itemprop="url" rel="index"><span itemprop="name">ansible</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="ansible-ad-hoc以及模块"><a href="#ansible-ad-hoc以及模块" class="headerlink" title="ansible-ad-hoc以及模块"></a>ansible-ad-hoc以及模块</h1><span id="more"></span>
+
+<h1 id="Ansible功能介绍"><a href="#Ansible功能介绍" class="headerlink" title="Ansible功能介绍"></a><strong>Ansible功能介绍</strong></h1><p> 批量执行远程命令,可以对远程的多台主机同时进行命令的执行批量安装和配置软件服务，可以对远程的多台主机进行自动化的方式配置和管理各种服务编排高级的企业级复杂的IT架构任务, Ansible的Playbook和role可以轻松实现大型的IT复杂架构提供自动化运维工具的开发API, 有很多运维工具,如jumpserver就是基于 ansible 实现自动化管理功能</p>
+<h2 id="ansible的特点"><a href="#ansible的特点" class="headerlink" title="ansible的特点"></a><strong>ansible的特点</strong></h2><ul>
+<li><p>模块化：调用特定的模块完成特定任务，支持自定义模块，可使用任何编程语言写模块</p>
+</li>
+<li><p>Paramiko（python对ssh的实现），PyYAML，Jinja2（模板语言）三个关键模块</p>
+</li>
+<li><p>基于Python语言实现</p>
+</li>
+<li><p>部署简单，基于python和SSH(默认已安装)，agentless，无需代理不依赖PKI（无需ssl）</p>
+</li>
+<li><p>安全，基于OpenSSH</p>
+</li>
+<li><p>幂等性：一个任务执行1遍和执行n遍效果一样，不因重复执行带来意外情况,此特性非绝对</p>
+</li>
+<li><p>支持playbook编排任务，YAML格式，编排任务，支持丰富的数据结构</p>
+</li>
+<li><p>较强大的多层解决方案 role</p>
+</li>
+</ul>
+<h2 id="Ansible结构介绍"><a href="#Ansible结构介绍" class="headerlink" title="Ansible结构介绍"></a><strong>Ansible结构介绍</strong></h2><p><strong>Ansible 组成</strong></p>
+<ul>
+<li><p>组合INVENTORY、API、MODULES、PLUGINS的绿框，为ansible命令工具，其为核心执行工具</p>
+</li>
+<li><p>INVENTORY：Ansible管理主机的清单&#x2F;etc&#x2F;anaible&#x2F;hosts</p>
+</li>
+<li><p>MODULES：Ansible执行命令的功能模块，多数为内置核心模块，也可自定义</p>
+</li>
+<li><p>PLUGINS：模块功能的补充，如连接类型插件、循环插件、变量插件、过滤插件等，该功能不常用</p>
+</li>
+<li><p>API：供第三方程序调用的应用程序编程接口</p>
+</li>
+</ul>
+<p><strong>Ansible命令执行的来源</strong></p>
+<ul>
+<li><p>USER 普通用户，即SYSTEM ADMINISTRATOR</p>
+</li>
+<li><p>PLAYBOOKS：任务剧本（任务集），编排定义Ansible任务集的配置文件，由Ansible顺序依次执行，通常是JSON格式的YML文件</p>
+</li>
+<li><p>CMDB（配置管理数据库） API 调用</p>
+</li>
+<li><p>PUBLIC&#x2F;PRIVATE CLOUD API调用</p>
+</li>
+<li><p>USER-&gt; Ansible Playbook -&gt; Ansibile</p>
+</li>
+</ul>
+<p><strong>Ansible的注意事项</strong></p>
+<ul>
+<li><p>执行ansible的主机一般称为管理端, 主控端，中控，master或堡垒机</p>
+</li>
+<li><p>主控端Python版本需要2.6或以上</p>
+</li>
+<li><p>被控端Python版本小于2.4，需要安装python-simplejson</p>
+</li>
+<li><p>被控端如开启SELinux需要安装libselinux-python</p>
+</li>
+<li><p>windows 不能做为主控端</p>
+</li>
+</ul>
+<p><strong>inventory 主机清单文件</strong></p>
+<p> ansible的主要功用在于批量主机操作，为了便捷地使用其中的部分主机，可以在inventory 主机清单文件中将其分组组织默认的inventory file为 &#x2F;etc&#x2F;ansible&#x2F;hostsinventory file可以有多个，且也可以通过Dynamic Inventory来动态生成。</p>
+<p>注意: 生产建议在每个项目目录下创建项目独立的hosts文件</p>
+<p><strong>官方文档</strong></p>
+<p><a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html">https://docs.ansible.com/ansible/latest/user_guide/intro_inventory.html</a></p>
+<p><strong>Inventory 参数说明</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">ansible_ssh_host             #将要连接的远程主机名.与你想要设定的主机的别名不同的话,可通过此变量设置.</span><br><span class="line">ansible_ssh_port             #ssh端口号.如果不是默认的端口号,通过此变量设置.这种可以使用 ip:端口</span><br><span class="line"> 192.168.1.100:2222</span><br><span class="line">ansible_ssh_user             #默认的 ssh 用户名</span><br><span class="line">ansible_ssh_pass              #ssh 密码(这种方式并不安全,我们强烈建议使用 --ask-pass 或 SSH 密钥)</span><br><span class="line">ansible_sudo_pass               #sudo 密码(这种方式并不安全,我们强烈建议使用 --ask-sudo-pass)</span><br><span class="line">ansible_sudo_exe (new in version 1.8) #sudo 命令路径(适用于1.8及以上版本)</span><br><span class="line">ansible_connection             #与主机的连接类型.比如:local, ssh 或者 paramiko. Ansible 1.2 以前默</span><br><span class="line">认使用 paramiko.1.2 以后默认使用 &#x27;smart&#x27;,&#x27;smart&#x27; 方式会根据是否支持 ControlPersist, 来判断&#x27;ssh&#x27; 方式是否可行.</span><br><span class="line">ansible_ssh_private_key_file #ssh 使用的私钥文件.适用于有多个密钥,而你不想使用 SSH 代理的情况.</span><br><span class="line">ansible_shell_type         #目标系统的shell类型.默认情况下,命令的执行使用 &#x27;sh&#x27; 语法,可设置为&#x27;csh&#x27; 或 &#x27;fish&#x27;.</span><br><span class="line">ansible_python_interpreter #目标主机的 python 路径.适用于的情况: 系统中有多个 Python, 或者命令路径不是&quot;/usr/bin/python&quot;, 比如 \*BSD, 或者 /usr/bin/python 不是 2.X 版本的Python.之所以不使用 &quot;/usr/bin/env&quot; 机制,因为这要求远程用户的路径设置正确,且要求 &quot;python&quot; 可执行程序名不可为 python以外的名字(实际有可能名为python26).与ansible_python_interpreter 的工作方式相同,可设定如 ruby 或 perl 的路径....</span><br></pre></td></tr></table></figure>
+
+<p><strong>范例：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">[test]</span><br><span class="line">10.0.0.8 ansible_connection=local #指定本地连接,无需ssh配置</span><br><span class="line">#ansible_connection=ssh 需要StrictHostKeyChecking no</span><br><span class="line">10.0.0.7 ansible_connection=ssh ansible_ssh_port=2222 ansible_ssh_user=wang</span><br><span class="line">ansible_ssh_password=magedu</span><br><span class="line">10.0.0.6 ansible_connection=ssh ansible_ssh_user=root</span><br><span class="line">ansible_ssh_password=123456</span><br><span class="line">#执行ansible命令时显示别名,如web01</span><br><span class="line">[websrvs]</span><br><span class="line">web01 ansible_ssh_host=10.0.0.101</span><br><span class="line">web02 ansible_ssh_host=10.0.0.102</span><br><span class="line">[websrvs:vars]</span><br><span class="line">ansible_ssh_password=magedu</span><br><span class="line">some_host ansible_ssh_port=2222 ansible_ssh_user=manager</span><br><span class="line">aws_host ansible_ssh_private_key_file=/home/example/.ssh/aws.pem</span><br><span class="line">freebsd_host ansible_python_interpreter=/usr/local/bin/python</span><br><span class="line">ruby_module_host ansible_ruby_interpreter=/usr/bin/ruby.1.9.3</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Ansible相关工具"><a href="#Ansible相关工具" class="headerlink" title="Ansible相关工具"></a><strong>Ansible相关工具</strong></h2><p>&#x2F;usr&#x2F;bin&#x2F;ansible 主程序，临时命令执行工具</p>
+<p>&#x2F;usr&#x2F;bin&#x2F;ansible-doc 查看配置文档，模块功能查看工具,相当于man</p>
+<p>&#x2F;usr&#x2F;bin&#x2F;ansible-playbook 定制自动化任务，编排剧本工具,相当于脚本 &#x2F;usr&#x2F;bin&#x2F;ansible-pull 远程执行命令的工具</p>
+<p>&#x2F;usr&#x2F;bin&#x2F;ansible-vault 文件加密工具</p>
+<p>&#x2F;usr&#x2F;bin&#x2F;ansible-console 基于Console界面与用户交互的执行工具 &#x2F;usr&#x2F;bin&#x2F;ansible-galaxy 下载&#x2F;上传优秀代码或Roles模块的官网平台</p>
+<h2 id="利用ansible实现管理的主要方式："><a href="#利用ansible实现管理的主要方式：" class="headerlink" title="利用ansible实现管理的主要方式："></a><strong>利用ansible实现管理的主要方式：</strong></h2><p>Ansible Ad-Hoc 即利用ansible命令，主要用于临时命令使用场景 Ansible</p>
+<p>playbook 主要用于长期规划好的，大型项目的场景，需要有前期的规划过程</p>
+<h2 id="ansible-doc：获取指定模块的帮助文档"><a href="#ansible-doc：获取指定模块的帮助文档" class="headerlink" title="ansible-doc：获取指定模块的帮助文档"></a><strong>ansible-doc：获取指定模块的帮助文档</strong></h2><p><strong>格式：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ansible-doc [options] [module...]</span><br><span class="line"></span><br><span class="line">-l, --list #列出可用模块</span><br><span class="line"></span><br><span class="line">-s, --snippet #显示指定模块的playbook片段</span><br></pre></td></tr></table></figure>
+
+<p><strong>列出指定模块帮助</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ansible-doc -s module_name</span><br></pre></td></tr></table></figure>
+
+<p><strong>ansible Ad-Hoc的 执行方式</strong></p>
+<p> <strong>ansible Ad-Hoc说明：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Ansible Ad-Hoc的执行方式主要的工具就是ansible命令:</span><br><span class="line"></span><br><span class="line">#格式：ansible &lt;host-pattern&gt; [-m module_name] [-a args]</span><br><span class="line"></span><br><span class="line"> ansible -i inventory -m command -a &#x27;pwd&#x27; all</span><br></pre></td></tr></table></figure>
+
+<p><strong>​ 常用选项说明：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">显示版本--version</span><br><span class="line"></span><br><span class="line">指定模块，默认为command-m module</span><br><span class="line"></span><br><span class="line">详细过程 -vv -vvv更详细-v</span><br><span class="line"></span><br><span class="line">显示主机列表，可简写 --list-list-hosts</span><br><span class="line"></span><br><span class="line">检查，并不执行-C, --check</span><br><span class="line"></span><br><span class="line">执行命令的超时时间，默认10s-T, --timeout=TIMEOUT</span><br><span class="line"></span><br><span class="line">提示输入ssh连接密码，默认Key验证-k, --ask-pass</span><br><span class="line"></span><br><span class="line">执行远程执行的用户,默认root-u, --user=REMOTE_USER</span><br><span class="line"></span><br><span class="line">代替旧版的sudo 切换-b, --become</span><br><span class="line"></span><br><span class="line">指定sudo的runas用户，默认为root--become-user=USERNAME</span><br><span class="line"></span><br><span class="line">提示输入sudo时的口令-K, --ask-become-pass</span><br><span class="line"></span><br><span class="line">指定并发同时执行ansible任务的主机数-f FORKS, --forks FORKS</span><br></pre></td></tr></table></figure>
+
+<p><strong>范例：调用shell模块查看shadow文件</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">#修改被控制端的suduers文件，添加用户ALL=(ALL) NOPASSWD: ALL字段：</span><br><span class="line">#sed -ri &#x27;/## Same thing without a password/a\xiang ALL =(ALL) NOPASSWD: ALL /etc/sudoers</span><br><span class="line">#调用shell模块查看shadow</span><br><span class="line">#ansible 192.168.213.122 -m shell -a &#x27;sudo cat /etc/shadow |head -5&#x27; -u xiang -k -b</span><br><span class="line">[root@Ansible-Master ~14:18]$ ansible 192.168.213.123 -m shell -a &#x27;sudo cat /etc/shadow|head -5&#x27; -u xiang -k </span><br><span class="line">SSH password: </span><br><span class="line">[WARNING]: Consider using &#x27;become&#x27;, &#x27;become_method&#x27;, and &#x27;become_user&#x27; rather than running sudo</span><br><span class="line">192.168.213.123 | CHANGED | rc=0 &gt;&gt;</span><br><span class="line">root:$6$nZpI0Gve/q3y/vLW$k8QocsCR4x65nEqLaFsHhQGR8eYibTP.ixE5pzNY.8qTz3OkwWWIs8c4Z5QZJ6VZ8Lv0YVNvVoapARSpAuHDm1::0:99999:7:::</span><br><span class="line">bin:*:18353:0:99999:7:::</span><br><span class="line">daemon:*:18353:0:99999:7:::</span><br><span class="line">adm:*:18353:0:99999:7:::</span><br><span class="line">lp:*:18353:0:99999:7:::</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="Aansible常用模块"><a href="#Aansible常用模块" class="headerlink" title="Aansible常用模块"></a><strong>Aansible常用模块</strong></h2><p>2015年底270多个模块，2016年达到540个，2018年01月12日有1378个模块，2018年07月15日1852 个模块,2019年05月25日（ansible 2.7.10）时2080个模块，2020年03月02日有3387个模块</p>
+<p>参考文档</p>
+<p>虽然模块众多，但最常用的模块也就2，30个而已，针对特定业务只用10几个模块 常用模块帮助文档参考：</p>
+<p><a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/2.9/modules/modules_by_category.html">https://docs.ansible.com/ansible/2.9/modules/modules_by_category.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/2.9/modules/list_of_all_modules.html">https://docs.ansible.com/ansible/2.9/modules/list_of_all_modules.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/modules/list_of_all_modules.html">https://docs.ansible.com/ansible/latest/modules/list_of_all_modules.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.ansible.com/ansible/latest/modules/modules_by_category.html%C2%B7">https://docs.ansible.com/ansible/latest/modules/modules_by_category.html·</a></p>
+<h3 id="Command模块"><a href="#Command模块" class="headerlink" title="Command模块"></a><strong>Command模块</strong></h3><p>功能</p>
+<p>在远程主机执行命令，此为默认模块，可忽略 -m 选项</p>
+<p>注意：此命令不支持 $VARNAME &lt; &gt; | ; &amp; 等，可能用shell模块实现</p>
+<p>注意：此模块不具有幂等性</p>
+<p><strong>常用参数</strong></p>
+<ul>
+<li><p>argv：将命令作为列表传输，而非字符串，且只能提供字符串或列表形式，不能同时提供两者，必须提供其中一种</p>
+</li>
+<li><p>chdir：运行命令前，切换到的目录</p>
+</li>
+<li><p>free_form参数 ：必须参数，指定需要远程执行的命令。需要说明一点，free_form 参数与其他参数（如果想要使用一个参数，那么则需要为这个参数赋值，也就是name&#x3D;value模式）并不相同。比如，当我们想要在远程主机上执行 ls 命令时，我们并不需要写成”free_form&#x3D;ls” ，这样写反而是错误的，因为并没有任何参数的名字是 free_form，当我们想要在远程主机中执行 ls 命令时，直接写成 ls 即可。因为 command 模块的作用是执行命令，所以，任何一个可以在远程主机上执行的命令都可以被称为 free_form</p>
+</li>
+<li><p>creates:与removes互斥且功能相反，指定一个文件路径或者目录路径，当该目录或文件存在时，则命令不执行</p>
+</li>
+<li><p>removes：与creates互斥功能相反，指定一个文件路径或者目录路径，当该目录或文件存在时，则命令执行，改参数不会删除文件；</p>
+</li>
+<li><p>stdin：标准输入</p>
+</li>
+<li><p>stdin_add_newline：给 stdin的值增加换行符；默认为YES，增加换行符；</p>
+</li>
+</ul>
+<p><strong>范例：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#查看远端passwd信息</span><br><span class="line"></span><br><span class="line">ansible webservs -m command -a &#x27;ls -l /etc/passwd&#x27;</span><br></pre></td></tr></table></figure>
+
+<p><strong>shell模块（实用）</strong></p>
+<p><strong>功能</strong></p>
+<ul>
+<li><p>和command相似，用shell执行命令,支持各种符号,比如:*,$, &gt;</p>
+</li>
+<li><p>注意：此模块不具有幂等性</p>
+</li>
+<li><p>该模块采用命令名称，后跟一个空格分隔参数列表</p>
+</li>
+<li><p>自由格式的命令或参数是必需的</p>
+</li>
+<li><p>它几乎与命令模块完全相同，但通过远程节点上的 shell （） 运行命令：&#x2F;bin&#x2F;sh</p>
+</li>
+<li><p>对于 Windows 目标，请改用win_shell模块</p>
+</li>
+</ul>
+<p><strong>常用参数</strong></p>
+<ul>
+<li><p>chdir：运行命令前，切换到的目录</p>
+</li>
+<li><p>creates:与removes互斥且功能相反，指定一个文件路径或者目录路径，当该目录或文件存在时，则命令不执行</p>
+</li>
+<li><p>removes：与creates互斥功能相反，指定一个文件路径或者目录路径，当该目录或文件存在时，则命令执行</p>
+</li>
+<li><p>executable：更改用于执行该命令的shell，必须为绝对路径；</p>
+</li>
+</ul>
+<p><strong>范例：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#获取远端主机的主机名称</span><br><span class="line"></span><br><span class="line">[root@Ansible-Master ~11:03]#ansible webservs -m shell -a &quot;echo $HOSTNAME&quot;</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>当
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://1008610.xyz/2024/10/14/ansible-ad-hoc%E4%BB%A5%E5%8F%8A%E6%A8%A1%E5%9D%97/" title="ansible-ad-hoc以及模块">http://1008610.xyz/2024/10/14/ansible-ad-hoc以及模块/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/ansible/" rel="tag"># ansible</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/09/21/%E4%BD%BF%E7%94%A8idea%20%E6%8A%8A%E4%B8%80%E4%B8%AAgit%E5%88%86%E6%94%AF%E7%9A%84%E9%83%A8%E5%88%86%E6%8F%90%E4%BA%A4%E8%AE%B0%E5%BD%95%E5%90%88%E5%B9%B6%E5%88%B0%E5%8F%A6%E4%B8%80%E4%B8%AAgit%E5%88%86%E6%94%AF%E4%B8%8A/" rel="prev" title="使用idea 把一个git分支的部分提交记录合并到另一个git分支上">
+      <i class="fa fa-chevron-left"></i> 使用idea 把一个git分支的部分提交记录合并到另一个git分支上
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/12/01/ansible-playbook/" rel="next" title="ansible-playbook">
+      ansible-playbook <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-livere">livere</a></li>
+            <li class="tab"><a href="#comment-utterances">utterances</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane livere" id="comment-livere">
+              
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC82MDA4Ni8zNjU1Mg=="></div>
+  </div>
+  
+            </div>
+            <div class="tab-pane utterances" id="comment-utterances">
+              <div class="comments" id="utterances-container"></div>
+            </div>
+        </div>
+      </div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#ansible-ad-hoc%E4%BB%A5%E5%8F%8A%E6%A8%A1%E5%9D%97"><span class="nav-number">1.</span> <span class="nav-text">ansible-ad-hoc以及模块</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Ansible%E5%8A%9F%E8%83%BD%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.</span> <span class="nav-text">Ansible功能介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ansible%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">2.1.</span> <span class="nav-text">ansible的特点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ansible%E7%BB%93%E6%9E%84%E4%BB%8B%E7%BB%8D"><span class="nav-number">2.2.</span> <span class="nav-text">Ansible结构介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Ansible%E7%9B%B8%E5%85%B3%E5%B7%A5%E5%85%B7"><span class="nav-number">2.3.</span> <span class="nav-text">Ansible相关工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%A9%E7%94%A8ansible%E5%AE%9E%E7%8E%B0%E7%AE%A1%E7%90%86%E7%9A%84%E4%B8%BB%E8%A6%81%E6%96%B9%E5%BC%8F%EF%BC%9A"><span class="nav-number">2.4.</span> <span class="nav-text">利用ansible实现管理的主要方式：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ansible-doc%EF%BC%9A%E8%8E%B7%E5%8F%96%E6%8C%87%E5%AE%9A%E6%A8%A1%E5%9D%97%E7%9A%84%E5%B8%AE%E5%8A%A9%E6%96%87%E6%A1%A3"><span class="nav-number">2.5.</span> <span class="nav-text">ansible-doc：获取指定模块的帮助文档</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Aansible%E5%B8%B8%E7%94%A8%E6%A8%A1%E5%9D%97"><span class="nav-number">2.6.</span> <span class="nav-text">Aansible常用模块</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Command%E6%A8%A1%E5%9D%97"><span class="nav-number">2.6.1.</span> <span class="nav-text">Command模块</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="当"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">当</p>
+  <div class="site-description" itemprop="description">live my life</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">10</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/bobbyfined" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bobbyfined" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://baidu.com/" title="https:&#x2F;&#x2F;baidu.com" rel="noopener" target="_blank">百度</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+      <!--网易云插件-->
+      <!--
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 
+        src="//music.163.com/outchain/player?type=2&id=2135473788&auto=1&height=66">
+      </iframe>
+      -->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-08 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">当</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">119k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">1:48</span>
+</div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+<script>
+NexT.utils.loadComments(document.querySelector('#utterances-container'), () => {
+    // if (typeof parcelRequire === 'function') { return; }
+    var js = document.createElement('script');
+    js.type = 'text/javascript';
+    js.src = 'https://utteranc.es/client.js';
+    js.async = true;
+    js.crossorigin = 'anonymous';
+    js.setAttribute('repo', 'bobbyfined/boke-comments');
+    js.setAttribute('issue-term', 'pathname');
+    js.setAttribute('theme', 'github-light');
+    document.getElementById('utterances-container').appendChild(js);
+});
+</script>
+  
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+</body>
+</html>
