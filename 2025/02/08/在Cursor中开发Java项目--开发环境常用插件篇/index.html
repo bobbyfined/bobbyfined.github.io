@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 7.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/title-boke.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/title-boke.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"1008610.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="在Cursor中开发Java项目 – 开发环境常用插件">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Cursor中开发Java项目 -- 开发环境常用插件">
+<meta property="og:url" content="http://1008610.xyz/2025/02/08/%E5%9C%A8Cursor%E4%B8%AD%E5%BC%80%E5%8F%91Java%E9%A1%B9%E7%9B%AE--%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E7%AF%87/index.html">
+<meta property="og:site_name" content="活页本">
+<meta property="og:description" content="在Cursor中开发Java项目 – 开发环境常用插件">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210216371.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210243768.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210248375.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210253960.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210259937.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210305918.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210320560.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210324206.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210342410.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210349743.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210355993.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210359720.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210433142.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210445730.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210451783.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210457353.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210501080.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210505785.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210509569.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210515470.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210523684.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210526917.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210532269.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210538303.png">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps1.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps2.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps3.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps4.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps5.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps6.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps7.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps8.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps9.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps10.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps11.jpg">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210647590.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210706349.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210713337.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210719906.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210723977.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210728011.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210734018.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210737374.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210743688.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210747442.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210751633.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210755954.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210802959.png">
+<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210806902.png">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps12.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps13.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps14.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps15.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps16.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps17.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps18.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps19.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps20.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps21.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps22.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps23.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps24.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps25.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps26.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps27.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps28.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps29.jpg">
+<meta property="og:image" content="file:///C:/Users/JIA/AppData/Local/Temp/ksohtml8944/wps30.jpg">
+<meta property="article:published_time" content="2025-02-08T12:32:22.000Z">
+<meta property="article:modified_time" content="2025-02-08T13:09:36.976Z">
+<meta property="article:author" content="当">
+<meta property="article:tag" content="cursor">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210216371.png">
+
+<link rel="canonical" href="http://1008610.xyz/2025/02/08/%E5%9C%A8Cursor%E4%B8%AD%E5%BC%80%E5%8F%91Java%E9%A1%B9%E7%9B%AE--%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E7%AF%87/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>在Cursor中开发Java项目 -- 开发环境常用插件 | 活页本</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">活页本</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://1008610.xyz/2025/02/08/%E5%9C%A8Cursor%E4%B8%AD%E5%BC%80%E5%8F%91Java%E9%A1%B9%E7%9B%AE--%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E7%AF%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="当">
+      <meta itemprop="description" content="live my life">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="活页本">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在Cursor中开发Java项目 -- 开发环境常用插件
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2025-02-08 20:32:22 / 修改时间：21:09:36" itemprop="dateCreated datePublished" datetime="2025-02-08T20:32:22+08:00">2025-02-08</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/cursor/" itemprop="url" rel="index"><span itemprop="name">cursor</span></a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span><br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="在Cursor中开发Java项目-–-开发环境常用插件"><a href="#在Cursor中开发Java项目-–-开发环境常用插件" class="headerlink" title="在Cursor中开发Java项目 – 开发环境常用插件"></a>在Cursor中开发Java项目 – 开发环境常用插件</h1><span id="more"></span>
+
+<p>在 Cursor 下开发 Java项目主要依赖 vs code 插件，以下主要介绍一些在Java项目开发下常用的插件：</p>
+<ul>
+<li><p>Extension Pack for Java：Java环境插件包(语言功能&#x2F;lombok&#x2F;debug&#x2F;test&#x2F;项目管理&#x2F;maven&#x2F;gradle&#x2F;refactor)</p>
+</li>
+<li><p>maven-dependency-explorer：maven 项目依赖分析</p>
+</li>
+<li><p>Gitlens：git功能增强</p>
+</li>
+<li><p>IntelliJ IDEA Keybindings：IDEA 快捷键</p>
+</li>
+<li><p>SQLTools &#x2F; SQL Notebook：数据库连接查询工具插件</p>
+</li>
+<li><p>Spring Boot Extension Pack：Spring boot 工程支撑插件包（springboot项目脚手架&#x2F;dashboard等）</p>
+</li>
+</ul>
+<h1 id="一、JAVA语言支持插件"><a href="#一、JAVA语言支持插件" class="headerlink" title="一、JAVA语言支持插件"></a>一、JAVA语言支持插件</h1><p>建议安装 Extension Pack for Java 插件大礼包，包含以下插件：</p>
+<ul>
+<li><p>Language support for java by red hat：</p>
+</li>
+<li><p>Debuger for java, </p>
+</li>
+<li><p>Test Runner for Java, </p>
+</li>
+<li><p>Maven for java, </p>
+</li>
+<li><p>Gradle for Java, </p>
+</li>
+<li><p>Project Manager for Java,</p>
+</li>
+<li><p>IntelliCode</p>
+</li>
+</ul>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210216371.png" alt="image-20250208210216371"></p>
+<h2 id="Java配置"><a href="#Java配置" class="headerlink" title="Java配置"></a>Java配置</h2><p>安装之后 (在settings.json中增加) 相关配置参考：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&quot;java.jdt.ls.java.home&quot;: &quot;/path/to/jdk21_install_path/&quot;,</span><br><span class="line">   &quot;java.completion.enabled&quot;: true,</span><br><span class="line">   &quot;java.configuration.runtimes&quot;: [</span><br><span class="line">       &#123;</span><br><span class="line">           &quot;name&quot;: &quot;JavaSE-1.8&quot;,</span><br><span class="line">           &quot;path&quot;: &quot;/path/to/jdk_install_path&quot;,</span><br><span class="line">           &quot;default&quot;: true</span><br><span class="line">       &#125;,</span><br><span class="line">       &#123;</span><br><span class="line">           &quot;name&quot;: &quot;JavaSE-1.7&quot;,</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="二、项目相关支持"><a href="#二、项目相关支持" class="headerlink" title="二、项目相关支持"></a>二、项目相关支持</h1><p>基于 Project Manager for Java 插件，提供项目创建、依赖管理、打包、结构预览等功能</p>
+<p>（当然现在比较常用的还是使用maven&#x2F;gradle管理项目，如果需要创建普通Java项目，那么还是由该插件支持）</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210243768.png" alt="image-20250208210243768"></p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210248375.png" alt="image-20250208210248375"></p>
+<h1 id="三、lombok支持"><a href="#三、lombok支持" class="headerlink" title="三、lombok支持"></a>三、lombok支持</h1><p>常用的 lombok 直接集成进 Language support for Java语言插件里面去了，所以很容易使用</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210253960.png" alt="image-20250208210253960"></p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210259937.png" alt="image-20250208210259937"></p>
+<h1 id="四、Debug-开发调试模式"><a href="#四、Debug-开发调试模式" class="headerlink" title="四、Debug 开发调试模式"></a>四、Debug 开发调试模式</h1><p>由 Debuger for java 插件支持</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210305918.png" alt="image-20250208210305918"></p>
+<p>相关的断点条件也支持</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210320560.png" alt="image-20250208210320560"></p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210324206.png" alt="image-20250208210324206"></p>
+<h1 id="五、maven编译插件"><a href="#五、maven编译插件" class="headerlink" title="五、maven编译插件"></a>五、maven编译插件</h1><p>Maven for java 插件支持常见 clean, compile, test, package, install, deploy 等常见命令，跟 IntelliJ IDEA 类似</p>
+<h2 id="1-maven配置"><a href="#1-maven配置" class="headerlink" title="1. maven配置"></a>1. maven配置</h2><p>在用户配置文件中(settings.json)加入配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">&quot;java.configuration.maven.globalSettings&quot;: &quot;/path/to/maven_install_path/conf/settings.xml&quot;,</span><br><span class="line">&quot;maven.executable.path&quot;: &quot;/path/to/maven_install_path/bin/mvn&quot;,</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-JAVA-HOME-设置"><a href="#2-JAVA-HOME-设置" class="headerlink" title="2. JAVA_HOME 设置"></a>2. JAVA_HOME 设置</h2><p>由于Java语言插件服务本身需要JDK17之后的版本，Maven for java 插件是跟语言插件相关的，所以，建议本机 JAVA_HOME 设置成 JDK17以后的版本，可以避免很多问题</p>
+<h2 id="3-依赖分析"><a href="#3-依赖分析" class="headerlink" title="3. 依赖分析"></a>3. 依赖分析</h2><p>对于 IDEA 下常用的依赖分析，可以直接导出 effective pom 来搜索，包含了完整的所有依赖包，下面还有一个插件maven-dependency-explorer 功能更强大</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210342410.png" alt="image-20250208210342410"></p>
+<h2 id="4-安全漏洞报告分析"><a href="#4-安全漏洞报告分析" class="headerlink" title="4. 安全漏洞报告分析"></a>4. 安全漏洞报告分析</h2><p>插件支持分析依赖中包含的安全漏洞报告</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210349743.png" alt="image-20250208210349743"></p>
+<h2 id="5-新建-maven-项目流程"><a href="#5-新建-maven-项目流程" class="headerlink" title="5. 新建 maven 项目流程"></a>5. 新建 maven 项目流程</h2><p>这里直接引用之前的另一个文档中的在 cursor 新建 maven 项目流程：</p>
+<p>使用 ctrl + shift + p 打开命令框，输入“java: create java project”，回车，</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210355993.png" alt="image-20250208210355993"></p>
+<p>选择 maven，回车</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210359720.png" alt="image-20250208210359720"></p>
+<p>选择项目原型： maven-archetype-quickstart （常用），回车</p>
+<p>选最新版本，回车</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210433142.png" alt="image-20250208210433142"></p>
+<p>然后输入创建 maven 项目的 group id, artifact id, 项目保存路径等信息，回车，maven 插件就会开始在命令行中执行 maven 项目创建的命令，</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210445730.png" alt="image-20250208210445730"></p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210451783.png" alt="image-20250208210451783"></p>
+<p>注意此时 maven 插件会提示确认以上信息，可以直接回车确认</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210457353.png" alt="image-20250208210457353"></p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210501080.png" alt="image-20250208210501080"></p>
+<p>然后弹框提示是否在新窗口打开新创建的maven项目</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210505785.png" alt="image-20250208210505785"></p>
+<p>打开项目之后如下图，默认生成了一个 App.java 类，</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210509569.png" alt="image-20250208210509569"></p>
+<p>此时点击 Run | Debug ，可以测试一下开发环境是否可以编译执行，正常会在终端命令行得到以下结果（vs-code 环境比起 Idea 环境展示了更多的真实的执行信息，没有把他们隐藏在UI背后）</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210515470.png" alt="image-20250208210515470"></p>
+<h2 id="6-打包"><a href="#6-打包" class="headerlink" title="6. 打包"></a>6. 打包</h2><p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210523684.png" alt="image-20250208210523684"></p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210526917.png" alt="image-20250208210526917"></p>
+<h1 id="六、maven-依赖分析"><a href="#六、maven-依赖分析" class="headerlink" title="六、maven 依赖分析"></a>六、maven 依赖分析</h1><p>使用 maven-dependency-explorer 插件</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210532269.png" alt="image-20250208210532269"></p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210538303.png" alt="image-20250208210538303"></p>
+<h1 id="七、代码托管：gitlab"><a href="#七、代码托管：gitlab" class="headerlink" title="七、代码托管：gitlab"></a>七、代码托管：gitlab</h1><h2 id="1-新建gitlab远程仓库"><a href="#1-新建gitlab远程仓库" class="headerlink" title="1. 新建gitlab远程仓库"></a>1. 新建gitlab远程仓库</h2><p>在 gitlab&#x2F;github仓库上创建远程仓库，不截图展示了</p>
+<h2 id="2-本地项目初始化-git-目录"><a href="#2-本地项目初始化-git-目录" class="headerlink" title="2. 本地项目初始化 git 目录"></a>2. 本地项目初始化 git 目录</h2><p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps1.jpg" alt="img"></p>
+<h2 id="3-安装-GitLens-插件"><a href="#3-安装-GitLens-插件" class="headerlink" title="3. 安装 GitLens 插件"></a>3. 安装 GitLens 插件</h2><p>GitLens 是vscode下一款对git操作支持较强的插件，本身收费，可以进行使用其完整功能，安装完成之后，左边“源码管理tab”下会多出几个栏</p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps2.jpg" alt="img"></p>
+<p>此处贴上一篇对于gitlens使用讲解很详细的，对于git的一些常用操作也有很好的补充讲解，以下是一些演示：</p>
+<h3 id="a-add-commit"><a href="#a-add-commit" class="headerlink" title="a) add &amp; commit"></a>a) add &amp; commit</h3><p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps3.jpg" alt="img"><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps4.jpg" alt="img"></p>
+<h3 id="b-push-到远程仓库"><a href="#b-push-到远程仓库" class="headerlink" title="b) push 到远程仓库"></a>b) push 到远程仓库</h3><p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps5.jpg" alt="img"><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps6.jpg" alt="img"></p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps7.jpg" alt="img"> </p>
+<h3 id="c-从远程仓库拉取更新"><a href="#c-从远程仓库拉取更新" class="headerlink" title="c) 从远程仓库拉取更新"></a>c) 从远程仓库拉取更新</h3><p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps8.jpg" alt="img"></p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps9.jpg" alt="img"> </p>
+<h3 id="d-遇到冲突处理"><a href="#d-遇到冲突处理" class="headerlink" title="d) 遇到冲突处理"></a>d) 遇到冲突处理</h3><p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps10.jpg" alt="img"></p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps11.jpg" alt="img"> </p>
+<p>在起冲突的情况下，gitlens不允许直接pull更新或者push，需要先解决冲突或者想办法回退本地更改(可以将本地commit回退，然后创建stash暂存起来)之后pull，再push</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210647590.png" alt="image-20250208210647590"></p>
+<h1 id="八、快捷键：IntelliJ-IDEA-Keybindings"><a href="#八、快捷键：IntelliJ-IDEA-Keybindings" class="headerlink" title="八、快捷键：IntelliJ IDEA Keybindings"></a>八、快捷键：IntelliJ IDEA Keybindings</h1><p>支持使用 IntelliJ IDEA 快捷键</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210706349.png" alt="image-20250208210706349"></p>
+<h1 id="九、在Cursor下查询数据库"><a href="#九、在Cursor下查询数据库" class="headerlink" title="九、在Cursor下查询数据库"></a>九、在Cursor下查询数据库</h1><h2 id="1-插件：SQLTools"><a href="#1-插件：SQLTools" class="headerlink" title="1. 插件：SQLTools"></a>1. 插件：SQLTools</h2><p>支持连接多种数据源，安装之后在左侧panel中会出现一个连接预览面板</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210713337.png" alt="image-20250208210713337"></p>
+<p>点击 add new connection 右边选择 driver，一开始默认没有任何 driver，点击 search vs code marketplace，左边自动搜索可用 driver</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210719906.png" alt="image-20250208210719906"></p>
+<p>安装 mysql、clickhouse 等常用 driver</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210723977.png" alt="image-20250208210723977"></p>
+<p>新建一个本地mysql连接测试一下</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210728011.png" alt="image-20250208210728011"></p>
+<p>界面简洁清晰</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210734018.png" alt="image-20250208210734018"></p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210737374.png" alt="image-20250208210737374"></p>
+<h2 id="2-插件：SQL-Notebook"><a href="#2-插件：SQL-Notebook" class="headerlink" title="2. 插件：SQL Notebook"></a>2. 插件：SQL Notebook</h2><p>支持类似 python jupyter notebook 风格的操作界面，支持 mysql等多种数据库</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210743688.png" alt="image-20250208210743688"></p>
+<p>新建一个测试sql文件，右键 open with … SQL Notebook</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210747442.png" alt="image-20250208210747442"></p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210751633.png" alt="image-20250208210751633"></p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210755954.png" alt="image-20250208210755954"></p>
+<h2 id="3-SQLTools、SQL-Notebook-两个插件也可以一起使用，"><a href="#3-SQLTools、SQL-Notebook-两个插件也可以一起使用，" class="headerlink" title="3. SQLTools、SQL Notebook 两个插件也可以一起使用，"></a>3. SQLTools、SQL Notebook 两个插件也可以一起使用，</h2><p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210802959.png" alt="image-20250208210802959"></p>
+<p>以上在 SQL Notebook 下编辑保存之后得到的就是一个 sql 文本文件，可多次编辑保存，提交 git 方便版本控制等等</p>
+<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210806902.png" alt="image-20250208210806902"></p>
+<h1 id="十、Java开发重构"><a href="#十、Java开发重构" class="headerlink" title="十、Java开发重构"></a>十、Java开发重构</h1><p>Language support for java by red hat 插件支持重构的常见各种操作，选中需要重构的代码，右键 Refactor (ctrl + T)，会根据代码情况出现相关提示框进行相关操作</p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps12.jpg" alt="img"></p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps13.jpg" alt="img"> </p>
+<h1 id="十一、开发单元测试"><a href="#十一、开发单元测试" class="headerlink" title="十一、开发单元测试"></a>十一、开发单元测试</h1><p>由 Test Runner for java 插件支持，安装之后左侧 panel 会出现 Test Explorer 面板，列出项目中的单元测试列表，方便执行操作</p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps14.jpg" alt="img"></p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps15.jpg" alt="img"> </p>
+<h1 id="十二、Spring应用开发"><a href="#十二、Spring应用开发" class="headerlink" title="十二、Spring应用开发"></a>十二、Spring应用开发</h1><h2 id="spring-项目脚手架：Spring-Initializr-Java-Support"><a href="#spring-项目脚手架：Spring-Initializr-Java-Support" class="headerlink" title="spring 项目脚手架：Spring Initializr Java Support"></a>spring 项目脚手架：Spring Initializr Java Support</h2><p>ctrl + shift + p，打开命令框，输入 create java project，然后选择 :</p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps16.jpg" alt="img"></p>
+<p>spring boot 工程 &gt; maven project &gt; springboot 版本号 &gt; java 开发语言 &gt; groupId &gt; artifactId &gt; 打包类型(jar) &gt; JDK 版本(看起来现在只支持17及以后的版本了) &gt; 预选依赖(web, mysql, jdbc, redis …) &gt; 项目存放路径 &gt; 然后新窗口打开项目</p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps17.jpg" alt="img"><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps18.jpg" alt="img"></p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps19.jpg" alt="img"><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps20.jpg" alt="img"> </p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps21.jpg" alt="img"> </p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps22.jpg" alt="img"> </p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps23.jpg" alt="img"><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps24.jpg" alt="img"> </p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps25.jpg" alt="img"> </p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps26.jpg" alt="img"> </p>
+<h2 id="springboot-应用程序看板：springboot-dashboard"><a href="#springboot-应用程序看板：springboot-dashboard" class="headerlink" title="springboot 应用程序看板：springboot dashboard"></a>springboot 应用程序看板：springboot dashboard</h2><p>启动应用程序之后在左边panel下打开 springboot dashboard，会显示应用程序中对应的bean, api接口, 配置信息等</p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps27.jpg" alt="img"></p>
+<h2 id="springboot-项目开发工具：spring-boot-tools"><a href="#springboot-项目开发工具：spring-boot-tools" class="headerlink" title="springboot 项目开发工具：spring boot tools"></a>springboot 项目开发工具：spring boot tools</h2><p>安装插件：Spring Boot Tools</p>
+<p>安装之后，对于springboot项目常用的注解、配置等会有自动提示，</p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps28.jpg" alt="img"> </p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps29.jpg" alt="img"> </p>
+<p>ctrl + shift + o 快速查看都有哪些接口可以访问，选中可以快速跳转访问测试</p>
+<p><img src="file:///C:\Users\JIA\AppData\Local\Temp\ksohtml8944\wps30.jpg" alt="img"></p>
+<p>注：ctrl+shift+o快捷键本来绑定的操作是文件&#x2F;变量&#x2F;符号等跳转，spring boot tools 插件给这个操作添加了一些：url、rest接口路径mapping 绑定的跳转</p>
+<p>（快捷键有可能跟IntelliJ IDEA keybindings 插件定义的一些快捷键冲突，稍为调整一下即可）</p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>本文作者： </strong>当
+  </li>
+  <li class="post-copyright-link">
+    <strong>本文链接：</strong>
+    <a href="http://1008610.xyz/2025/02/08/%E5%9C%A8Cursor%E4%B8%AD%E5%BC%80%E5%8F%91Java%E9%A1%B9%E7%9B%AE--%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E7%AF%87/" title="在Cursor中开发Java项目 -- 开发环境常用插件">http://1008610.xyz/2025/02/08/在Cursor中开发Java项目--开发环境常用插件篇/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/cursor/" rel="tag"># cursor</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/12/18/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" rel="prev" title="多线程">
+      <i class="fa fa-chevron-left"></i> 多线程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/02/08/%E5%9C%A8Cursor%E4%B8%AD%E5%BC%80%E5%8F%91Java%E9%A1%B9%E7%9B%AE--%E4%B8%9A%E5%8A%A1%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/" rel="next" title="在Cursor中开发Java项目 -- 开发环境常用插件">
+      在Cursor中开发Java项目 -- 开发环境常用插件 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+      <div class="tabs tabs-comment">
+        <ul class="nav-tabs">
+            <li class="tab"><a href="#comment-livere">livere</a></li>
+            <li class="tab"><a href="#comment-utterances">utterances</a></li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane livere" id="comment-livere">
+              
+  <div class="comments">
+    <div id="lv-container" data-id="city" data-uid="MTAyMC82MDA4Ni8zNjU1Mg=="></div>
+  </div>
+  
+            </div>
+            <div class="tab-pane utterances" id="comment-utterances">
+              <div class="comments" id="utterances-container"></div>
+            </div>
+        </div>
+      </div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8Cursor%E4%B8%AD%E5%BC%80%E5%8F%91Java%E9%A1%B9%E7%9B%AE-%E2%80%93-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">在Cursor中开发Java项目 – 开发环境常用插件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%80%E3%80%81JAVA%E8%AF%AD%E8%A8%80%E6%94%AF%E6%8C%81%E6%8F%92%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">一、JAVA语言支持插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Java%E9%85%8D%E7%BD%AE"><span class="nav-number">2.1.</span> <span class="nav-text">Java配置</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E9%A1%B9%E7%9B%AE%E7%9B%B8%E5%85%B3%E6%94%AF%E6%8C%81"><span class="nav-number">3.</span> <span class="nav-text">二、项目相关支持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%89%E3%80%81lombok%E6%94%AF%E6%8C%81"><span class="nav-number">4.</span> <span class="nav-text">三、lombok支持</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9B%9B%E3%80%81Debug-%E5%BC%80%E5%8F%91%E8%B0%83%E8%AF%95%E6%A8%A1%E5%BC%8F"><span class="nav-number">5.</span> <span class="nav-text">四、Debug 开发调试模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BA%94%E3%80%81maven%E7%BC%96%E8%AF%91%E6%8F%92%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text">五、maven编译插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-maven%E9%85%8D%E7%BD%AE"><span class="nav-number">6.1.</span> <span class="nav-text">1. maven配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-JAVA-HOME-%E8%AE%BE%E7%BD%AE"><span class="nav-number">6.2.</span> <span class="nav-text">2. JAVA_HOME 设置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E4%BE%9D%E8%B5%96%E5%88%86%E6%9E%90"><span class="nav-number">6.3.</span> <span class="nav-text">3. 依赖分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-%E5%AE%89%E5%85%A8%E6%BC%8F%E6%B4%9E%E6%8A%A5%E5%91%8A%E5%88%86%E6%9E%90"><span class="nav-number">6.4.</span> <span class="nav-text">4. 安全漏洞报告分析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-%E6%96%B0%E5%BB%BA-maven-%E9%A1%B9%E7%9B%AE%E6%B5%81%E7%A8%8B"><span class="nav-number">6.5.</span> <span class="nav-text">5. 新建 maven 项目流程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-%E6%89%93%E5%8C%85"><span class="nav-number">6.6.</span> <span class="nav-text">6. 打包</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AD%E3%80%81maven-%E4%BE%9D%E8%B5%96%E5%88%86%E6%9E%90"><span class="nav-number">7.</span> <span class="nav-text">六、maven 依赖分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B8%83%E3%80%81%E4%BB%A3%E7%A0%81%E6%89%98%E7%AE%A1%EF%BC%9Agitlab"><span class="nav-number">8.</span> <span class="nav-text">七、代码托管：gitlab</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%96%B0%E5%BB%BAgitlab%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-number">8.1.</span> <span class="nav-text">1. 新建gitlab远程仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%9C%AC%E5%9C%B0%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E5%8C%96-git-%E7%9B%AE%E5%BD%95"><span class="nav-number">8.2.</span> <span class="nav-text">2. 本地项目初始化 git 目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-%E5%AE%89%E8%A3%85-GitLens-%E6%8F%92%E4%BB%B6"><span class="nav-number">8.3.</span> <span class="nav-text">3. 安装 GitLens 插件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#a-add-commit"><span class="nav-number">8.3.1.</span> <span class="nav-text">a) add &amp; commit</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#b-push-%E5%88%B0%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93"><span class="nav-number">8.3.2.</span> <span class="nav-text">b) push 到远程仓库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#c-%E4%BB%8E%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E6%8B%89%E5%8F%96%E6%9B%B4%E6%96%B0"><span class="nav-number">8.3.3.</span> <span class="nav-text">c) 从远程仓库拉取更新</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#d-%E9%81%87%E5%88%B0%E5%86%B2%E7%AA%81%E5%A4%84%E7%90%86"><span class="nav-number">8.3.4.</span> <span class="nav-text">d) 遇到冲突处理</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%AB%E3%80%81%E5%BF%AB%E6%8D%B7%E9%94%AE%EF%BC%9AIntelliJ-IDEA-Keybindings"><span class="nav-number">9.</span> <span class="nav-text">八、快捷键：IntelliJ IDEA Keybindings</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%B9%9D%E3%80%81%E5%9C%A8Cursor%E4%B8%8B%E6%9F%A5%E8%AF%A2%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">10.</span> <span class="nav-text">九、在Cursor下查询数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-%E6%8F%92%E4%BB%B6%EF%BC%9ASQLTools"><span class="nav-number">10.1.</span> <span class="nav-text">1. 插件：SQLTools</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-%E6%8F%92%E4%BB%B6%EF%BC%9ASQL-Notebook"><span class="nav-number">10.2.</span> <span class="nav-text">2. 插件：SQL Notebook</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-SQLTools%E3%80%81SQL-Notebook-%E4%B8%A4%E4%B8%AA%E6%8F%92%E4%BB%B6%E4%B9%9F%E5%8F%AF%E4%BB%A5%E4%B8%80%E8%B5%B7%E4%BD%BF%E7%94%A8%EF%BC%8C"><span class="nav-number">10.3.</span> <span class="nav-text">3. SQLTools、SQL Notebook 两个插件也可以一起使用，</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E3%80%81Java%E5%BC%80%E5%8F%91%E9%87%8D%E6%9E%84"><span class="nav-number">11.</span> <span class="nav-text">十、Java开发重构</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E5%BC%80%E5%8F%91%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-number">12.</span> <span class="nav-text">十一、开发单元测试</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81Spring%E5%BA%94%E7%94%A8%E5%BC%80%E5%8F%91"><span class="nav-number">13.</span> <span class="nav-text">十二、Spring应用开发</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#spring-%E9%A1%B9%E7%9B%AE%E8%84%9A%E6%89%8B%E6%9E%B6%EF%BC%9ASpring-Initializr-Java-Support"><span class="nav-number">13.1.</span> <span class="nav-text">spring 项目脚手架：Spring Initializr Java Support</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#springboot-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F%E7%9C%8B%E6%9D%BF%EF%BC%9Aspringboot-dashboard"><span class="nav-number">13.2.</span> <span class="nav-text">springboot 应用程序看板：springboot dashboard</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#springboot-%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%EF%BC%9Aspring-boot-tools"><span class="nav-number">13.3.</span> <span class="nav-text">springboot 项目开发工具：spring boot tools</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="当"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">当</p>
+  <div class="site-description" itemprop="description">live my life</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/bobbyfined" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bobbyfined" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://baidu.com/" title="https:&#x2F;&#x2F;baidu.com" rel="noopener" target="_blank">百度</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+      <!--网易云插件-->
+      <!--
+      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 
+        src="//music.163.com/outchain/player?type=2&id=2135473788&auto=1&height=66">
+      </iframe>
+      -->
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2024-08 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">当</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">139k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">2:06</span>
+</div>
+
+    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
+    <span class="post-meta-divider">|</span>
+<!-- 不蒜子计数初始值纠正 -->
+<script>
+$(document).ready(function() {
+
+    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
+    var countOffset = 20000;  // 初始化首次数据
+
+    function fixCount() {            
+       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
+        {
+            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
+            clearInterval(int);
+        }                  
+        if ($("#busuanzi_container_site_pv").css("display") != "none")
+        {
+            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
+            clearInterval(int); // 停止检测
+        }  
+    }
+       	
+});
+</script> 
+
+        
+<div class="busuanzi-count">
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
+  window.livereOptions = {
+    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+});
+</script>
+
+<script>
+NexT.utils.loadComments(document.querySelector('#utterances-container'), () => {
+    // if (typeof parcelRequire === 'function') { return; }
+    var js = document.createElement('script');
+    js.type = 'text/javascript';
+    js.src = 'https://utteranc.es/client.js';
+    js.async = true;
+    js.crossorigin = 'anonymous';
+    js.setAttribute('repo', 'bobbyfined/boke-comments');
+    js.setAttribute('issue-term', 'pathname');
+    js.setAttribute('theme', 'github-light');
+    document.getElementById('utterances-container').appendChild(js);
+});
+</script>
+  
+  
+    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
+    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
+    <script src="/js/cursor/explosion.min.js"></script>
+  
+
+
+
+</body>
+</html>
