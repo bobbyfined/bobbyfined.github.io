@@ -353,8 +353,8 @@
       <i class="fa fa-chevron-left"></i> java spi
     </a></div>
       <div class="post-nav-item">
-    <a href="/2023/04/01/Git%20Commit%E8%A7%84%E8%8C%83/" rel="next" title="Git Commit规范">
-      Git Commit规范 <i class="fa fa-chevron-right"></i>
+    <a href="/2023/04/01/idea%E9%85%8D%E7%BD%AE%E7%88%B6%E5%AD%90%E6%A8%A1%E5%9D%97%E5%B7%A5%E7%A8%8B/" rel="next" title="idea配置父子模块工程">
+      idea配置父子模块工程 <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -370,19 +370,19 @@
           
       <div class="tabs tabs-comment">
         <ul class="nav-tabs">
-            <li class="tab"><a href="#comment-livere">livere</a></li>
             <li class="tab"><a href="#comment-utterances">utterances</a></li>
+            <li class="tab"><a href="#comment-livere">livere</a></li>
         </ul>
         <div class="tab-content">
+            <div class="tab-pane utterances" id="comment-utterances">
+              <div class="comments" id="utterances-container"></div>
+            </div>
             <div class="tab-pane livere" id="comment-livere">
               
   <div class="comments">
     <div id="lv-container" data-id="city" data-uid="MTAyMC82MDA4Ni8zNjU1Mg=="></div>
   </div>
   
-            </div>
-            <div class="tab-pane utterances" id="comment-utterances">
-              <div class="comments" id="utterances-container"></div>
             </div>
         </div>
       </div>
@@ -448,20 +448,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-count">34</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">11</span>
+        <span class="site-state-item-count">12</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">18</span>
+        <span class="site-state-item-count">19</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -518,12 +518,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">144k</span>
+    <span title="站点总字数">147k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">2:11</span>
+    <span title="站点阅读时长">2:14</span>
 </div>
 
     <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
@@ -627,6 +627,20 @@ $(document).ready(function() {
   
 
 <script>
+NexT.utils.loadComments(document.querySelector('#utterances-container'), () => {
+    // if (typeof parcelRequire === 'function') { return; }
+    var js = document.createElement('script');
+    js.type = 'text/javascript';
+    js.src = 'https://utteranc.es/client.js';
+    js.async = true;
+    js.crossorigin = 'anonymous';
+    js.setAttribute('repo', 'bobbyfined/boke-comments');
+    js.setAttribute('issue-term', 'pathname');
+    js.setAttribute('theme', 'github-light');
+    document.getElementById('utterances-container').appendChild(js);
+});
+</script>
+<script>
 NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
   window.livereOptions = {
     refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
@@ -642,20 +656,6 @@ NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
 });
 </script>
 
-<script>
-NexT.utils.loadComments(document.querySelector('#utterances-container'), () => {
-    // if (typeof parcelRequire === 'function') { return; }
-    var js = document.createElement('script');
-    js.type = 'text/javascript';
-    js.src = 'https://utteranc.es/client.js';
-    js.async = true;
-    js.crossorigin = 'anonymous';
-    js.setAttribute('repo', 'bobbyfined/boke-comments');
-    js.setAttribute('issue-term', 'pathname');
-    js.setAttribute('theme', 'github-light');
-    document.getElementById('utterances-container').appendChild(js);
-});
-</script>
   
   
     <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>

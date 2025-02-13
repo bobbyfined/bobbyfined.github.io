@@ -22,24 +22,35 @@
     var CONFIG = {"hostname":"1008610.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="工程输出中文乱码，全局各种配置UTF-8后依旧没作用">
+  <meta name="description" content="使用ollama本地搭建deepseek">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工程输出中文乱码，全局各种配置UTF-8后依旧没作用">
-<meta property="og:url" content="http://1008610.xyz/2023/02/01/%E5%B7%A5%E7%A8%8B%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%EF%BC%8C%E5%85%A8%E5%B1%80%E5%90%84%E7%A7%8D%E9%85%8D%E7%BD%AEUTF-8%E5%90%8E%E4%BE%9D%E6%97%A7%E6%B2%A1%E4%BD%9C%E7%94%A8/index.html">
+<meta property="og:title" content="使用ollama本地搭建deepseek">
+<meta property="og:url" content="http://1008610.xyz/2025/02/13/%E4%BD%BF%E7%94%A8ollama%E6%9C%AC%E5%9C%B0%E6%90%AD%E5%BB%BAdeepseek/index.html">
 <meta property="og:site_name" content="活页本">
-<meta property="og:description" content="工程输出中文乱码，全局各种配置UTF-8后依旧没作用">
+<meta property="og:description" content="使用ollama本地搭建deepseek">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215714572.png">
-<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215737087.png">
-<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215743081.png">
-<meta property="article:published_time" content="2023-02-01T12:14:36.000Z">
-<meta property="article:modified_time" content="2025-02-07T15:04:48.302Z">
+<meta property="og:image" content="https://files.mdnice.com/user/3808/71874308-fcae-4396-9de6-7b0eff4b1a53.png">
+<meta property="og:image" content="https://files.mdnice.com/user/3808/b689881b-4e82-4021-bfb7-01bf162fcff4.png">
+<meta property="og:image" content="https://files.mdnice.com/user/3808/658fc2cf-5c03-45ed-a874-f9ce90acaf29.png">
+<meta property="og:image" content="https://files.mdnice.com/user/3808/5f9df3c9-169f-4de4-aacc-9ae50d3c8c3b.png">
+<meta property="og:image" content="https://files.mdnice.com/user/3808/78819f9a-9dd0-4538-90b3-35afb479dd72.png">
+<meta property="og:image" content="https://files.mdnice.com/user/3808/655e795b-1c30-4cb7-9a05-a825331c6026.png">
+<meta property="og:image" content="https://files.mdnice.com/user/3808/020ed518-3f8d-4089-85d0-89cdec1b3faf.png">
+<meta property="og:image" content="https://files.mdnice.com/user/3808/8fd331a5-2172-43be-8b12-5469f68220f5.png">
+<meta property="og:image" content="https://files.mdnice.com/user/3808/4f1f660e-ea99-4da5-aee1-fa525319f638.png">
+<meta property="og:image" content="https://files.mdnice.com/user/3808/f7c9e382-7789-4a49-8735-edafe6993fb2.png">
+<meta property="og:image" content="https://files.mdnice.com/user/3808/15ec3dd0-3cab-475f-b35d-d60376ee5406.png">
+<meta property="og:image" content="https://files.mdnice.com/user/3808/b08455e4-9ae0-4fc4-946c-ddfd245d6877.png">
+<meta property="og:image" content="https://files.mdnice.com/user/3808/fe5f6c40-656a-4f78-8b1b-143f9755a3d3.png">
+<meta property="og:image" content="https://files.mdnice.com/user/3808/8cdb824c-cf78-4fdd-a01a-309378139684.png">
+<meta property="article:published_time" content="2025-02-13T06:32:22.000Z">
+<meta property="article:modified_time" content="2025-02-13T02:12:20.604Z">
 <meta property="article:author" content="当">
-<meta property="article:tag" content="java">
+<meta property="article:tag" content="deepseek">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215714572.png">
+<meta name="twitter:image" content="https://files.mdnice.com/user/3808/71874308-fcae-4396-9de6-7b0eff4b1a53.png">
 
-<link rel="canonical" href="http://1008610.xyz/2023/02/01/%E5%B7%A5%E7%A8%8B%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%EF%BC%8C%E5%85%A8%E5%B1%80%E5%90%84%E7%A7%8D%E9%85%8D%E7%BD%AEUTF-8%E5%90%8E%E4%BE%9D%E6%97%A7%E6%B2%A1%E4%BD%9C%E7%94%A8/">
+<link rel="canonical" href="http://1008610.xyz/2025/02/13/%E4%BD%BF%E7%94%A8ollama%E6%9C%AC%E5%9C%B0%E6%90%AD%E5%BB%BAdeepseek/">
 
 
 <script id="page-configurations">
@@ -52,7 +63,7 @@
   };
 </script>
 
-  <title>工程输出中文乱码，全局各种配置UTF-8后依旧没作用 | 活页本</title>
+  <title>使用ollama本地搭建deepseek | 活页本</title>
   
 
 
@@ -172,7 +183,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://1008610.xyz/2023/02/01/%E5%B7%A5%E7%A8%8B%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%EF%BC%8C%E5%85%A8%E5%B1%80%E5%90%84%E7%A7%8D%E9%85%8D%E7%BD%AEUTF-8%E5%90%8E%E4%BE%9D%E6%97%A7%E6%B2%A1%E4%BD%9C%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="http://1008610.xyz/2025/02/13/%E4%BD%BF%E7%94%A8ollama%E6%9C%AC%E5%9C%B0%E6%90%AD%E5%BB%BAdeepseek/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.jpg">
@@ -185,7 +196,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          工程输出中文乱码，全局各种配置UTF-8后依旧没作用
+          使用ollama本地搭建deepseek
         </h1>
 
         <div class="post-meta">
@@ -194,23 +205,17 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
+              
 
-              <time title="创建时间：2023-02-01 20:14:36" itemprop="dateCreated datePublished" datetime="2023-02-01T20:14:36+08:00">2023-02-01</time>
+              <time title="创建时间：2025-02-13 14:32:22 / 修改时间：10:12:20" itemprop="dateCreated datePublished" datetime="2025-02-13T14:32:22+08:00">2025-02-13</time>
             </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-02-07 23:04:48" itemprop="dateModified" datetime="2025-02-07T23:04:48+08:00">2025-02-07</time>
-              </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
                 <i class="far fa-folder"></i>
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
+                  <a href="/categories/AI/" itemprop="url" rel="index"><span itemprop="name">AI</span></a>
                 </span>
             </span>
 
@@ -227,14 +232,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -246,25 +251,50 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h1 id="工程输出中文乱码，全局各种配置UTF-8后依旧没作用"><a href="#工程输出中文乱码，全局各种配置UTF-8后依旧没作用" class="headerlink" title="工程输出中文乱码，全局各种配置UTF-8后依旧没作用"></a>工程输出中文乱码，全局各种配置UTF-8后依旧没作用</h1><span id="more"></span>
+        <h1 id="使用ollama本地搭建deepseek"><a href="#使用ollama本地搭建deepseek" class="headerlink" title="使用ollama本地搭建deepseek"></a>使用ollama本地搭建deepseek</h1><span id="more"></span>
 
-<p><strong>旧开发的坑</strong></p>
-<p><strong>首先检查工程之前的编码，以前的开发没注意创建一些文件时会直接默认成GBK编码，打开项目，idea编译器会提示为GBK编码，中文显示乱码，一开始就设置项目为GBK才能看到中文显示，而现在开发大部分默认设置成UTF-8，</strong></p>
-<p><strong>所以新建文件都是UTF-8，编译走了UTF-8后执行就会显示成中文乱码，暴力解决思路，把涉及到的文件删除新建，或者整个工程重新新建，一开始就默认成了UTF-8就能解决一切</strong></p>
-<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215714572.png" alt="image-20250207215714572"></p>
-<p><strong>因为文件编码与全局编码设置不一样，重新建一个文件覆盖这个同名文件即可，可能是之前开发建文件时的全局编码设置为gbk导致，然后现在开发设置的全局编码普遍为utf-8，所以编译执行后中文就会乱码</strong></p>
-<p>#############################################</p>
-<p><strong>常规解决</strong></p>
-<p><strong>解决方案一、****项目设置pom文件编译的编码格式为utf-8</strong></p>
-<p>在maven项目的pom.xml文件设置编译插件及项目编码<encoding>UTF-8</encoding>，具体如下图所示</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;</span><br><span class="line">        &lt;!-- 插件 --&gt;</span><br><span class="line">        &lt;plugins&gt;</span><br><span class="line">            &lt;!-- 编译插件 --&gt;</span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;</span><br><span class="line">                &lt;version&gt;3.3&lt;/version&gt;</span><br><span class="line">                &lt;configuration&gt;</span><br><span class="line">                    &lt;compilerVersion&gt;$&#123;java.version&#125;&lt;/compilerVersion&gt;</span><br><span class="line">                    &lt;source&gt;$&#123;java.version&#125;&lt;/source&gt;</span><br><span class="line">                    &lt;target&gt;$&#123;java.version&#125;&lt;/target&gt;</span><br><span class="line">                    &lt;encoding&gt;UTF-8&lt;/encoding&gt;</span><br><span class="line">                    &lt;!-- prevents endPosTable exception for maven compile --&gt;</span><br><span class="line">                    &lt;useIncrementalCompilation&gt;false&lt;/useIncrementalCompilation&gt;</span><br><span class="line">                &lt;/configuration&gt;</span><br><span class="line">            &lt;/plugin&gt;</span><br><span class="line">        &lt;/plugins&gt;</span><br><span class="line">&lt;/build&gt;</span><br></pre></td></tr></table></figure>
-
-<p><strong>解决方案二、idea设置File Encodings为utf-8</strong></p>
-<p>idea打开配置，搜索encode，配置如下图所示：</p>
-<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215737087.png" alt="image-20250207215737087"></p>
-<p><strong>解决方案三、tomcat启动配置设置VM编码参数</strong></p>
-<p>编辑tomcat启动配置，添加VM参数：-Dfile.encoding&#x3D;UTF-8</p>
-<p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215743081.png" alt="image-20250207215743081"></p>
+<h2 id="1、准备工作"><a href="#1、准备工作" class="headerlink" title="1、准备工作"></a>1、准备工作</h2><p>1、电脑配置：确保你的电脑具备一定的硬件性能，至少拥有 8GB 及以上的运行内存和足够的硬盘空间。如果有英伟达显卡，部署和运行会更加流畅。</p>
+<p>2、下载 ollama：你可以在 ollama 的官方网站（<code>https://ollama.ai/</code>）上找到对应你操作系统（Windows、MacOS 或 Linux）的安装包，下载并安装。</p>
+<p>简单来说，如果你的电脑配置满足最低要求（如8GB内存以上），就可以通过工具（如Ollama）轻松实现本地部署<code>DeepSeek</code>。</p>
+<p>实践是检验真理的唯一标准，话不多说，开干。</p>
+<h2 id="2、本地电脑部署DeepSeek大模型具体步骤"><a href="#2、本地电脑部署DeepSeek大模型具体步骤" class="headerlink" title="2、本地电脑部署DeepSeek大模型具体步骤"></a>2、本地电脑部署DeepSeek大模型具体步骤</h2><h4 id="1、安装ollama"><a href="#1、安装ollama" class="headerlink" title="1、安装ollama"></a>1、安装ollama</h4><p>1、本地部署首先要安装ollama，<code>ollama</code> 是一个用于在本地运行大语言模型的工具，它能让你在自己的电脑上轻松部署和使用各类模型。你可以把它理解为，一个装AI的盒子，把AI装在盒子里，方便管理。</p>
+<p>访问<code>ollama</code>下载地址:<code>https://ollama.com/download</code></p>
+<p><img src="https://files.mdnice.com/user/3808/71874308-fcae-4396-9de6-7b0eff4b1a53.png" alt="img"></p>
+<p>根据自己的电脑类型，选择不同版本。</p>
+<p>2、接下来以Windows为例，下载好安装后，双击安装。（傻瓜式安装即可）</p>
+<p><img src="https://files.mdnice.com/user/3808/b689881b-4e82-4021-bfb7-01bf162fcff4.png" alt="img"></p>
+<p>安装完成后，ollama会在后台运行，任务栏会出现一个类似羊驼的图标。<br><img src="https://files.mdnice.com/user/3808/658fc2cf-5c03-45ed-a874-f9ce90acaf29.png" alt="img"></p>
+<h4 id="2、选择要安装的模型"><a href="#2、选择要安装的模型" class="headerlink" title="2、选择要安装的模型"></a>2、选择要安装的模型</h4><p>1、访问<code>https://ollama.com/search</code>,选择要安装的模型</p>
+<p><img src="https://files.mdnice.com/user/3808/5f9df3c9-169f-4de4-aacc-9ae50d3c8c3b.png" alt="img"></p>
+<p>2、点击选择<code>deepseek-r1</code>，进入模型参数界面</p>
+<p><img src="https://files.mdnice.com/user/3808/78819f9a-9dd0-4538-90b3-35afb479dd72.png" alt="img"></p>
+<p>这里的数字越大，参数越多，性能越强，所需要的配置也就越高，1.5b代表模型具备15亿参数。</p>
+<p>例如，若要运行14b参数模型，需要大约11.5G显存。也就是你的电脑显卡最好要达到16G。</p>
+<p>若个人学习用途，一般建议安装最小的1.5b版本即可。大多数的个人电脑配置都能跑的起来。具体大家可以根据自己的电脑性能选择。</p>
+<p>3、以<code>1.5b</code>参数为例，选择1.5b参数后，复制红框中的命令<code>ollama run deepseek-r1:1.5b</code>。</p>
+<p><img src="https://files.mdnice.com/user/3808/655e795b-1c30-4cb7-9a05-a825331c6026.png" alt="img"></p>
+<p>详细地址: <code>https://ollama.com/library/deepseek-r1:1.5b</code></p>
+<h4 id="3、安装模型"><a href="#3、安装模型" class="headerlink" title="3、安装模型"></a>3、安装模型</h4><p>1、打开命令行，在命令行中输入:<code>ollama run deepseek-r1:1.5b</code></p>
+<p><img src="https://files.mdnice.com/user/3808/020ed518-3f8d-4089-85d0-89cdec1b3faf.png" alt="img"></p>
+<p>2、下载成功后，就可以与模型对话啦。<br><img src="https://files.mdnice.com/user/3808/8fd331a5-2172-43be-8b12-5469f68220f5.png" alt="img"></p>
+<p>此时大模型安装在你的电脑上，就算断网也可以继续用，再也不用担心数据泄露了。</p>
+<h4 id="4、使用模型"><a href="#4、使用模型" class="headerlink" title="4、使用模型"></a>4、使用模型</h4><p>安装好模型后，此时我们可以通过命令行的方式，在命令行中发送消息来与DeepSeek 大模型对话。</p>
+<p>1、例如我的第一个问题是：”世界上是先有鸡还是先有蛋？”</p>
+<p><img src="https://files.mdnice.com/user/3808/4f1f660e-ea99-4da5-aee1-fa525319f638.png" alt="img"><br>对于这个问题，回答的还可以，果然是推理型模型，思考的过程也给我们列出来了。</p>
+<p>2、我的第二个问题是：”你是如何看待DeepSeek爆火的原因“？</p>
+<p><img src="https://files.mdnice.com/user/3808/f7c9e382-7789-4a49-8735-edafe6993fb2.png" alt="img"></p>
+<p>这个问题，回答的就太过于敷衍了，直接将DeepSeek的公司背书给出来了，当然也可以理解，毕竟DeepSeek的投喂数据都是几个月前的，那时，它还并没有爆火出圈，而且我们下载的还是最小阉割版模型。</p>
+<p>3、这里还有一个问题，当你关闭电脑后，下次若再想使用本地模型时，只需要启动了<code>ollama</code>，<br>同时打开命令行界面，输入<code>ollama run deepseek-r1:1.5b</code> 即可。因为你之前已经下载过，这次无需下载，可以直接和模型聊天。</p>
+<p><img src="https://files.mdnice.com/user/3808/15ec3dd0-3cab-475f-b35d-d60376ee5406.png" alt="img"></p>
+<h4 id="5、为本地模型搭建UI界面"><a href="#5、为本地模型搭建UI界面" class="headerlink" title="5、为本地模型搭建UI界面"></a>5、为本地模型搭建UI界面</h4><p>1、使用命令行方式来和模型对话，对于不会编程的小伙伴来说，太难受了。不过没关系，我们有很多方案可以为你的本地模型搭建UI界面，比如<code>Open-WebUI</code>、<code>Chatbox AI</code>等。</p>
+<p>2、这里我们以ChatBox AI为例，访问:<code>https://chatboxai.app/zh</code></p>
+<p><img src="https://files.mdnice.com/user/3808/b08455e4-9ae0-4fc4-946c-ddfd245d6877.png" alt="img"><br>选择对应的版本，下载安装。</p>
+<p>3、选择使用自己的 API Key 或者本地模型：</p>
+<p><img src="https://files.mdnice.com/user/3808/fe5f6c40-656a-4f78-8b1b-143f9755a3d3.png" alt="img"></p>
+<p>4、选择本地跑的 <code>deepseek-r1:1.5b</code>模型：</p>
+<p><img src="https://files.mdnice.com/user/3808/8cdb824c-cf78-4fdd-a01a-309378139684.png" alt="img"></p>
+<p>Ollama 默认使用 端口11434 提供本地服务。当你在本地运行 Ollama 时，可以通过以下地址访问其 API 服务：<br><code>http://localhost:11434</code><br>如果你需要更改默认端口，可以通过设置环境变量 <code>OLLAMA_HOST</code> 来指定新的端口。</p>
+<p>5、在ChatBox对话框中，输入：”先有鸡还是先有蛋“，即可调用本地模型，生成答案</p>
 
     </div>
 
@@ -280,7 +310,7 @@
   </li>
   <li class="post-copyright-link">
     <strong>本文链接：</strong>
-    <a href="http://1008610.xyz/2023/02/01/%E5%B7%A5%E7%A8%8B%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%EF%BC%8C%E5%85%A8%E5%B1%80%E5%90%84%E7%A7%8D%E9%85%8D%E7%BD%AEUTF-8%E5%90%8E%E4%BE%9D%E6%97%A7%E6%B2%A1%E4%BD%9C%E7%94%A8/" title="工程输出中文乱码，全局各种配置UTF-8后依旧没作用">http://1008610.xyz/2023/02/01/工程输出中文乱码，全局各种配置UTF-8后依旧没作用/</a>
+    <a href="http://1008610.xyz/2025/02/13/%E4%BD%BF%E7%94%A8ollama%E6%9C%AC%E5%9C%B0%E6%90%AD%E5%BB%BAdeepseek/" title="使用ollama本地搭建deepseek">http://1008610.xyz/2025/02/13/使用ollama本地搭建deepseek/</a>
   </li>
   <li class="post-copyright-license">
     <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
@@ -291,7 +321,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/java/" rel="tag"># java</a>
+              <a href="/tags/deepseek/" rel="tag"># deepseek</a>
           </div>
 
         
@@ -300,13 +330,10 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2023/01/01/%E7%BD%91%E7%BB%9C/" rel="prev" title="网络基础">
-      <i class="fa fa-chevron-left"></i> 网络基础
+    <a href="/2025/02/08/%E5%9C%A8Cursor%E4%B8%AD%E5%BC%80%E5%8F%91Java%E9%A1%B9%E7%9B%AE--%E4%B8%9A%E5%8A%A1%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/" rel="prev" title="在Cursor中开发Java项目 -- 开发环境常用插件">
+      <i class="fa fa-chevron-left"></i> 在Cursor中开发Java项目 -- 开发环境常用插件
     </a></div>
-      <div class="post-nav-item">
-    <a href="/2023/02/01/java%20spi/" rel="next" title="java spi">
-      java spi <i class="fa fa-chevron-right"></i>
-    </a></div>
+      <div class="post-nav-item"></div>
     </div>
       </footer>
     
@@ -383,7 +410,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B7%A5%E7%A8%8B%E8%BE%93%E5%87%BA%E4%B8%AD%E6%96%87%E4%B9%B1%E7%A0%81%EF%BC%8C%E5%85%A8%E5%B1%80%E5%90%84%E7%A7%8D%E9%85%8D%E7%BD%AEUTF-8%E5%90%8E%E4%BE%9D%E6%97%A7%E6%B2%A1%E4%BD%9C%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">工程输出中文乱码，全局各种配置UTF-8后依旧没作用</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8ollama%E6%9C%AC%E5%9C%B0%E6%90%AD%E5%BB%BAdeepseek"><span class="nav-number">1.</span> <span class="nav-text">使用ollama本地搭建deepseek</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1%E3%80%81%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">1.1.</span> <span class="nav-text">1、准备工作</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2%E3%80%81%E6%9C%AC%E5%9C%B0%E7%94%B5%E8%84%91%E9%83%A8%E7%BD%B2DeepSeek%E5%A4%A7%E6%A8%A1%E5%9E%8B%E5%85%B7%E4%BD%93%E6%AD%A5%E9%AA%A4"><span class="nav-number">1.2.</span> <span class="nav-text">2、本地电脑部署DeepSeek大模型具体步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E5%AE%89%E8%A3%85ollama"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">1、安装ollama</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E9%80%89%E6%8B%A9%E8%A6%81%E5%AE%89%E8%A3%85%E7%9A%84%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">2、选择要安装的模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E5%AE%89%E8%A3%85%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">3、安装模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E4%BD%BF%E7%94%A8%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">4、使用模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81%E4%B8%BA%E6%9C%AC%E5%9C%B0%E6%A8%A1%E5%9E%8B%E6%90%AD%E5%BB%BAUI%E7%95%8C%E9%9D%A2"><span class="nav-number">1.2.0.5.</span> <span class="nav-text">5、为本地模型搭建UI界面</span></a></li></ol></li></ol></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

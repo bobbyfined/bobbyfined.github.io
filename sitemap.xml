@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://1008610.xyz/2025/02/13/%E4%BD%BF%E7%94%A8ollama%E6%9C%AC%E5%9C%B0%E6%90%AD%E5%BB%BAdeepseek/</loc>
+    
+    <lastmod>2025-02-13</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://1008610.xyz/2023/04/01/idea%E9%85%8D%E7%BD%AE%E7%88%B6%E5%AD%90%E6%A8%A1%E5%9D%97%E5%B7%A5%E7%A8%8B/</loc>
+    
+    <lastmod>2025-02-10</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://1008610.xyz/2022/06/01/idea%E6%96%B0%E5%BB%BA%E5%A4%9A%E6%A8%A1%E5%9D%97%E5%B7%A5%E7%A8%8B/</loc>
     
     <lastmod>2025-02-09</lastmod>
@@ -328,7 +346,7 @@
 
   <url>
     <loc>http://1008610.xyz/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -336,126 +354,133 @@
   
   <url>
     <loc>http://1008610.xyz/tags/%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2025-02-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://1008610.xyz/tags/GIT/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/tags/%E6%A1%86%E6%9E%B6/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://1008610.xyz/tags/GIT/</loc>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/tags/jvm/</loc>
-    <lastmod>2025-02-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://1008610.xyz/tags/mysql/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/tags/java/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/tags/mybatis/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://1008610.xyz/tags/mysql/</loc>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/tags/Linux/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/tags/ansible/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/tags/ansbile/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB%E4%BD%BF%E7%94%A8/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://1008610.xyz/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
-    <lastmod>2025-02-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://1008610.xyz/tags/redis/</loc>
-    <lastmod>2025-02-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://1008610.xyz/tags/cursor/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <loc>http://1008610.xyz/tags/deepseek/</loc>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://1008610.xyz/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <loc>http://1008610.xyz/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
+    <lastmod>2025-02-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://1008610.xyz/tags/cursor/</loc>
+    <lastmod>2025-02-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://1008610.xyz/tags/redis/</loc>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/tags/%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://1008610.xyz/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -464,77 +489,84 @@
   
   <url>
     <loc>http://1008610.xyz/categories/java/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/categories/GIT/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/categories/%E6%95%B0%E6%8D%AE%E5%BA%93/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/categories/Linux/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/categories/ansible/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/categories/%E9%A1%B9%E7%9B%AE/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://1008610.xyz/categories/AI/</loc>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/categories/%E9%9D%A2%E8%AF%95%E9%A2%98/</loc>
-    <lastmod>2025-02-09</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>http://1008610.xyz/categories/Redis/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/categories/cursor/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>http://1008610.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <loc>http://1008610.xyz/categories/Redis/</loc>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://1008610.xyz/categories/%E7%BD%91%E7%BB%9C/</loc>
-    <lastmod>2025-02-09</lastmod>
+    <lastmod>2025-02-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://1008610.xyz/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</loc>
+    <lastmod>2025-02-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
