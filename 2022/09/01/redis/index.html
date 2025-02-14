@@ -1,262 +1,150 @@
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 7.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/title-boke.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/title-boke.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-  <link rel="stylesheet" href="/lib/pace/pace-theme-minimal.min.css">
-  <script src="/lib/pace/pace.min.js"></script>
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"1008610.xyz","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="Redis篇">
-<meta property="og:type" content="article">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>Redis基础 | 活页本</title><meta name="author" content="当"><meta name="copyright" content="当"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Redis篇">
+<meta property="og:type" content="website">
 <meta property="og:title" content="Redis基础">
 <meta property="og:url" content="http://1008610.xyz/2022/09/01/redis/index.html">
 <meta property="og:site_name" content="活页本">
 <meta property="og:description" content="Redis篇">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://camo.githubusercontent.com/0c8bd20c483867b2013cffe847fa944fd85ffe5c3191156b9c52fd0129773fe6/68747470733a2f2f747661312e73696e61696d672e636e2f6c617267652f303038314b636b776c7931676d6170646e683079616a33306b75306169676d632e6a7067">
-<meta property="og:image" content="https://camo.githubusercontent.com/33102298c3f3d5abe4f00c8e7f176d490a90620fea4a51a9058ee62fe3a47d8b/68747470733a2f2f747661312e73696e61696d672e636e2f6c617267652f303038314b636b776c7931676d617067393971386c6a333069783066336a72772e6a7067">
-<meta property="og:image" content="https://camo.githubusercontent.com/b4c59c1cbe5f5ae99de66c57b6f60219e98726f7fc941f47271cb0356f2a0a37/68747470733a2f2f747661312e73696e61696d672e636e2f6c617267652f3030386933736b4e6c7931677832746739717330306a333074613067343076632e6a7067">
-<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20240702224859420.png">
-<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20240703203721396.png">
-<meta property="og:image" content="https://camo.githubusercontent.com/4f6ecd7d5622bcefd365e4401ecd0dea2118de6fc9cc095863b0dd66c7619532/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303230303830363139343331363533392e706e673f782d6f73732d70726f636573733d696d6167652f77617465726d61726b2c747970655f5a6d46755a33706f5a57356e6147567064476b2c736861646f775f31302c746578745f6148523063484d364c7939696247396e4c6d4e7a5a473475626d56304c3278366546393261574e3062334a352c73697a655f31362c636f6c6f725f4646464646462c745f3730">
-<meta property="og:image" content="https://camo.githubusercontent.com/49b8ac7e090eeca2a3f08c792e57e06bbf8be6d68d52cfdddc1a751fec288956/68747470733a2f2f696d672d626c6f672e6373646e696d672e636e2f32303230303830363139343330303832362e706e67">
-<meta property="og:image" content="c:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20240704172728882.png">
-<meta property="og:image" content="https://camo.githubusercontent.com/bb84938d32f1558559bd84a76a87191f74665ee11ad6e0f361459c15a155a6d3/68747470733a2f2f747661312e73696e61696d672e636e2f6c617267652f30303865476d5a456c7931676f726c7367373469366a333139353065336468732e6a7067">
-<meta property="og:image" content="https://camo.githubusercontent.com/57c39c05c9c63072ca6ee048e33086532da6d55e8e4651193363118a6d0674c5/68747470733a2f2f73302e6c677374617469632e636f6d2f692f696d6167652f4d30302f38302f32352f4369716331465f5167504f41614c38544141433545694e6c766f343739352e706e67">
-<meta property="og:image" content="https://camo.githubusercontent.com/14be4fd4607c8bae515a137326103bc995acafafb559a74c85c89389ec2f336e/68747470733a2f2f747661312e73696e61696d672e636e2f6c617267652f303038314b636b776c7931676c757136766c76676c6a33306e773065303736662e6a7067">
-<meta property="og:image" content="https://camo.githubusercontent.com/d4bb39450b12931a1c541b9f4cf298c192b80e07401161695c63af3589cdcc02/68747470733a2f2f747661312e73696e61696d672e636e2f6c617267652f303038314b636b776c7931676c75726c66727270346a3330716b3067383736632e6a7067">
-<meta property="og:image" content="https://camo.githubusercontent.com/4a389e85310aee19c0ed6e9c1a5c881ace5b5a181ebdc4f240b7a64b7d6e0a51/68747470733a2f2f747661312e73696e61696d672e636e2f6c617267652f30303865476d5a456c7931676f726d356d376234676a3330757930686a7766702e6a7067">
+<meta property="og:image" content="http://1008610.xyz/img/butterfly-icon.png">
 <meta property="article:published_time" content="2022-09-01T12:07:36.000Z">
 <meta property="article:modified_time" content="2025-02-07T15:01:36.707Z">
 <meta property="article:author" content="当">
 <meta property="article:tag" content="redis">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://camo.githubusercontent.com/0c8bd20c483867b2013cffe847fa944fd85ffe5c3191156b9c52fd0129773fe6/68747470733a2f2f747661312e73696e61696d672e636e2f6c617267652f303038314b636b776c7931676d6170646e683079616a33306b75306169676d632e6a7067">
-
-<link rel="canonical" href="http://1008610.xyz/2022/09/01/redis/">
-
-
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>Redis基础 | 活页本</title>
-  
-
-
-
-
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">活页本</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
-            
-
-    
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://1008610.xyz/2022/09/01/redis/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="当">
-      <meta itemprop="description" content="live my life">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="活页本">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Redis基础
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-09-01 20:07:36" itemprop="dateCreated datePublished" datetime="2022-09-01T20:07:36+08:00">2022-09-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2025-02-07 23:01:36" itemprop="dateModified" datetime="2025-02-07T23:01:36+08:00">2025-02-07</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index"><span itemprop="name">Redis</span></a>
-                </span>
-            </span>
-
-          
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span><br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>20k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>18 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
+<meta name="twitter:image" content="http://1008610.xyz/img/butterfly-icon.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://1008610.xyz/2022/09/01/redis/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css"><script>
+    (() => {
       
-        <h1 id="Redis篇"><a href="#Redis篇" class="headerlink" title="Redis篇"></a><strong>Redis篇</strong></h1><span id="more"></span>
+    const saveToLocal = {
+      set: (key, value, ttl) => {
+        if (!ttl) return
+        const expiry = Date.now() + ttl * 86400000
+        localStorage.setItem(key, JSON.stringify({ value, expiry }))
+      },
+      get: key => {
+        const itemStr = localStorage.getItem(key)
+        if (!itemStr) return undefined
+        const { value, expiry } = JSON.parse(itemStr)
+        if (Date.now() > expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return value
+      }
+    }
+
+    window.btf = {
+      saveToLocal,
+      getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        Object.entries(attr).forEach(([key, val]) => script.setAttribute(key, val))
+        script.onload = script.onreadystatechange = () => {
+          if (!script.readyState || /loaded|complete/.test(script.readyState)) resolve()
+        }
+        script.onerror = reject
+        document.head.appendChild(script)
+      }),
+      getCSS: (url, id) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onload = link.onreadystatechange = () => {
+          if (!link.readyState || /loaded|complete/.test(link.readyState)) resolve()
+        }
+        link.onerror = reject
+        document.head.appendChild(link)
+      }),
+      addGlobalFn: (key, fn, name = false, parent = window) => {
+        if (!false && key.startsWith('pjax')) return
+        const globalFn = parent.globalFn || {}
+        globalFn[key] = globalFn[key] || {}
+        globalFn[key][name || Object.keys(globalFn[key]).length] = fn
+        parent.globalFn = globalFn
+      }
+    }
+  
+      
+      const activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      const activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+
+      btf.activateDarkMode = activateDarkMode
+      btf.activateLightMode = activateLightMode
+
+      const theme = saveToLocal.get('theme')
+    
+          theme === 'dark' ? activateDarkMode() : theme === 'light' ? activateLightMode() : null
+        
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        document.documentElement.classList.toggle('hide-aside', asideStatus === 'hide')
+      }
+    
+      
+    const detectApple = () => {
+      if (/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)) {
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+  
+    })()
+  </script><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false,"highlightFullpage":false,"highlightMacStyle":false},
+  copy: {
+    success: '复制成功',
+    error: '复制失败',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'null',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyloadPlugin: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Redis基础',
+  isHighlightShrink: false,
+  isToc: false,
+  pageType: 'title'
+}</script><meta name="generator" content="Hexo 7.3.0"></head><body><div class="page" id="body-wrap"><header class="not-home-page" id="page-header"><nav id="nav"><span id="blog-info"><a class="nav-site-title" href="/"><span class="site-name">活页本</span></a></span><div id="menus"></div></nav><div id="page-site-info"><h1 id="site-title">Redis基础</h1></div></header><main class="layout" id="content-inner"><div id="post"><article class="container post-content" id="article-container"><h1 id="Redis篇"><a href="#Redis篇" class="headerlink" title="Redis篇"></a><strong>Redis篇</strong></h1><span id="more"></span>
 
 <h2 id="什么是Redis"><a href="#什么是Redis" class="headerlink" title="什么是Redis"></a>什么是Redis</h2><p>Redis是一款内存高速缓存数据库。Redis全称为：<strong>Remote Dictionary Server</strong>（远程数据服务），使用C语言编写，Redis是一个key-value存储系统（键值存储系统），支持丰富的数据类型，如：String、list、set、zset、hash。</p>
 <p>Redis是一种支持key-value等多种数据结构的存储系统。可用于缓存，事件发布或订阅，高速队列等场景。支持网络，提供字符串，哈希，列表，队列，集合结构直接存取，基于内存，可持久化。</p>
@@ -1031,356 +919,97 @@
 <p>在 Redis 需要升级版本或修复 bug 时，如果直接重启变更，由于需要数据恢复，这个过程需要近 10 分钟的时间，时间过长，会严重影响系统的可用性。面对这种问题，可以对 Redis 扩展热升级功能，从而在毫秒级完成升级操作，完全不影响业务访问。</p>
 </blockquote>
 <p>热升级方案如下，首先构建一个 Redis 壳程序，将 redisServer 的所有属性（包括redisDb、client等）保存为全局变量。然后将 Redis 的处理逻辑代码全部封装到动态连接库 so 文件中。Redis 第一次启动，从磁盘加载恢复数据，在后续升级时，通过指令，壳程序重新加载 Redis 新的 redis-4.so 到 redis-5.so 文件，即可完成功能升级，毫秒级完成 Redis 的版本升级。而且整个过程中，所有 Client 连接仍然保留，在升级成功后，原有 Client 可以继续进行读写操作，整个过程对业务完全透明。</p>
-
-    </div>
-
-    
-    
-    
-        
-
-<div>
-<ul class="post-copyright">
-  <li class="post-copyright-author">
-    <strong>本文作者： </strong>当
-  </li>
-  <li class="post-copyright-link">
-    <strong>本文链接：</strong>
-    <a href="http://1008610.xyz/2022/09/01/redis/" title="Redis基础">http://1008610.xyz/2022/09/01/redis/</a>
-  </li>
-  <li class="post-copyright-license">
-    <strong>版权声明： </strong>本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fab fa-fw fa-creative-commons"></i>BY-NC-SA</a> 许可协议。转载请注明出处！
-  </li>
-</ul>
-</div>
-
-
-      <footer class="post-footer">
-          <div class="post-tags">
-              <a href="/tags/redis/" rel="tag"># redis</a>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://1008610.xyz">当</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://1008610.xyz/2022/09/01/redis/">http://1008610.xyz/2022/09/01/redis/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来源 <a href="http://1008610.xyz" target="_blank">活页本</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/redis/">redis</a></div><div class="post-share"><div class="social-share" data-image="/img/butterfly-icon.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav id="pagination"><div class="pagination"></div></nav></div><div class="aside-content" id="aside-content"><div class="card-widget card-info text-center"><div class="avatar-img"><img src="/img/butterfly-icon.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info-name">当</div><div class="author-info-description">live my life</div><div class="site-data"><a href="/archives/"><div class="headline">文章</div><div class="length-num">34</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">19</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">12</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/13/%E4%BD%BF%E7%94%A8ollama%E6%9C%AC%E5%9C%B0%E6%90%AD%E5%BB%BAdeepseek/" title="使用ollama本地搭建deepseek">使用ollama本地搭建deepseek</a><time datetime="2025-02-13T06:32:22.000Z" title="发表于 2025-02-13 14:32:22">2025-02-13</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/08/%E5%9C%A8Cursor%E4%B8%AD%E5%BC%80%E5%8F%91Java%E9%A1%B9%E7%9B%AE--%E4%B8%9A%E5%8A%A1%E7%B3%BB%E7%BB%9F%E5%BC%80%E5%8F%91/" title="在Cursor中开发Java项目 -- 开发环境常用插件">在Cursor中开发Java项目 -- 开发环境常用插件</a><time datetime="2025-02-08T12:35:22.000Z" title="发表于 2025-02-08 20:35:22">2025-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2025/02/08/%E5%9C%A8Cursor%E4%B8%AD%E5%BC%80%E5%8F%91Java%E9%A1%B9%E7%9B%AE--%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E5%B8%B8%E7%94%A8%E6%8F%92%E4%BB%B6%E7%AF%87/" title="在Cursor中开发Java项目 -- 开发环境常用插件">在Cursor中开发Java项目 -- 开发环境常用插件</a><time datetime="2025-02-08T12:32:22.000Z" title="发表于 2025-02-08 20:32:22">2025-02-08</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/18/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" title="多线程">多线程</a><time datetime="2024-12-18T12:14:36.000Z" title="发表于 2024-12-18 20:14:36">2024-12-18</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2024/12/01/ansible-playbook/" title="ansible-playbook">ansible-playbook</a><time datetime="2024-12-01T13:14:36.000Z" title="发表于 2024-12-01 21:14:36">2024-12-01</time></div></div></div></div><div class="card-widget card-categories"><div class="item-headline">
+            <i class="fas fa-folder-open"></i>
+            <span>分类</span>
+            <a class="card-more-btn" href="/categories/" title="查看更多">
+      <i class="fas fa-angle-right"></i></a>
           </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2022/08/01/JVM/" rel="prev" title="JVM基础">
-      <i class="fa fa-chevron-left"></i> JVM基础
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2022/10/15/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="next" title="操作系统">
-      操作系统 <i class="fa fa-chevron-right"></i>
-    </a></div>
+          <ul class="card-category-list" id="aside-cat-list">
+            <li class="card-category-list-item "><a class="card-category-list-link" href="/categories/AI/"><span class="card-category-list-name">AI</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/GIT/"><span class="card-category-list-name">GIT</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Linux/"><span class="card-category-list-name">Linux</span><span class="card-category-list-count">3</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/Redis/"><span class="card-category-list-name">Redis</span><span class="card-category-list-count">1</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/ansible/"><span class="card-category-list-name">ansible</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/cursor/"><span class="card-category-list-name">cursor</span><span class="card-category-list-count">2</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/java/"><span class="card-category-list-name">java</span><span class="card-category-list-count">16</span></a></li><li class="card-category-list-item "><a class="card-category-list-link" href="/categories/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"><span class="card-category-list-name">操作系统</span><span class="card-category-list-count">1</span></a></li>
+          </ul></div><div class="card-widget card-tags"><div class="item-headline"><i class="fas fa-tags"></i><span>标签</span></div><div class="card-tag-cloud"><a href="/tags/%E6%A1%86%E6%9E%B6/" style="font-size: 1.4em; color: #99a5b6">框架</a> <a href="/tags/ansbile/" style="font-size: 1.1em; color: #999">ansbile</a> <a href="/tags/%E5%B7%A5%E5%85%B7%E7%B1%BB%E4%BD%BF%E7%94%A8/" style="font-size: 1.1em; color: #999">工具类使用</a> <a href="/tags/java/" style="font-size: 1.5em; color: #99a9bf">java</a> <a href="/tags/Linux/" style="font-size: 1.3em; color: #99a1ac">Linux</a> <a href="/tags/%E5%A4%9A%E7%BA%BF%E7%A8%8B/" style="font-size: 1.1em; color: #999">多线程</a> <a href="/tags/mysql/" style="font-size: 1.3em; color: #99a1ac">mysql</a> <a href="/tags/deepseek/" style="font-size: 1.1em; color: #999">deepseek</a> <a href="/tags/%E5%9F%BA%E7%A1%80/" style="font-size: 1.1em; color: #999">基础</a> <a href="/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 1.1em; color: #999">操作系统</a> <a href="/tags/mybatis/" style="font-size: 1.2em; color: #999da3">mybatis</a> <a href="/tags/GIT/" style="font-size: 1.3em; color: #99a1ac">GIT</a> <a href="/tags/ansible/" style="font-size: 1.1em; color: #999">ansible</a> <a href="/tags/jvm/" style="font-size: 1.1em; color: #999">jvm</a> <a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/" style="font-size: 1.1em; color: #999">设计模式</a> <a href="/tags/%E9%9D%A2%E8%AF%95%E9%A2%98/" style="font-size: 1.1em; color: #999">面试题</a> <a href="/tags/cursor/" style="font-size: 1.2em; color: #999da3">cursor</a> <a href="/tags/redis/" style="font-size: 1.1em; color: #999">redis</a> <a href="/tags/%E7%BD%91%E7%BB%9C/" style="font-size: 1.1em; color: #999">网络</a></div></div><div class="card-widget card-archives">
+    <div class="item-headline">
+      <i class="fas fa-archive"></i>
+      <span>归档</span>
+      <a class="card-more-btn" href="/archives/"
+            title="查看更多">
+            <i class="fas fa-angle-right"></i>
+          </a>
     </div>
-      </footer>
-    
-  </article>
   
-  
-  
-
-
-
-          </div>
-          
-      <div class="tabs tabs-comment">
-        <ul class="nav-tabs">
-            <li class="tab"><a href="#comment-utterances">utterances</a></li>
-            <li class="tab"><a href="#comment-livere">livere</a></li>
-        </ul>
-        <div class="tab-content">
-            <div class="tab-pane utterances" id="comment-utterances">
-              <div class="comments" id="utterances-container"></div>
-            </div>
-            <div class="tab-pane livere" id="comment-livere">
-              
-  <div class="comments">
-    <div id="lv-container" data-id="city" data-uid="MTAyMC82MDA4Ni8zNjU1Mg=="></div>
-  </div>
-  
-            </div>
-        </div>
-      </div>
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
+    <ul class="card-archive-list">
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2025/02/">
+            <span class="card-archive-list-date">
+              二月 2025
+            </span>
+            <span class="card-archive-list-count">3</span>
+          </a>
         </li>
-        <li class="sidebar-nav-overview">
-          站点概览
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/12/">
+            <span class="card-archive-list-date">
+              十二月 2024
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
         </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis%E7%AF%87"><span class="nav-number">1.</span> <span class="nav-text">Redis篇</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRedis"><span class="nav-number">1.1.</span> <span class="nav-text">什么是Redis</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#WhyRedis"><span class="nav-number">1.2.</span> <span class="nav-text">WhyRedis</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81redis"><span class="nav-number">1.2.0.1.</span> <span class="nav-text">1、redis</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Redis%E7%9A%84%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="nav-number">1.2.0.2.</span> <span class="nav-text">Redis的使用场景</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%83%AD%E7%82%B9%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BC%93%E5%AD%98"><span class="nav-number">1.2.0.2.1.</span> <span class="nav-text"> 热点数据的缓存</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E9%99%90%E6%97%B6%E4%B8%9A%E5%8A%A1%E7%9A%84%E8%BF%90%E7%94%A8"><span class="nav-number">1.2.0.2.2.</span> <span class="nav-text"> 限时业务的运用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E8%AE%A1%E6%95%B0%E5%99%A8%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.0.2.3.</span> <span class="nav-text"> 计数器相关问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-number">1.2.0.2.4.</span> <span class="nav-text"> 分布式锁</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E5%BB%B6%E6%97%B6%E6%93%8D%E4%BD%9C"><span class="nav-number">1.2.0.2.5.</span> <span class="nav-text"> 延时操作</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%8E%92%E8%A1%8C%E6%A6%9C%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.0.2.6.</span> <span class="nav-text"> 排行榜相关问题</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%82%B9%E8%B5%9E%E3%80%81%E5%A5%BD%E5%8F%8B%E7%AD%89%E7%9B%B8%E4%BA%92%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AD%98%E5%82%A8"><span class="nav-number">1.2.0.2.7.</span> <span class="nav-text"> 点赞、好友等相互关系的存储</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E7%AE%80%E5%8D%95%E9%98%9F%E5%88%97"><span class="nav-number">1.2.0.2.8.</span> <span class="nav-text"> 简单队列</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81Memcache"><span class="nav-number">1.2.0.3.</span> <span class="nav-text">2、Memcache</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF%EF%BC%9A"><span class="nav-number">1.2.0.3.1.</span> <span class="nav-text">使用场景：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81Tair"><span class="nav-number">1.2.0.4.</span> <span class="nav-text">3、Tair</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81Guava"><span class="nav-number">1.2.0.5.</span> <span class="nav-text">4、Guava</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81EVCache"><span class="nav-number">1.2.0.6.</span> <span class="nav-text">5、EVCache</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6%E3%80%81ETCD"><span class="nav-number">1.2.0.7.</span> <span class="nav-text">6、ETCD</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis%E5%BA%95%E5%B1%82"><span class="nav-number">1.2.1.</span> <span class="nav-text">Redis底层</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81redis%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.1.1.</span> <span class="nav-text">1、redis数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E7%9B%B8%E5%85%B3API"><span class="nav-number">1.2.1.2.</span> <span class="nav-text">2、相关API</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81redis%E5%90%84%E4%B8%AA%E7%B1%BB%E5%9E%8B%E7%9A%84%E5%BA%95%E5%B1%82%E7%BB%93%E6%9E%84"><span class="nav-number">1.2.1.3.</span> <span class="nav-text">3、redis各个类型的底层结构</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-String%EF%BC%88%E5%AD%97%E7%AC%A6%E4%B8%B2%EF%BC%89"><span class="nav-number">1.2.1.3.1.</span> <span class="nav-text">1. String（字符串）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-List%EF%BC%88%E5%88%97%E8%A1%A8%EF%BC%89"><span class="nav-number">1.2.1.3.2.</span> <span class="nav-text">2. List（列表）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-Hash%EF%BC%88%E5%93%88%E5%B8%8C%E8%A1%A8%EF%BC%89"><span class="nav-number">1.2.1.3.3.</span> <span class="nav-text">3. Hash（哈希表）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#4-Set%EF%BC%88%E9%9B%86%E5%90%88%EF%BC%89"><span class="nav-number">1.2.1.3.4.</span> <span class="nav-text">4. Set（集合）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#5-Sorted-Set%EF%BC%88%E6%9C%89%E5%BA%8F%E9%9B%86%E5%90%88%EF%BC%89"><span class="nav-number">1.2.1.3.5.</span> <span class="nav-text">5. Sorted Set（有序集合）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Stream"><span class="nav-number">1.2.1.3.6.</span> <span class="nav-text">Stream</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81Zset%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="nav-number">1.2.1.4.</span> <span class="nav-text">4、Zset底层实现</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis%E5%8F%AF%E7%94%A8%E6%80%A7"><span class="nav-number">1.2.2.</span> <span class="nav-text">Redis可用性</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81redis%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">1.2.2.1.</span> <span class="nav-text">1、redis持久化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81redis%E4%BA%8B%E5%8A%A1"><span class="nav-number">1.2.2.2.</span> <span class="nav-text">2、redis事务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81redis%E5%A4%B1%E6%95%88%E7%AD%96%E7%95%A5"><span class="nav-number">1.2.2.3.</span> <span class="nav-text">3、redis失效策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81redis%E8%AF%BB%E5%86%99%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.2.2.4.</span> <span class="nav-text">4、redis读写模式</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81%E5%A4%9A%E7%BA%A7%E7%BC%93%E5%AD%98"><span class="nav-number">1.2.2.5.</span> <span class="nav-text">5、多级缓存</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis%E4%B8%83%E5%A4%A7%E7%BB%8F%E5%85%B8%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.3.</span> <span class="nav-text">Redis七大经典问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81%E7%BC%93%E5%AD%98%E9%9B%AA%E5%B4%A9"><span class="nav-number">1.2.3.1.</span> <span class="nav-text">1、缓存雪崩</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E7%BC%93%E5%AD%98%E7%A9%BF%E9%80%8F"><span class="nav-number">1.2.3.2.</span> <span class="nav-text">2、缓存穿透</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E7%BC%93%E5%AD%98%E5%87%BB%E7%A9%BF"><span class="nav-number">1.2.3.3.</span> <span class="nav-text">3、缓存击穿</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E6%95%B0%E6%8D%AE%E4%B8%8D%E4%B8%80%E8%87%B4"><span class="nav-number">1.2.3.4.</span> <span class="nav-text">4、数据不一致</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81%E6%95%B0%E6%8D%AE%E5%B9%B6%E5%8F%91%E7%AB%9E%E4%BA%89"><span class="nav-number">1.2.3.5.</span> <span class="nav-text">5、数据并发竞争</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6%E3%80%81%E7%83%AD%E7%82%B9key%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.3.6.</span> <span class="nav-text">6、热点key问题</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7%E3%80%81BigKey%E9%97%AE%E9%A2%98"><span class="nav-number">1.2.3.7.</span> <span class="nav-text">7、BigKey问题</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis%E5%88%86%E5%8C%BA%E5%AE%B9%E9%94%99"><span class="nav-number">1.2.4.</span> <span class="nav-text">Redis分区容错</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81redis%E6%95%B0%E6%8D%AE%E5%88%86%E5%8C%BA"><span class="nav-number">1.2.4.1.</span> <span class="nav-text">1、redis数据分区</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81%E4%B8%BB%E4%BB%8E%E6%A8%A1%E5%BC%8F-%E7%AE%80%E5%8D%95"><span class="nav-number">1.2.4.2.</span> <span class="nav-text">2、主从模式&#x3D;简单</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3%E3%80%81%E5%93%A8%E5%85%B5%E6%A8%A1%E5%BC%8F-%E8%AF%BB%E5%A4%9A"><span class="nav-number">1.2.4.3.</span> <span class="nav-text">3、哨兵模式&#x3D;读多</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4%E3%80%81%E9%9B%86%E7%BE%A4%E6%A8%A1%E5%BC%8F-%E5%86%99%E5%A4%9A"><span class="nav-number">1.2.4.4.</span> <span class="nav-text">4、集群模式&#x3D;写多</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5%E3%80%81%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81"><span class="nav-number">1.2.4.5.</span> <span class="nav-text">5、分布式锁</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#6%E3%80%81redis%E5%BF%83%E8%B7%B3%E6%A3%80%E6%B5%8B"><span class="nav-number">1.2.4.6.</span> <span class="nav-text">6、redis心跳检测</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Redis%E5%AE%9E%E6%88%98"><span class="nav-number">1.2.5.</span> <span class="nav-text">Redis实战</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1%E3%80%81Redis%E4%BC%98%E5%8C%96"><span class="nav-number">1.2.5.1.</span> <span class="nav-text">1、Redis优化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2%E3%80%81Redis%E7%83%AD%E5%8D%87%E7%BA%A7"><span class="nav-number">1.2.5.2.</span> <span class="nav-text">2、Redis热升级</span></a></li></ol></li></ol></li></ol></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="当"
-      src="/images/avatar.jpg">
-  <p class="site-author-name" itemprop="name">当</p>
-  <div class="site-description" itemprop="description">live my life</div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">34</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">12</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">19</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/bobbyfined" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;bobbyfined" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-  </div>
-
-
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
-      Links
-    </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://baidu.com/" title="https:&#x2F;&#x2F;baidu.com" rel="noopener" target="_blank">百度</a>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/10/">
+            <span class="card-archive-list-date">
+              十月 2024
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
         </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/09/">
+            <span class="card-archive-list-date">
+              九月 2024
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/08/">
+            <span class="card-archive-list-date">
+              八月 2024
+            </span>
+            <span class="card-archive-list-count">2</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/06/">
+            <span class="card-archive-list-date">
+              六月 2024
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2024/05/">
+            <span class="card-archive-list-date">
+              五月 2024
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
+        <li class="card-archive-list-item">
+          <a class="card-archive-list-link" href="/archives/2023/12/">
+            <span class="card-archive-list-date">
+              十二月 2023
+            </span>
+            <span class="card-archive-list-count">1</span>
+          </a>
+        </li>
+      
     </ul>
-  </div>
-
-      </div>
-      <!--网易云插件-->
-      <!--
-      <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 
-        src="//music.163.com/outchain/player?type=2&id=2135473788&auto=1&height=66">
-      </iframe>
-      -->
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 2024-08 – 
-  <span itemprop="copyrightYear">2025</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">当</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-chart-area"></i>
-    </span>
-    <span title="站点总字数">147k</span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item-icon">
-      <i class="fa fa-coffee"></i>
-    </span>
-    <span title="站点阅读时长">2:14</span>
-</div>
-
-    <script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-
-    <span id="busuanzi_container_site_pv">总访问量<span id="busuanzi_value_site_pv"></span>次</span>
-    <span class="post-meta-divider">|</span>
-    <span id="busuanzi_container_site_uv">总访客数<span id="busuanzi_value_site_uv"></span>人</span>
-    <span class="post-meta-divider">|</span>
-<!-- 不蒜子计数初始值纠正 -->
-<script>
-$(document).ready(function() {
-
-    var int = setInterval(fixCount, 50);  // 50ms周期检测函数
-    var countOffset = 20000;  // 初始化首次数据
-
-    function fixCount() {            
-       if (document.getElementById("busuanzi_container_site_pv").style.display != "none")
-        {
-            $("#busuanzi_value_site_pv").html(parseInt($("#busuanzi_value_site_pv").html()) + countOffset); 
-            clearInterval(int);
-        }                  
-        if ($("#busuanzi_container_site_pv").css("display") != "none")
-        {
-            $("#busuanzi_value_site_uv").html(parseInt($("#busuanzi_value_site_uv").html()) + countOffset); // 加上初始数据 
-            clearInterval(int); // 停止检测
-        }  
-    }
-       	
-});
-</script> 
-
-        
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-user"></i>
-      </span>
-      <span class="site-uv" title="总访客量">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-eye"></i>
-      </span>
-      <span class="site-pv" title="总访问量">
-        <span id="busuanzi_value_site_pv"></span>
-      </span>
-    </span>
-</div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
-
-<script>
-NexT.utils.loadComments(document.querySelector('#utterances-container'), () => {
-    // if (typeof parcelRequire === 'function') { return; }
-    var js = document.createElement('script');
-    js.type = 'text/javascript';
-    js.src = 'https://utteranc.es/client.js';
-    js.async = true;
-    js.crossorigin = 'anonymous';
-    js.setAttribute('repo', 'bobbyfined/boke-comments');
-    js.setAttribute('issue-term', 'pathname');
-    js.setAttribute('theme', 'github-light');
-    document.getElementById('utterances-container').appendChild(js);
-});
-</script>
-<script>
-NexT.utils.loadComments(document.querySelector('#lv-container'), () => {
-  window.livereOptions = {
-    refer: location.pathname.replace(CONFIG.root, '').replace('index.html', '')
-  };
-  (function(d, s) {
-    var j, e = d.getElementsByTagName(s)[0];
-    if (typeof LivereTower === 'function') { return; }
-    j = d.createElement(s);
-    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
-    j.async = true;
-    e.parentNode.insertBefore(j, e);
-  })(document, 'script');
-});
-</script>
-
-  
-  
-    <canvas class="fireworks" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas>
-    <script src="//cdn.bootcss.com/animejs/2.2.0/anime.min.js"></script>
-    <script src="/js/cursor/explosion.min.js"></script>
-  
-
-
-
-</body>
-</html>
+  </div><div class="card-widget card-webinfo"><div class="item-headline"><i class="fas fa-chart-line"></i><span>网站信息</span></div><div class="webinfo"><div class="webinfo-item"><div class="item-name">文章数目 :</div><div class="item-count">34</div></div><div class="webinfo-item"><div class="item-name">本站访客数 :</div><div class="item-count" id="busuanzi_value_site_uv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">本站总浏览量 :</div><div class="item-count" id="busuanzi_value_site_pv"><i class="fa-solid fa-spinner fa-spin"></i></div></div><div class="webinfo-item"><div class="item-name">最后更新时间 :</div><div class="item-count" id="last-push-date" data-lastPushDate="2025-02-14T07:02:24.223Z"><i class="fa-solid fa-spinner fa-spin"></i></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2025 By 当</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="darkmode" type="button" title="日间和夜间模式切换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
