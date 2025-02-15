@@ -1,0 +1,44 @@
+// 添加背景图片
+body {
+      background: url(/images/background.jpg);//自己喜欢的图片地址
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: 50% 50%;
+}
+
+.back-to-top {
+  //right: 60px;
+  width: 70px;  //图片素材宽度
+  height: 900px;  //图片素材高度
+  top: -900px;
+  bottom: unset;
+  transition: all .5s ease-in-out;
+  background: url("/images/scroll.jpg");
+  //隐藏箭头图标
+  > i {
+    display: none;
+  }
+  &.back-to-top-on {
+    bottom: unset;
+    top: 100vh < (900px + 200px) ? calc( 100vh - 900px - 200px ) : 0px;
+  }
+}
+
+/*鼠标样式*/
+* {
+  cursor: url(/images/default.cur),auto;
+}
+:active {
+  // cursor: url(/images/default.cur),auto
+}
+:link {
+  cursor: url(/images/pointer.cur),auto
+}
+// 鼠标样式补充
+a, span.exturl {
+	cursor: url(/images/default.cur),auto
+}
+.posts-expand .post-meta time {
+	cursor: url(/images/default.cur),auto
+}
