@@ -29,9 +29,9 @@ menu:
   友链: /link/ || fas fa-link
   关于: /about/ || fas fa-heart
   清单||fas fa-list:
-     - 音乐 || /music/ || fas fa-music
-     - 电影 || /movies/ || fas fa-video
-     - 照片 || /Gallery/ || fas fa-images
+    音乐: /music/ || fas fa-music
+    电影: /movies/ || fas fa-video
+    照片: /Gallery/ || fas fa-video
 
 
 # --------------------------------------
@@ -64,10 +64,10 @@ social:
 # Image Settings
 # --------------------------------------
 
-favicon: /img/favicon.png
+favicon: /img/title-boke.png
 
 avatar:
-  img: /img/butterfly-icon.png
+  img: /img/avatar.jpg
   effect: false
 
 # Disable all banner images
@@ -99,11 +99,11 @@ category_img:
 category_per_img:
 
 # The background image of footer
-footer_img: false
+footer_img: transparent
 
 # Website Background
 # Can set it to color or image url
-background:
+background: /img/yun.jpg
 
 cover:
   # Disable the cover or not
@@ -111,8 +111,9 @@ cover:
   aside_enable: true
   archives_enable: true
   # When cover is not set, the default cover is displayed
+  position: both
   default_cover:
-    # - xxx.jpg
+    - /img/cover.png
 
 # Replace Broken Images
 error_img:
@@ -126,25 +127,21 @@ error_404:
   background: /img/error-page.png
 
 post_meta:
-  # Home Page
-  page:
-    # Choose: created / updated / both
-    date_type: created
-    # Choose: date / relative
-    date_format: date
-    categories: true
-    tags: false
-    label: true
+  page: # Home Page
+    date_type: created # created or updated or both 主页文章日期是创建日或者更新日或都显示
+    date_format: date # date/relative 显示日期还是相对日期
+    categories: true # true or false 主页是否显示分类
+    tags: false # true or false 主页是否显示标签
+    label: true # true or false 显示描述性文字
+    wordcount_enable: true
+    page_pv: true
   post:
-    # Choose: left / center
-    position: left
-    # Choose: created / updated / both
-    date_type: both
-    # Choose: date / relative
-    date_format: date
-    categories: true
-    tags: true
-    label: true
+    date_type: both # created or updated or both 文章页日期是创建日或者更新日或都显示
+    date_format: date # date/relative 显示日期还是相对日期
+    categories: true # true or false 文章页是否显示分类
+    tags: true # true or false 文章页是否显示标签
+    label: true # true or false 显示描述性文字
+
 
 # --------------------------------------
 # Index page settings
@@ -194,7 +191,7 @@ subtitle:
   source: false
   # 如果關閉打字效果，subtitle 只會顯示 sub 的第一行文字
   sub:
-    - 霭霭停云，濛濛时雨
+    - 浮生暂寄，纸上停云
 
 
 # Article layout on the homepage
@@ -289,8 +286,8 @@ noticeOutdate:
 footer:
   owner:
     enable: true
-    since: 2019
-  custom_text:
+    since: 2023
+  custom_text: Hi, welcome to my <a href="https://butterfly.js.org/">blog</a>!
   # Copyright of theme and framework
   copyright: true
 
@@ -390,7 +387,7 @@ rightside_bottom:
 
 # Conversion between Traditional and Simplified Chinese
 translate:
-  enable: false
+  enable: true
   # The text of a button
   default: 繁
   # the language of website (1 - Traditional Chinese/ 2 - Simplified Chinese）
@@ -452,14 +449,13 @@ copy:
     limit_count: 150
 
 # Need to install the hexo-wordcount plugin
+# wordcount (字数统计)
 wordcount:
   enable: true
-  # Display the word count of the article in post meta
   post_wordcount: true
-  # Display the time to read the article in post meta
   min2read: true
-  # Display the total word count of the website in aside's webinfo
   total_wordcount: true
+
 
 # Busuanzi count for PV / UV in site
 busuanzi:
@@ -508,6 +504,7 @@ search:
 
   # Local Search
   local_search:
+    enable: true
     # Preload the search data when the page loads.
     preload: false
     # Show top n results per article, show all results by setting to -1
@@ -553,6 +550,7 @@ comments:
   # Choose: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus/Remark42/Artalk
   # Format of two comments system : Disqus,Waline
   use:
+    - Gitalk 
   # Display the comment name next to the button
   text: true
   # Lazyload: The comment system will be load when comment element enters the browser's viewport.
@@ -585,11 +583,16 @@ livere:
 # Gitalk
 # https://github.com/gitalk/gitalk
 gitalk:
-  client_id:
-  client_secret:
-  repo:
-  owner:
-  admin:
+  client_id: Ov23ct2vz0d4GgoviQT8
+  client_secret: b6e6ffe5501f5423537511112b2908d2d2ec78e9
+  repo: boke-comments
+  owner: bobbyfined
+  admin: bobbyfined
+  language: zh-CN # en, zh-CN, zh-TW, es-ES, fr, ru
+  perPage: 10 # Pagination size, with maximum 100.
+  distractionFreeMode: false # Facebook-like distraction free mode.
+  pagerDirection: last # Comment sorting direction, available values are last and first.
+  createIssueManually: false # Gitalk will create a corresponding github issue for your every single page automatically
   option:
 
 # Valine
@@ -805,7 +808,7 @@ mask:
 
 # Loading Animation
 preloader:
-  enable: false
+  enable: true
   # source
   # 1. fullpage-loading
   # 2. pace (progress bar)
@@ -817,7 +820,7 @@ preloader:
 enter_transitions: true
 
 # Default display mode - light (default) / dark
-display_mode: light
+display_mode: dark
 
 # Configuration for beautifying the content of the article
 beautify:
@@ -869,7 +872,7 @@ canvas_ribbon:
   # The opacity of ribbon (0 ~ 1)
   alpha: 0.6
   zIndex: -1
-  click_to_change: true
+  click_to_change: false
   mobile: false
 
 # Fluttering Ribbon
@@ -893,7 +896,7 @@ canvas_nest:
 
 # Mouse click effects: fireworks
 fireworks:
-  enable: false
+  enable: true
   zIndex: 9999
   mobile: false
 
@@ -1006,7 +1009,7 @@ aplayerInject:
 # https://github.com/polonel/SnackBar
 # position: top-left / top-center / top-right / bottom-left / bottom-center / bottom-right
 snackbar:
-  enable: false
+  enable: true
   position: bottom-left
   # The background color of Toast Notification in light mode and dark mode
   bg_light: '#49b1f5'
@@ -1063,6 +1066,7 @@ inject:
     # - <link rel="stylesheet" href="/xxx.css">
   bottom:
     # - <script src="xxxx"></script>
+
 
 # CDN Settings
 # Don't modify the following settings unless you know how they work
@@ -1137,3 +1141,6 @@ CDN:
     # valine:
     # waline_css:
     # waline_js:
+
+# electric_clock
+# see https://blog.anheyu.com/posts/fc18.html
