@@ -227,7 +227,7 @@
 <p>配置如下：</p>
 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[sendi@zabbix1 ~]$ </span><br><span class="line"># .bash_profile</span><br><span class="line"></span><br><span class="line"># Get the aliases and functions</span><br><span class="line"><span class="keyword">if</span> [ -f ~/.bashrc ]; then</span><br><span class="line">        . ~/.bashrc</span><br><span class="line">fi</span><br><span class="line"></span><br><span class="line"># User specific environment and startup programs</span><br><span class="line"></span><br><span class="line"><span class="built_in">PATH</span>=$<span class="built_in">PATH</span>:$HOME/bin:/usr/local/sbin</span><br><span class="line"></span><br><span class="line">export <span class="built_in">PATH</span></span><br><span class="line">export JAVA_HOME=/usr/local/jdk1.<span class="number">8</span></span><br><span class="line">export TOMCAT_HOME=/usr/local/tomcat</span><br><span class="line">export CATALINA_HOME=/usr/local/tomcat</span><br><span class="line"><span class="built_in">PATH</span>=$<span class="built_in">PATH</span>:$HOME/bin:$JAVA_HOME/bin:$CATALINA_HOME/bin</span><br><span class="line">export CLASS_PATH=$JAVA_HOME/bin/lib:$JAVA_HOME/jre/lib:$JAVA_HOME/lib/tool.jar</span><br><span class="line">export <span class="built_in">PATH</span></span><br><span class="line">~           </span><br></pre></td></tr></table></figure>
 
-<p>，**<del>&#x2F;.bashrc** 和 **</del>&#x2F;.bash_profile** 是两个不同的文件，它们在 Bash Shell 中有不同的作用。</p>
+<p>，<strong>~&#x2F;.bashrc</strong> 和 <strong>~&#x2F;.bash_profile</strong> 是两个不同的文件，它们在 Bash Shell 中有不同的作用。</p>
 <ol>
 <li><p>~&#x2F;.bashrc</p>
 <ol>
@@ -250,7 +250,7 @@
 </ul>
 </li>
 </ol>
-<p>在一些 Linux 系统中，**<del>&#x2F;.bash_profile** 会引用 **</del>&#x2F;.bashrc<strong>，这样的话，</strong>~&#x2F;.bashrc** 中的配置会在每次打开新终端窗口时生效，而不仅限于用户登录时。</p>
+<p>在一些 Linux 系统中，<strong>~&#x2F;.bash_profile</strong> 会引用 <strong>~&#x2F;.bashrc</strong>，这样的话，<strong>~&#x2F;.bashrc</strong> 中的配置会在每次打开新终端窗口时生效，而不仅限于用户登录时。</p>
 <p>在你的情况下，如果你是希望在每次打开新终端窗口时都能够使用 <strong>fping</strong> 命令，你应该将相关的路径配置添加到 <strong>~&#x2F;.bashrc</strong> 文件中。如果你希望只在用户登录时配置环境变量，那就将路径配置添加到 <strong>~&#x2F;.bash_profile</strong> 文件中。</p>
 <p>可能普通用户sudo fping <a target="_blank" rel="noopener" href="http://www.baidu.com会执行不成功,显示sudo/">www.baidu.com会执行不成功，显示sudo</a>: fping: command not found</p>
 <p>这可能是因为 sudo 命令的环境变量配置中没有包含 &#x2F;usr&#x2F;local&#x2F;sbin 路径。</p>

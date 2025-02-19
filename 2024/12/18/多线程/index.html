@@ -314,11 +314,11 @@
 </ol>
 <h4 id="3、线程拒绝策略"><a href="#3、线程拒绝策略" class="headerlink" title="3、线程拒绝策略"></a><strong>3、线程拒绝策略</strong></h4><p> 线程池中的线程已经用完了，无法继续为新任务服务，同时，等待队列也已经排满了，再也塞不下新任务了。这时候我们就需要拒绝策略机制合理的处理这个问题。</p>
 <p>JDK 内置的拒绝策略如下：</p>
-<p> <strong>AbortPolicy：</strong>直接抛出异常，阻止系统正常运行。可以根据业务逻辑选择重试或者放弃提交等策略。</p>
-<p> <strong>CallerRunsPolicy ：</strong>只要线程池未关闭，该策略直接在调用者线程中，运行当前被丢弃的任务。</p>
+<p> **AbortPolicy：**直接抛出异常，阻止系统正常运行。可以根据业务逻辑选择重试或者放弃提交等策略。</p>
+<p> **CallerRunsPolicy ：**只要线程池未关闭，该策略直接在调用者线程中，运行当前被丢弃的任务。</p>
 <p> 不会造成任务丢失，同时减缓提交任务的速度，给执行任务缓冲时间。</p>
-<p> <strong>DiscardOldestPolicy ：</strong>丢弃最老的一个请求，也就是即将被执行的任务，并尝试再次提交当前任务。</p>
-<p> <strong>DiscardPolicy ：</strong>该策略默默地丢弃无法处理的任务，不予任何处理。如果允许任务丢失，这是最好的一种方案。</p>
+<p> **DiscardOldestPolicy ：**丢弃最老的一个请求，也就是即将被执行的任务，并尝试再次提交当前任务。</p>
+<p> **DiscardPolicy ：**该策略默默地丢弃无法处理的任务，不予任何处理。如果允许任务丢失，这是最好的一种方案。</p>
 <h4 id="4、线程池大小设置"><a href="#4、线程池大小设置" class="headerlink" title="4、线程池大小设置"></a><strong>4、线程池大小设置</strong></h4><ul>
 <li>CPU 密集型（n+1）</li>
 </ul>
@@ -343,7 +343,7 @@
 </ol>
 <p><strong>原子性：</strong></p>
 <p> 功能限制CAS是能保证单个变量的操作是原子性的，在Java中要配合使用volatile关键字来保证线程的安全；当涉及到多个变量的时候CAS无能为力；除此之外CAS实现需要硬件层面的支持，在Java的普通用户中无法直接使用，只能<strong>借助atomic包下的原子类</strong>实现，灵活性受到了限制</p>
-<h4 id="2、synchronized底层实现"><a href="#2、synchronized底层实现" class="headerlink" title="2、synchronized底层实现"></a><strong>2、synchronized底层实现</strong></h4><p><strong>使用方法：</strong>主要的三种使⽤⽅式</p>
+<h4 id="2、synchronized底层实现"><a href="#2、synchronized底层实现" class="headerlink" title="2、synchronized底层实现"></a><strong>2、synchronized底层实现</strong></h4><p>**使用方法：**主要的三种使⽤⽅式</p>
 <p> <strong>修饰实例⽅法:</strong> 作⽤于当前对象实例加锁，进⼊同步代码前要获得当前对象实例的锁</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">synchronized</span> <span class="keyword">void</span> <span class="title function_">method</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">// 代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -365,18 +365,18 @@
 <p> ReenTrantLock的实现是一种自旋锁，通过循环调用CAS操作来实现加锁。它的性能比较好也是因为避免了使线程进入内核态的阻塞状态。想尽办法避免线程进入内核的阻塞状态是我们去分析和理解锁设计的关键钥匙。</p>
 <p><strong>和synchronized区别：</strong></p>
 <p> 1、<strong>底层实现</strong>：synchronized 是<strong>JVM</strong>层面的锁，是<strong>Java关键字</strong>，通过monitor对象来完成（monitorenter与monitorexit），ReentrantLock 是从jdk1.5以来（java.util.concurrent.locks.Lock）提供的<strong>API层面</strong>的锁。</p>
-<p> 2、<strong>实现原理****：synchronized 的实现涉及到</strong>锁的升级<strong>，具体为无锁、偏向锁、自旋锁、向OS申请重量级锁；ReentrantLock实现则是通过利用</strong>CAS**（CompareAndSwap）自旋机制保证线程操作的原子性和volatile保证数据可见性以实现锁的功能。</p>
+<p> 2、<strong>实现原理</strong><strong>：synchronized 的实现涉及到</strong>锁的升级**，具体为无锁、偏向锁、自旋锁、向OS申请重量级锁；ReentrantLock实现则是通过利用<strong>CAS</strong>（CompareAndSwap）自旋机制保证线程操作的原子性和volatile保证数据可见性以实现锁的功能。</p>
 <p> 3、<strong>是否可手动释放：synchronized 不需要用户去手动释放锁，synchronized 代码执行完后系统会自动让线程释放对锁的占用； ReentrantLock则需要用户去手动释放锁，如果没有手动释放锁，就可能导致死锁现象</strong>。</p>
 <p> 4、<strong>是否可中断</strong>synchronized是不可中断类型的锁，除非加锁的代码中出现异常或正常执行完成； ReentrantLock则可以中断，可通过trylock(long timeout,TimeUnit unit)设置超时方法或者将lockInterruptibly()放到代码块中，调用interrupt方法进行中断。</p>
 <p> 5、<strong>是否公平锁</strong>synchronized为非公平锁 ReentrantLock则即可以选公平锁也可以选非公平锁，通过构造方法new ReentrantLock时传入boolean值进行选择，为空默认false非公平锁，true为公平锁,公平锁性能非常低。</p>
 <h4 id="4、公平锁和非公平锁区别"><a href="#4、公平锁和非公平锁区别" class="headerlink" title="4、公平锁和非公平锁区别"></a><strong>4、公平锁和非公平锁区别</strong></h4><p><strong>公平锁：</strong></p>
 <p> 公平锁自然是遵循<strong>FIFO</strong>（先进先出）原则的，先到的线程会优先获取资源，后到的会进行排队等待</p>
-<p> <strong>优点：</strong>所有的线程都能得到资源，不会饿死在队列中。适合大任务</p>
-<p> <strong>缺点：</strong>吞吐量会下降，队列里面除了第一个线程，其他的线程都会阻塞，cpu唤醒阻塞线程的开销大</p>
+<p> **优点：**所有的线程都能得到资源，不会饿死在队列中。适合大任务</p>
+<p> **缺点：**吞吐量会下降，队列里面除了第一个线程，其他的线程都会阻塞，cpu唤醒阻塞线程的开销大</p>
 <p><strong>非公平锁：</strong></p>
 <p> 多个线程去获取锁的时候，会直接去尝试获取，获取不到，再去进入等待队列，如果能获取到，就直接获取到锁。</p>
-<p> <strong>优点：</strong>可以减少CPU唤醒线程的开销，整体的吞吐效率会高点，CPU也不必取唤醒所有线程，会减少唤起线程的数量。</p>
-<p> <strong>缺点：</strong>你们可能也发现了，这样可能导致队列中间的线程一直获取不到锁或者长时间获取不到锁</p>
+<p> **优点：**可以减少CPU唤醒线程的开销，整体的吞吐效率会高点，CPU也不必取唤醒所有线程，会减少唤起线程的数量。</p>
+<p> **缺点：**你们可能也发现了，这样可能导致队列中间的线程一直获取不到锁或者长时间获取不到锁</p>
 <p><img src="C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20240616153312355.png" alt="image-20240616153312355"></p>
 <h4 id="5、使用层面锁优化"><a href="#5、使用层面锁优化" class="headerlink" title="5、使用层面锁优化"></a><strong>5、使用层面锁优化</strong></h4><p> 【1】<strong>减少锁的时间：</strong> 不需要同步执行的代码，能不放在同步快里面执行就不要放在同步快内，可以让锁尽快释放；</p>
 <p> 【2】<strong>减少锁的粒度：</strong> 它的思想是将物理上的一个锁，拆成逻辑上的多个锁，增加并行度，从而降低锁竞争。它的思想也是用空间来换时间；java中很多数据结构都是采用这种方法提高并发操作的效率，比如：</p>
@@ -460,7 +460,7 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">状态的原子性管理</span><br><span class="line">线程的阻塞与解除阻塞</span><br><span class="line">队列的管理</span><br></pre></td></tr></table></figure>
 
 <p>ReentrantLock基于他实现同步</p>
-<p> AQS核⼼思想是，如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的⼯作线程，并且将共享资源设置为锁定状态。如果被请求的共享资源被占⽤，那么就需要⼀套线程阻塞等待以及被唤醒时锁分配的机制，这个机制AQS是⽤<strong>CLH（虚拟的双向队列）</strong>队列锁实现的，即将暂时获取不到锁的线程加⼊到队列中。</p>
+<p> AQS核⼼思想是，如果被请求的共享资源空闲，则将当前请求资源的线程设置为有效的⼯作线程，并且将共享资源设置为锁定状态。如果被请求的共享资源被占⽤，那么就需要⼀套线程阻塞等待以及被唤醒时锁分配的机制，这个机制AQS是⽤**CLH（虚拟的双向队列）**队列锁实现的，即将暂时获取不到锁的线程加⼊到队列中。</p>
 <p><strong>lock：</strong></p>
 <p> 是一种可重入锁，除了能完成 synchronized 所能完成的所有工作外，还提供了诸如可响应中断锁、可轮询锁请求、定时锁等避免多线程死锁的方法。默认为非公平锁，但可以初始化为公平锁； 通过方法 lock()与 unlock()来进行加锁与解锁操作；</p>
 <p><strong>CountDownLatch：</strong></p>
