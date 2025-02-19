@@ -1,10 +1,8 @@
 ---
-layout: title
 title: MySQL基础
 date: 2022-07-01 14:14:36
 tags: mysql
 categories: 数据库
-
 ---
 
 # MySQL篇

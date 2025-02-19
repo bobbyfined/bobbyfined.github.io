@@ -1,5 +1,4 @@
 ---
-layout: title
 title: idea新建多模块工程
 date: 2022-06-01 14:32:22
 tags: 框架

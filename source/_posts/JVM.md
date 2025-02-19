@@ -1,11 +1,8 @@
 ---
-layout: title
 title: JVM基础
 date: 2022-08-01 14:14:36
 tags: jvm
 categories: java
-
-
 ---
 
 # JVM

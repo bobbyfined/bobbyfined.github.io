@@ -1,10 +1,8 @@
 ---
-layout: title
 title: ansible-ad-hoc以及模块
 date: 2024-10-14 21:14:36
 tags: ansible
 categories: ansible
-
 ---
 
 # ansible-ad-hoc以及模块

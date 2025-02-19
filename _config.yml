@@ -96,28 +96,14 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-# theme: next
 theme: butterfly
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy: 
   type: git
-  repository: https://github.com/bobbyfined/bobbyfined.github.io.git  #你的仓库地址
+  repository: git@github.com:bobbyfined/bobbyfined.github.io.git  #你的仓库地址
   branch: master
 
-symbols_count_time:
-  symbols: true                # 文章字数统计
-  time: true                   # 文章阅读时长
-  total_symbols: true          # 站点总字数统计
-  total_time: true             # 站点总阅读时长
-  exclude_codeblock: false     # 排除代码字数统计
-
 butterfly_article_double_row:
-  enable: true
-
-# 本地搜索
-search:
-  path: search.xml
-  field: all
-  content: true
+  enable: false

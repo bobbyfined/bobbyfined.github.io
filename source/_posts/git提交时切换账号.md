@@ -1,5 +1,4 @@
 ---
-layout: title
 title: GIT提交时切换账号
 date: 2023-07-27 23:19:06
 tags: GIT

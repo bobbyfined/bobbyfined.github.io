@@ -1,11 +1,8 @@
 ---
-layout: title
 title: Redis基础
 date: 2022-09-01 20:07:36
 tags: redis
 categories: Redis
-
-
 ---
 
 # **Redis篇**

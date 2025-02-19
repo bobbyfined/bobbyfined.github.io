@@ -1,5 +1,4 @@
 ---
-layout: title
 title: SecureCRT设置端口转发原理
 date: 2023-12-09 21:14:36
 tags: Linux

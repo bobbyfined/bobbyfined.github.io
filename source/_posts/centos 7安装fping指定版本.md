@@ -1,5 +1,4 @@
 ---
-layout: title
 title: centos 7安装fping指定版本
 date: 2023-11-06 22:14:36
 tags: Linux

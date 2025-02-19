@@ -1,11 +1,8 @@
 ---
-layout: title
 title: Mybatis的延迟加载
 date: 2023-08-01 21:14:36
 tags: mybatis
 categories: java
-
-
 ---
 
 # Mybatis的延迟加载

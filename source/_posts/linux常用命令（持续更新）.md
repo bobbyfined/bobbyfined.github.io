@@ -1,10 +1,8 @@
 ---
-layout: title
 title: linux常用命令（持续更新）
 date: 2023-08-09 14:14:36
 tags: Linux
 categories: Linux
-
 ---
 
 # linux常用命令（持续更新）

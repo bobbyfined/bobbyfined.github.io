@@ -1,5 +1,4 @@
 ---
-layout: title
 title: idea开发spring项目ClassPathXmlApplicationContext读取配置文件路径问题
 date: 2024-06-01 21:41:50
 tags: 框架

@@ -1,5 +1,4 @@
 ---
-layout: title
 title: Java基础
 date: 2022-06-01 21:14:36
 tags: java

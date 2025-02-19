@@ -1,5 +1,4 @@
 ---
-layout: title
 title: 在Cursor中开发Java项目 -- 开发环境常用插件
 date: 2025-02-08 20:32:22
 tags: cursor

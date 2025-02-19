@@ -1,9 +1,9 @@
 ---
-layout: title
 title: SpringCloud-Nacos：服务注册+配置中心
 date: 2024-05-01 14:32:22
 tags: 框架
 categories: java
+toc: true
 ---
 
 # SpringCloud-Nacos：服务注册+配置中心

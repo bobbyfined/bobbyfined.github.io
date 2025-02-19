@@ -1,5 +1,4 @@
 ---
-layout: title
 title: MYSQL 解锁与锁表和批解锁
 date: 2023-08-01 14:14:36
 tags: mysql

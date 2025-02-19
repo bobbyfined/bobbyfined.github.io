@@ -1,11 +1,8 @@
 ---
-layout: title
 title: mybatis批量插入的两种方式
 date: 2023-08-01 14:19:36
 tags: mybatis
 categories: java
-
-
 ---
 
 # mybatis批量插入的两种方式

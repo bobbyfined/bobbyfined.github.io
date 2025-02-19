@@ -1,5 +1,4 @@
 ---
-layout: title
 title: ==，equals，hashcode
 date: 2023-08-13 14:14:36
 tags: 基础

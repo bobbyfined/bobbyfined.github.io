@@ -1,5 +1,4 @@
 ---
-layout: title
 title: 使用idea 把一个git分支的部分提交记录合并到另一个git分支上
 date: 2024-09-21 20:14:36
 tags: java

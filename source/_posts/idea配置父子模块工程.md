@@ -1,5 +1,4 @@
 ---
-layout: title
 title: idea配置父子模块工程
 date: 2023-04-01 21:45:36
 tags: GIT

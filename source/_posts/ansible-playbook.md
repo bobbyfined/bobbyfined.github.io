@@ -1,5 +1,4 @@
 ---
-layout: title
 title: ansible-playbook
 date: 2024-12-01 21:14:36
 tags: ansbile

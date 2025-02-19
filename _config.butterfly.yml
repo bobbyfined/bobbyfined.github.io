@@ -16,22 +16,21 @@ nav:
   # Whether to fix navigation bar
   fixed: false
 
-# menu:
-  # Home: / || fas fa-home
-  # List||fas fa-list:
-  #   Music: /music/ || fas fa-music
-  #   Movie: /movies/ || fas fa-video
 menu:
   主页: / || fas fa-home
-  归档: /archives/ || fas fa-archive
-  标签: /tags/ || fas fa-tags
-  分类: /categories/ || fas fa-folder-open
-  友链: /link/ || fas fa-link
-  关于: /about/ || fas fa-heart
-  清单||fas fa-list:
-    音乐: /music/ || fas fa-music
-    电影: /movies/ || fas fa-video
-    照片: /Gallery/ || fas fa-video
+  博文 || fa fa-graduation-cap:
+    分类: /categories/ || fa fa-archive
+    标签: /tags/ || fa fa-tags
+    归档: /archives/ || fa fa-folder-open
+  生活 || fas fa-list:
+    分享: /shuoshuo/ || fa fa-comments-o
+    相册: /photos/ || fa fa-camera-retro
+    音乐: /music/ || fa fa-music
+    影视: /movies/ || fas fa-video
+  友链: /links/ || fa fa-link
+  留言板: /comment/ || fa fa-paper-plane
+  #留言板: /messageboard/ || fa fa-paper-plane
+  关于笔者: /about/ || fas fa-heart  
 
 
 # --------------------------------------
@@ -41,7 +40,7 @@ menu:
 code_blocks:
   # Code block theme: darker / pale night / light / ocean / false
   theme: light
-  macStyle: true
+  macStyle: false
   # Code block height limit (unit: px)
   height_limit: false
   word_wrap: false
@@ -77,7 +76,7 @@ disable_top_img: false
 default_top_img:
 
 # The banner image of index page
-index_img:
+index_img: transparent
 
 # The banner image of archive page
 archive_img:
@@ -114,7 +113,7 @@ cover:
   position: both
   default_cover:
     - /img/cover.png
-
+    
 # Replace Broken Images
 error_img:
   flink: /img/friend_404.gif
@@ -127,21 +126,25 @@ error_404:
   background: /img/error-page.png
 
 post_meta:
-  page: # Home Page
-    date_type: created # created or updated or both 主页文章日期是创建日或者更新日或都显示
-    date_format: date # date/relative 显示日期还是相对日期
-    categories: true # true or false 主页是否显示分类
-    tags: false # true or false 主页是否显示标签
-    label: true # true or false 显示描述性文字
-    wordcount_enable: true
-    page_pv: true
+  # Home Page
+  page:
+    # Choose: created / updated / both
+    date_type: created
+    # Choose: date / relative
+    date_format: date
+    categories: true
+    tags: false
+    label: true
   post:
-    date_type: both # created or updated or both 文章页日期是创建日或者更新日或都显示
-    date_format: date # date/relative 显示日期还是相对日期
-    categories: true # true or false 文章页是否显示分类
-    tags: true # true or false 文章页是否显示标签
-    label: true # true or false 显示描述性文字
-
+    # Choose: left / center
+    position: left
+    # Choose: created / updated / both
+    date_type: both
+    # Choose: date / relative
+    date_format: date
+    categories: true
+    tags: true
+    label: true
 
 # --------------------------------------
 # Index page settings
@@ -152,47 +155,33 @@ post_meta:
 # The position of site info, eg: 300px/300em/300rem/10%
 index_site_info_top:
 # The height of top_img, eg: 300px/300em/300rem
-index_top_img_height:
+# 主页顶部图的高度
+index_top_img_height: 
 
 # The subtitle on homepage
-# subtitle:
-#   enable: false
-#   # Typewriter Effect
-#   effect: true
-#   # Customize typed.js
-#   # https://github.com/mattboldt/typed.js/#customization
-#   typed_option:
-#   # Source - Call the third-party service API (Chinese only)
-#   # It will show the source first, then show the content of sub
-#   # Choose: false/1/2/3
-#   # false - disable the function
-#   # 1 - hitokoto.cn
-#   # 2 - yijuzhan.com
-#   # 3 - jinrishici.com
-#   source: false
-#   # If you close the typewriter effect, the subtitle will only show the first line of sub
-#   sub:
 subtitle:
   enable: true
-  # Typewriter Effect (打字效果)
+  # Typewriter Effect
   effect: true
   # Effect Speed Options (打字效果速度參數)
   startDelay: 300 # time before typing starts in milliseconds
   typeSpeed: 150 # type speed in milliseconds
   backSpeed: 50 # backspacing speed in milliseconds
-  # loop (循環打字)
+  # Customize typed.js
+  # https://github.com/mattboldt/typed.js/#customization
+  typed_option:
+  # Source - Call the third-party service API (Chinese only)
+  # It will show the source first, then show the content of sub
+  # Choose: false/1/2/3
+  # false - disable the function
+  # 1 - hitokoto.cn
+  # 2 - yijuzhan.com
+  # 3 - jinrishici.com
   loop: true
-  # source 調用第三方服務
-  # source: false 關閉調用
-  # source: 1  調用一言網的一句話（簡體） https://hitokoto.cn/
-  # source: 2  調用一句網（簡體） http://yijuzhan.com/
-  # source: 3  調用今日詩詞（簡體） https://www.jinrishici.com/
-  # subtitle 會先顯示 source , 再顯示 sub 的內容
   source: false
-  # 如果關閉打字效果，subtitle 只會顯示 sub 的第一行文字
+  # If you close the typewriter effect, the subtitle will only show the first line of sub
   sub:
     - 浮生暂寄，纸上停云
-
 
 # Article layout on the homepage
 # 1: Cover on the left, info on the right
@@ -236,12 +225,12 @@ post_copyright:
 
 # Sponsor/reward
 reward:
-  enable: true
-  text: 赛博打赏
+  enable: false
+  text:
   QR_code:
     - img: /img/wechat.jpg
       link:
-      text: wechat
+      text: 微信
     # - img: /img/alipay.jpg
     #   link:
     #   text: alipay
@@ -314,10 +303,10 @@ aside:
       enable: true
       icon: fab fa-github
       text: Follow Me
-      link: https://github.com/bobbyfined
+      link: https://github.com/xxxxxx
   card_announcement:
     enable: true
-    content: 日常的随笔
+    content: This is my Blog
   card_recent_post:
     enable: true
     # If set 0 will show all
@@ -387,7 +376,7 @@ rightside_bottom:
 
 # Conversion between Traditional and Simplified Chinese
 translate:
-  enable: true
+  enable: false
   # The text of a button
   default: 繁
   # the language of website (1 - Traditional Chinese/ 2 - Simplified Chinese）
@@ -449,13 +438,14 @@ copy:
     limit_count: 150
 
 # Need to install the hexo-wordcount plugin
-# wordcount (字数统计)
 wordcount:
-  enable: true
+  enable: false
+  # Display the word count of the article in post meta
   post_wordcount: true
+  # Display the time to read the article in post meta
   min2read: true
+  # Display the total word count of the website in aside's webinfo
   total_wordcount: true
-
 
 # Busuanzi count for PV / UV in site
 busuanzi:
@@ -494,7 +484,7 @@ math:
 search:
   # Choose: algolia_search / local_search / docsearch
   # leave it empty if you don't need search
-  use:
+  use: local_search
   placeholder:
 
   # Algolia Search
@@ -504,7 +494,6 @@ search:
 
   # Local Search
   local_search:
-    enable: true
     # Preload the search data when the page loads.
     preload: false
     # Show top n results per article, show all results by setting to -1
@@ -549,8 +538,8 @@ comments:
   # Leave it empty if you don't need comments
   # Choose: Disqus/Disqusjs/Livere/Gitalk/Valine/Waline/Utterances/Facebook Comments/Twikoo/Giscus/Remark42/Artalk
   # Format of two comments system : Disqus,Waline
-  use:
-    - Gitalk 
+  use: 
+    - Gitalk   
   # Display the comment name next to the button
   text: true
   # Lazyload: The comment system will be load when comment element enters the browser's viewport.
@@ -820,7 +809,7 @@ preloader:
 enter_transitions: true
 
 # Default display mode - light (default) / dark
-display_mode: dark
+display_mode: light
 
 # Configuration for beautifying the content of the article
 beautify:
@@ -896,7 +885,7 @@ canvas_nest:
 
 # Mouse click effects: fireworks
 fireworks:
-  enable: true
+  enable: false
   zIndex: 9999
   mobile: false
 
@@ -1009,7 +998,7 @@ aplayerInject:
 # https://github.com/polonel/SnackBar
 # position: top-left / top-center / top-right / bottom-left / bottom-center / bottom-right
 snackbar:
-  enable: true
+  enable: false
   position: bottom-left
   # The background color of Toast Notification in light mode and dark mode
   bg_light: '#49b1f5'
@@ -1063,10 +1052,10 @@ css_prefix: true
 # Insert the code to head (before '</head>' tag) and the bottom (before '</body>' tag)
 inject:
   head:
+    - <link rel="stylesheet" href="/css/modify.css">
     # - <link rel="stylesheet" href="/xxx.css">
   bottom:
     # - <script src="xxxx"></script>
-
 
 # CDN Settings
 # Don't modify the following settings unless you know how they work
@@ -1141,6 +1130,3 @@ CDN:
     # valine:
     # waline_css:
     # waline_js:
-
-# electric_clock
-# see https://blog.anheyu.com/posts/fc18.html

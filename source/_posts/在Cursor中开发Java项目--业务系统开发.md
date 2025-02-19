@@ -1,11 +1,8 @@
 ---
-layout: title
 title: 在Cursor中开发Java项目 -- 开发环境常用插件
 date: 2025-02-08 20:35:22
 tags: cursor
 categories: cursor
-
-
 ---
 
 # 在Cursor中开发Java项目--业务系统开发

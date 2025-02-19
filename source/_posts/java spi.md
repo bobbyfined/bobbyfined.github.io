@@ -1,11 +1,8 @@
 ---
-layout: title
 title: java spi
 date: 2023-02-01 21:14:36
 tags: java
 categories: java
-
-
 ---
 
 #  java spi

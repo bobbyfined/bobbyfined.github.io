@@ -1,5 +1,4 @@
 ---
-layout: title
 title: SpringCloud-Nacos：服务注册+配置中心
 date: 2020-04-05 14:32:22
 tags: 工具类使用

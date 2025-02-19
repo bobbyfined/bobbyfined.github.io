@@ -1,5 +1,4 @@
 ---
-layout: title
 title: Git Commit规范
 date: 2023-04-01 21:45:36
 tags: GIT

@@ -1,5 +1,4 @@
 ---
-layout: title
 title: Idea新建项目文件哪些可删
 date: 2022-01-01 14:32:22
 tags: 框架
