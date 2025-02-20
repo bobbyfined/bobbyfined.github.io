@@ -15,7 +15,7 @@ categories: java
 
 **所以新建文件都是UTF-8，编译走了UTF-8后执行就会显示成中文乱码，暴力解决思路，把涉及到的文件删除新建，或者整个工程重新新建，一开始就默认成了UTF-8就能解决一切**
 
-![image-20250207215714572](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215714572.png)
+![img](/iamges/工程输出中文乱码，全局各种配置UTF-8后依旧没作用/1.png)
 
 **因为文件编码与全局编码设置不一样，重新建一个文件覆盖这个同名文件即可，可能是之前开发建文件时的全局编码设置为gbk导致，然后现在开发设置的全局编码普遍为utf-8，所以编译执行后中文就会乱码**
 
@@ -53,11 +53,11 @@ categories: java
 
 idea打开配置，搜索encode，配置如下图所示：
 
-![image-20250207215737087](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215737087.png)
+![img](/iamges/工程输出中文乱码，全局各种配置UTF-8后依旧没作用/2.png)
 
 **解决方案三、tomcat启动配置设置VM编码参数**
 
 编辑tomcat启动配置，添加VM参数：-Dfile.encoding=UTF-8
 
-![image-20250207215743081](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215743081.png)
+![img](/iamges/工程输出中文乱码，全局各种配置UTF-8后依旧没作用/3.png)
 

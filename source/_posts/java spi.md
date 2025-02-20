@@ -15,7 +15,7 @@ spi机制由三个组件形成，分别是service(公开的接口或者抽象类
 
 **运行流程**
 
-![image-20250207215246245](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215246245.png)
+![img](/iamges/java spi/1.png)
 
 application调用serviceLoader加载实现类， 最终application拿到的是service接口，不关心具体的实现
 
@@ -29,7 +29,7 @@ Class.forName("驱动名");
 
 出现后，直接添加依赖即可！
 
-![image-20250207215258431](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215258431.png)
+![img](/iamges/java spi/2.png)
 
 **java spi三大规范要素**
 
@@ -77,31 +77,31 @@ SPIdemo
 
 定义一个接口模块
 
-![image-20250207215319706](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215319706.png)
+![img](/iamges/java spi/3.png)
 
 引入接口模块依赖并创建两个实现类模块，并在classpath路径下创建META-INF services目录 创建对应配置文件
 
-![image-20250207215326389](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215326389.png)
+![img](/iamges/java spi/4.png)
 
-![image-20250207215333171](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215333171.png)
+![img](/iamges/java spi/5.png)
 
-![image-20250207215337463](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215337463.png)
+![img](/iamges/java spi/6.png)
 
-![image-20250207215347892](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215347892.png)
+![img](/iamges/java spi/7.png)
 
-![image-20250207215352216](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215352216.png)
+![img](/iamges/java spi/8.png)
 
 创建application调用其中的实现类(通过类加载器加载接口，只关注接口)
 
 引入对应实现类的依赖
 
-![image-20250207215357920](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215357920.png)
+![img](/iamges/java spi/9.png)
 
-![image-20250207215410642](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215410642.png)
+![img](/iamges/java spi/10.png)
 
 ## **Java SPI与springboot的自动配置**
 
 spring启动类默认扫描的是所在包下的类
 
-![image-20250207215420173](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207215420173.png)
+![img](/iamges/java spi/11.png)
 

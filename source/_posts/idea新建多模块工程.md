@@ -19,19 +19,19 @@ idea新建多模块工程
 
 依次点击 File -> New -> Project ->Maven ->Next
 
-![image-20250209211600108](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250209211600108.png)
+![img](/iamges/idea新建多模块工程/1.png)
 
-![image-20250209211634556](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250209211634556.png)
+![img](/iamges/idea新建多模块工程/2.png)
 
 创建后目录结构如下：
 
-![image-20250209211718824](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250209211718824.png)
+![img](/iamges/idea新建多模块工程/3.png)
 
 ##### 第二步：修改父模块pom
 
 在修改pom文件之前，先删掉父模块中的src目录。
 
-![image-20250209211754091](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250209211754091.png)
+![img](/iamges/idea新建多模块工程/4.png)
 
 然后在修改pom文件，如果只是简单能用，其实只要修改如下两个配置即可：
 
@@ -113,19 +113,19 @@ idea新建多模块工程
 
 选中父工程 pro-learn -> New -> Module -> Spring Initializr -> Module SDK(选择自己的jdk版本) -> Next
 
-![image-20250209214045825](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250209214045825.png)
+![img](/iamges/idea新建多模块工程/5.png)
 
 按自己需求填写如下信息，点击Next进入下一步。
 
-![image-20250209214214215](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250209214214215.png)
+![img](/iamges/idea新建多模块工程/6.png)
 
 这里可以什么都不选，点击Next进入下一步，然后，按自己需求填写信息，最后点击create完成子模块的创建。
 
-![image-20250209214254923](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250209214254923.png)
+![img](/iamges/idea新建多模块工程/7.png)
 
 创建子模块后的目录结构如下：
 
-![image-20250209221227155](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250209221227155.png)
+![img](/iamges/idea新建多模块工程/8.png)
 
 ##### 第二步：父模块中添加modules管理子模块
 
@@ -199,7 +199,7 @@ idea新建多模块工程
 
 ##### 第一步：创建子模块
 
-![image-20250209221603085](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250209221603085.png)
+![img](/iamges/idea新建多模块工程/9.png)
 
 ##### 第二步：在im-platform引用im-common
 

@@ -11,7 +11,7 @@ categories: java
 
 ## Idea新建项目文件解释
 
-![image-20250209210831266](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250209210831266.png)
+![img](/iamges/Idea新建项目文件哪些可删/1.png)
 
 - .gitignore 用git做版本控制时 用这个文件控制那些文件或文件夹 不被提交（不用git的话可删除 没影响）
 

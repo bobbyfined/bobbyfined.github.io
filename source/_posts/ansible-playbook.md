@@ -30,7 +30,7 @@ playbook是 一个不同于使用Ansible命令行执行方式的模式，其功�
 
 示例：
 
-![image-20250207225309226](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207225309226.png)
+![img](/iamges/ansible-playbook/1.png)
 
 2. ## 基础的playbook剧本编写实例
 
@@ -67,7 +67,7 @@ vim apache.yaml
      service: name=httpd state=started enabled=yes
 ```
 
-![image-20250207225401011](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207225401011.png)
+![img](/iamges/ansible-playbook/2.png)
 
 **运行剧本的方法：**
 

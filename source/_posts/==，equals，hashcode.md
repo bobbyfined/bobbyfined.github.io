@@ -69,7 +69,7 @@ hashCode()方法和equals()方法的作用其实是一样的，在Java里都是�
 
 **2.hashCode()相等的两个对象他们的equal()不一定相等，也就是hashCode()不是绝对可靠的**
 
-![image-20250206152008211](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250206152008211.png)
+![img](/iamges/==，equals，hashcode/1.png)
 
 选B。
 

@@ -43,7 +43,7 @@ categories: cursor
 
 - IntelliCode
 
-![image-20250208210216371](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210216371.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/1.png)
 
 ## Java配置
 
@@ -70,29 +70,29 @@ categories: cursor
 
 （当然现在比较常用的还是使用maven/gradle管理项目，如果需要创建普通Java项目，那么还是由该插件支持）
 
-![image-20250208210243768](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210243768.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/2.png)
 
-![image-20250208210248375](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210248375.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/3.png)
 
 # 三、lombok支持
 
 常用的 lombok 直接集成进 Language support for Java语言插件里面去了，所以很容易使用
 
-![image-20250208210253960](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210253960.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/4.png)
 
-![image-20250208210259937](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210259937.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/5.png)
 
 # 四、Debug 开发调试模式
 
 由 Debuger for java 插件支持
 
-![image-20250208210305918](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210305918.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/6.png)
 
 相关的断点条件也支持
 
-![image-20250208210320560](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210320560.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/8.png)
 
-![image-20250208210324206](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210324206.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/9.png)
 
 # 五、maven编译插件
 
@@ -117,13 +117,13 @@ Maven for java 插件支持常见 clean, compile, test, package, install, deploy
 
 对于 IDEA 下常用的依赖分析，可以直接导出 effective pom 来搜索，包含了完整的所有依赖包，下面还有一个插件maven-dependency-explorer 功能更强大
 
-![image-20250208210342410](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210342410.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/10.png)
 
 ## 4. 安全漏洞报告分析
 
 插件支持分析依赖中包含的安全漏洞报告
 
-![image-20250208210349743](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210349743.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/11.png)
 
 ## 5. 新建 maven 项目流程
 
@@ -131,57 +131,57 @@ Maven for java 插件支持常见 clean, compile, test, package, install, deploy
 
 使用 ctrl + shift + p 打开命令框，输入“java: create java project”，回车，
 
-![image-20250208210355993](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210355993.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/12.png)
 
 选择 maven，回车
 
-![image-20250208210359720](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210359720.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/13.png)
 
 选择项目原型： maven-archetype-quickstart （常用），回车
 
 选最新版本，回车
 
-![image-20250208210433142](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210433142.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/14.png)
 
 然后输入创建 maven 项目的 group id, artifact id, 项目保存路径等信息，回车，maven 插件就会开始在命令行中执行 maven 项目创建的命令，
 
-![image-20250208210445730](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210445730.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/15.png)
 
-![image-20250208210451783](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210451783.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/16.png)
 
 注意此时 maven 插件会提示确认以上信息，可以直接回车确认
 
-![image-20250208210457353](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210457353.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/17.png)
 
-![image-20250208210501080](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210501080.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/18.png)
 
 然后弹框提示是否在新窗口打开新创建的maven项目
 
-![image-20250208210505785](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210505785.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/19.png)
 
 打开项目之后如下图，默认生成了一个 App.java 类，
 
-![image-20250208210509569](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210509569.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/20.png)
 
 此时点击 Run | Debug ，可以测试一下开发环境是否可以编译执行，正常会在终端命令行得到以下结果（vs-code 环境比起 Idea 环境展示了更多的真实的执行信息，没有把他们隐藏在UI背后）
 
-![image-20250208210515470](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210515470.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/21.png)
 
 ## 6. 打包
 
-![image-20250208210523684](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210523684.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/22.png)
 
 
 
-![image-20250208210526917](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210526917.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/23.png)
 
 # 六、maven 依赖分析
 
 使用 maven-dependency-explorer 插件
 
-![image-20250208210532269](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210532269.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/24.png)
 
-![image-20250208210538303](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210538303.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/25.png)
 
 # 七、代码托管：gitlab
 
@@ -225,13 +225,13 @@ GitLens 是vscode下一款对git操作支持较强的插件，本身收费，可
 
 在起冲突的情况下，gitlens不允许直接pull更新或者push，需要先解决冲突或者想办法回退本地更改(可以将本地commit回退，然后创建stash暂存起来)之后pull，再push
 
-![image-20250208210647590](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210647590.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/26.png)
 
 # 八、快捷键：IntelliJ IDEA Keybindings
 
 支持使用 IntelliJ IDEA 快捷键
 
-![image-20250208210706349](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210706349.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/27.png)
 
 # 九、在Cursor下查询数据库
 
@@ -239,49 +239,49 @@ GitLens 是vscode下一款对git操作支持较强的插件，本身收费，可
 
 支持连接多种数据源，安装之后在左侧panel中会出现一个连接预览面板
 
-![image-20250208210713337](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210713337.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/28.png)
 
 点击 add new connection 右边选择 driver，一开始默认没有任何 driver，点击 search vs code marketplace，左边自动搜索可用 driver
 
-![image-20250208210719906](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210719906.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/29.png)
 
 安装 mysql、clickhouse 等常用 driver
 
-![image-20250208210723977](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210723977.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/30.png)
 
 新建一个本地mysql连接测试一下
 
-![image-20250208210728011](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210728011.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/31.png)
 
 界面简洁清晰
 
-![image-20250208210734018](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210734018.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/32.png)
 
-![image-20250208210737374](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210737374.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/33.png)
 
 ## 2. 插件：SQL Notebook
 
 支持类似 python jupyter notebook 风格的操作界面，支持 mysql等多种数据库
 
-![image-20250208210743688](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210743688.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/34.png)
 
 新建一个测试sql文件，右键 open with ... SQL Notebook
 
-![image-20250208210747442](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210747442.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/35.png)
 
-![image-20250208210751633](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210751633.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/36.png)
 
-![image-20250208210755954](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210755954.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/37.png)
 
 
 
 ## 3. SQLTools、SQL Notebook 两个插件也可以一起使用，
 
-![image-20250208210802959](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210802959.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/38.png)
 
 以上在 SQL Notebook 下编辑保存之后得到的就是一个 sql 文本文件，可多次编辑保存，提交 git 方便版本控制等等
 
-![image-20250208210806902](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208210806902.png)
+![img](/iamges/在Cursor中开发Java项目--开发环境常用插件篇/39.png)
 
 # 十、Java开发重构
 

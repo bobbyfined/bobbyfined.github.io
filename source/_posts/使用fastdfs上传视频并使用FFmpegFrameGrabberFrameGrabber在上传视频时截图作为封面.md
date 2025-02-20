@@ -19,7 +19,7 @@ categories: 项目
 安装方法参考https://www.cnblogs.com/handsomeye/p/9451568.html
 
 安装fastdfs踩过太多坑了，安装一定要注意，storage.conf，client.conf,tracker.conf这三个配置文件的路径设置什么的，然后要搭配nginx实现访问，nginx的配置文件nginx.conf也要注意
-![image-20250207231628577](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207231628577.png)
+![img](/iamges/使用fastdfs上传视频并使用FFmpegFrameGrabberFrameGrabber在上传视频时截图作为封面/1.png)
 
 
 
@@ -29,7 +29,7 @@ fastdfs和nginx配置并测试好了之后，开始写测试代码
 
 ##### 1.idea文件结构如图
 
-![image-20250207231648851](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207231648851.png)
+![img](/iamges/使用fastdfs上传视频并使用FFmpegFrameGrabberFrameGrabber在上传视频时截图作为封面/2.png)
 
 ##### 2.在idea新建springboot项目，导入相关依赖
 
@@ -140,7 +140,7 @@ fastdfs.connection_pool.max_wait_time_in_ms = 1000
 
 ##### 4.application.yml
 
-![image-20250207231734633](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207231734633.png)
+![img](/iamges/使用fastdfs上传视频并使用FFmpegFrameGrabberFrameGrabber在上传视频时截图作为封面/3.png)
 
 ##### 5.编写FastDFSVideoUtils工具类
 
@@ -275,7 +275,7 @@ public class ScreenshotUtils {
 
 这里因为我的mybatis-config.xml有问题，不知道什么错，所以先用注解方式测试，就可以不用xml文件了
 
-![image-20250207231816106](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207231816106.png)
+![img](/iamges/使用fastdfs上传视频并使用FFmpegFrameGrabberFrameGrabber在上传视频时截图作为封面/4.png)
 
 ```
 <?xml version="1.0" encoding="UTF-8"?>
@@ -292,15 +292,15 @@ public class ScreenshotUtils {
 
 mybatis-config.xml
 
-![image-20250207231840681](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207231840681.png)
+![img](/iamges/使用fastdfs上传视频并使用FFmpegFrameGrabberFrameGrabber在上传视频时截图作为封面/5.png)
 
 数据库我建在了服务器上，要先安装mysql服务在服务器上哦，结构如下，连接数据库的方法请自行百度
 
-![image-20250207231858420](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207231858420.png)
+![img](/iamges/使用fastdfs上传视频并使用FFmpegFrameGrabberFrameGrabber在上传视频时截图作为封面/6.png)
 
 ##### 7.VideoSaveService和VideoSaveServiceImpl
 
-![image-20250207231915737](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207231915737.png)
+![img](/iamges/使用fastdfs上传视频并使用FFmpegFrameGrabberFrameGrabber在上传视频时截图作为封面/7.png)
 
 ```
 import com.upload.demo.config.FastDFSUtils;
@@ -452,19 +452,19 @@ public class VideoUploadController {
 
 成功跳转到succes.html，失败跳转false.html
 
-![image-20250207231959364](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207231959364.png)
+![img](/iamges/使用fastdfs上传视频并使用FFmpegFrameGrabberFrameGrabber在上传视频时截图作为封面/8.png)
 
 运行截图：
 
-![image-20250207232016394](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207232016394.png)
+![img](/iamges/使用fastdfs上传视频并使用FFmpegFrameGrabberFrameGrabber在上传视频时截图作为封面/9.png)
 
-![image-20250207232023691](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207232023691.png)
+![img](/iamges/使用fastdfs上传视频并使用FFmpegFrameGrabberFrameGrabber在上传视频时截图作为封面/10.png)
 
 将url在浏览器打开
 
 视频
 
-![image-20250207232044363](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207232044363.png)
+![img](/iamges/使用fastdfs上传视频并使用FFmpegFrameGrabberFrameGrabber在上传视频时截图作为封面/11.png)
 
 
 

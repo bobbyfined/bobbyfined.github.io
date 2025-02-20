@@ -49,11 +49,9 @@ aggressiveLazyLoading：是否按需加载属性，默认值false，lazyLoadingE
 
 SqlMapConfig.xml中修改配置，注册lazyLoadMapper.xml
 
-![image-20250207214816018](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207214816018.png)
+![img](/iamges/Mybatis的延迟加载/1.png)
 
-![image-20250207214824392](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250207214824392.png)
-
-
+![img](/iamges/Mybatis的延迟加载/2.png)
 
 此时没有运行嵌套查询，只允许了最外层的查询，因为运行到61之前只需要获取分类信息。
 

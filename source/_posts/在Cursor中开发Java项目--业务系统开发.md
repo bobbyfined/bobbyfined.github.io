@@ -28,17 +28,17 @@ cursor tab 是一个集代码自动提示、自然语言指令的编程助手
 
 给出注释：“__根据给定的区域列表，找出没有子级的区域__”，很快 cursor 就给出了对应的提示，虽然可能我们还没来得及完整阐述具体的需求，不过这种及时快速反馈无疑一定程度上能加速开发，减轻负担
 
-![image-20250208211121335](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211121335.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/1.png)
 
 ## 2. 智能重写
 
 以下场景是从另一个项目中拷贝过来的代码，其中的 import 包位置发生了变化，此处 cursor 根据之前的修改历史，推断出此处应该要做右边这种修改，给出了提示，按下 tab 键即可快速完成修改。
 
-![image-20250208211125433](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211125433.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/2.png)
 
 以下的场景是：需要将百度上搜索到的广州行政区域街道数据入库到数据库中，由于数据量不多，直接改成一条insert sql语句，原本是单列的街道数据，匹配数据库表(id, region, create_time, update_time, parent_id) 字段列，如下：
 
-![image-20250208211129490](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211129490.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/3.png)
 
 手动写完一两行value值之后，自动推断出来后面街道行对应的值，因此一直按下 tab 键，快速改完了后面的100多行街道的记录，尤其是区级、街道级这种上下级行政区域之间需要填充 parent_id 字段值，它也能准确识别需求
 
@@ -48,7 +48,7 @@ cursor tab 是一个集代码自动提示、自然语言指令的编程助手
 
 相邻多行代码比较相似时，修改其中一行，相邻的若干行会被自动提示相关的修改建议，按下 tab 键可以快速完成修改
 
-![image-20250208211135236](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211135236.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/4.png)
 
 ## 4. 光标预测
 
@@ -70,13 +70,13 @@ cursor tab 是一个集代码自动提示、自然语言指令的编程助手
 
 指令：“请问以下 hierarchicalRegion 方法做了什么事，用途是什么？”
 
-![image-20250208211158070](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211158070.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/5.png)
 
 光标停留在在代码编辑框内时，按下 cmd / command + k，输入以下指令，
 
 指令：“regionList中的__部分区域存在父级区域，得到的结果仍把这部分区域当成了顶级区域，哪里有问题，如何修改__？”
 
-![image-20250208211203325](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211203325.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/6.png)
 
 AI大模型发现了代码中存在瑕疵，即在判断当前区域是否存在父级区域前，需要有一个map存有所有的区域ID到区域的关系映射，然后才能从中判断某个父级区域是否存在，这是代码编写过程中产生的纰漏。
 
@@ -98,9 +98,9 @@ AI大模型发现了代码中存在瑕疵，即在判断当前区域是否存在
 
 指令：“以下是一个基于 spring cloud gateway 的 filter，请改成基于 jakarta servlet filter，如果其中使用到了响应式API依赖，请用springmvc 下对应的依赖进行替换，注意保持原有逻辑不要省略，要完整替换，不能省略输出”
 
-![image-20250208211215779](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211215779.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/7.png)
 
-![image-20250208211219526](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211219526.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/8.png)
 
 ### 3.2. 终端命令
 
@@ -108,9 +108,9 @@ AI大模型发现了代码中存在瑕疵，即在判断当前区域是否存在
 
 指令：“需要导出maven依赖到 target/dependencies 目录下”
 
-![image-20250208211227721](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211227721.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/9.png)
 
-![image-20250208211231817](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211231817.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/10.png)
 
 # 二、Composor / chat
 
@@ -118,7 +118,7 @@ Composor 是一个对话式交互的编程助手，可以对话提问时灵活�
 
 使用前，可以打开 cursor 设置对对话提示词设置系统规则，比如要求用中文进行回复，避免阅读大量英文回复
 
-![image-20250208211239561](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211239561.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/11.png)
 
 ## 1. AI Fix:
 
@@ -126,11 +126,11 @@ Composor 是一个对话式交互的编程助手，可以对话提问时灵活�
 
 点击 AI Fix in Chat 之后，报错会在 chat 对话栏向大模型发起提问，寻找解决办法
 
-![image-20250208211245882](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211245882.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/12.png)
 
 对于答案中如有不清晰的部分，进一步提问
 
-![image-20250208211249514](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211249514.png)s
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/13.png)s
 
 ## 2. 运行错误
 
@@ -138,9 +138,9 @@ Composor 是一个对话式交互的编程助手，可以对话提问时灵活�
 
 "add to chat"、"add to composor" 两个按钮，点击任何一个都会将当前选中内容作为一个相关上下文出现在 chat 或者 composor 中
 
-![image-20250208211258623](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211258623.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/14.png)
 
-![image-20250208211302066](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211302066.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/15.png)
 
 ## 3. 通过对话开发新的需求代码
 
@@ -158,9 +158,9 @@ __以上技巧相对零散，可能都只____是____在局部使用，如果面�
 
 所以，此时，我们需要将提示词中常用的文字抽离出来成为一个有针对性的文档，比如用到的第三方依赖组件/技术、项目的内不同组件之间的交互/协作组织方式、开发规范、代码文件结构规定、外部数据存储方式、开发流程等相对固定的信息，在项目下新建目录存放这些文档，然后后续在进行新的需求任务开发时，每次都将这些文档作为项目上下文信息一并提交给大模型，让他在理解需求之后按照这些规范给我们生成，这样，大概率出来就是我们想要的结果了。这样就不用每次都写很多的文字，出来的结果也具有较高的统一性，比较好维护。
 
-![image-20250208211310457](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211310457.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/16.png)
 
-![image-20250208211313719](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211313719.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/17.png)
 
 在项目实际开发业务需求前编写一定的技术、项目定义的基础文档可能会花费一定的时间，不过这些文档只需要在项目开始时编写一次（后续可能会修改更新），后续可以反复使用
 
@@ -172,13 +172,13 @@ __以上技巧相对零散，可能都只____是____在局部使用，如果面�
 
 除了技术上的细节信息，在开发需求的时候，也可以尽量将需求任务按照逻辑进行一定的拆分，如果一开始对于任务拆分没有太好的思路，可以向大模型提问，让他帮我们整理思路，如果反馈的结果跟我们的理解有偏差，可以逐步调整，直至大模型给出的思路符合需求预期。
 
-![image-20250208211326592](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211326592.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/18.png)
 
-![image-20250208211330008](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211330008.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/19.png)
 
 此时的交互还停留在文字版本的思路上，并不是直接生成代码。先让大模型拆分任务，也相当于跟大模型在对齐思路，避免在它生成结果时天马行空发挥，然后再一遍又一遍的阅读它的代码进行调整，面向自然语言对齐思路相对于面向最终代码对齐思路可能会更加容易一些。
 
-![image-20250208211335212](C:\Users\JIA\AppData\Roaming\Typora\typora-user-images\image-20250208211335212.png)
+![img](/iamges/在Cursor中开发Java项目--业务系统开发/20.png)
 
 ### 3.3 检验大模型输出结果：测试
 
